@@ -58,10 +58,17 @@
     </ApplicationDefinition>
     <Compile Include="Color.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="GetMoveFromUser.xaml.cs">
+      <DependentUpon>GetMoveFromUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hole.cs" />
     <Compile Include="KulamiEngine.cs" />
     <Compile Include="Marble.cs" />
     <Compile Include="Tile.cs" />
+    <Page Include="GetMoveFromUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

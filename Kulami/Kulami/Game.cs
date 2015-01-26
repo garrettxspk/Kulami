@@ -39,13 +39,6 @@ namespace Kulami
             set { player2 = value; }
         }
 
-        public bool IsGameOver()
-        {
-            bool results = false;
-            //finish
-            return results;
-        }
-
         public Game(GameType gt)
         {
             board = new Gameboard();
@@ -163,6 +156,20 @@ namespace Kulami
             }
             foreach (string s in boardConfig)
                 Console.WriteLine(s);
+        }
+
+        public bool IsGameOver()
+        {
+            bool results = true;
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.CanBePlayed)
+                        results = false;
+                }
+            }
+            return results;
         }
     }
 }

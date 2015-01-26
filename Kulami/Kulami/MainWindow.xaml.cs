@@ -35,25 +35,41 @@ namespace Kulami
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            bool madeMoveSuccessfully = false;
-            while (!madeMoveSuccessfully)
+            if (!engine.CurrentGame.IsGameOver())
             {
-                Random rnd = new Random();
                 string move = "";
-                if (player1turn) move += "R";
-                else move += "B";
+                bool madeMoveSuccessfully = false;
+                if (player1turn)
+                {
+                    GetMoveFromUser getMove = new GetMoveFromUser();
+                    if (getMove.ShowDialog() == true)
+                        move += "R" + getMove.X + getMove.Y;
+                    engine.CurrentGame.MakeMoveOnBoard(move);
+                }
+                else
+                {
+                    while (!madeMoveSuccessfully)
+                    {
+                        move = "";
+                        Random rnd = new Random();
 
-                int x = rnd.Next(0, 8);
-                int y = rnd.Next(0, 8);
+                        move += "B";
 
-                move += x.ToString() + y.ToString();
+                        int x = rnd.Next(0, 8);
+                        int y = rnd.Next(0, 8);
 
-                madeMoveSuccessfully = engine.CurrentGame.MakeMoveOnBoard(move);
-                if(madeMoveSuccessfully)
-                    engine.CurrentGame.PrintGameBoard();
+                        move += x.ToString() + y.ToString();
+
+                        madeMoveSuccessfully = engine.CurrentGame.MakeMoveOnBoard(move);
+                    }
+                }
+                engine.CurrentGame.PrintGameBoard();
+                player1turn = !player1turn;
             }
-
-            player1turn = !player1turn;
+            else
+            {
+                //display the score
+            }
         }
     }
 }
