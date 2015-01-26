@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Kulami
+{
+    class Tile
+    {
+        private int numOfRows;
+
+        public int NumOfRows
+        {
+            get { return numOfRows; }
+            set { numOfRows = value; }
+        }
+
+        private int numOfCols;
+
+        public int NumOfCols
+        {
+            get { return numOfCols; }
+            set { numOfCols = value; }
+        }
+
+        Hole[,] holes;
+
+        internal Hole[,] Holes
+        {
+            get { return holes; }
+            set { holes = value; }
+        }
+
+        private bool lastPlayedOnByPlayer1;
+
+        public bool LastPlayedOnByPlayer1
+        {
+            get { return lastPlayedOnByPlayer1; }
+            set { lastPlayedOnByPlayer1 = value; }
+        }
+
+        private bool lastPlayedOnByPlayer2;
+
+        public bool LastPlayedOnByPlayer2
+        {
+            get { return lastPlayedOnByPlayer2; }
+            set { lastPlayedOnByPlayer2 = value; }
+        }
+
+        public Tile(int rows, int cols)
+        {
+            numOfRows = rows;
+            numOfCols = cols;
+            lastPlayedOnByPlayer1 = false;
+            lastPlayedOnByPlayer2 = false;
+            holes = new Hole[numOfRows, numOfCols];
+        }
+    }
+}
