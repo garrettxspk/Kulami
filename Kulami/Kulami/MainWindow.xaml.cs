@@ -68,7 +68,7 @@ namespace Kulami
             }
             else
             {
-                //display the score
+                engine.CurrentGame.GetPoint();
             }
         }
     }

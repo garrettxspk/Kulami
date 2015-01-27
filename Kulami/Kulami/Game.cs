@@ -171,5 +171,42 @@ namespace Kulami
             }
             return results;
         }
+
+        public void GetPoint()
+        {
+            int RedTotal=0;
+            int BlackTotal=0;
+
+                foreach (Tile t in board.Tiles)
+                {
+                    int R = 0;
+                    int B = 0;
+                    int point = 0;
+                    int number = t.NumOfCols * t.NumOfRows;
+                    for (int i = 0; i < number; i++) { point++; }
+                    foreach (Hole h in t.Holes)
+                    {
+                        if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
+                            R++;
+                        else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
+                            B++;
+                    }
+                    if (R > B)
+                        RedTotal += point;
+                    else if(R < B)
+                            BlackTotal += point;
+                }
+
+                Console.WriteLine("Red total point:" + RedTotal);
+                Console.WriteLine("Black total point:" + BlackTotal);
+
+                if (RedTotal > BlackTotal)
+                    Console.WriteLine("Red win!");
+                else if (RedTotal < BlackTotal)
+                    Console.WriteLine("Black win!");
+                else
+                    Console.WriteLine("TIE!");
+           
+        }
     }
 }
