@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,8 @@ namespace Kulami
             int boardNum = rnd.Next(1, 8);
 
             Console.WriteLine("Playing on board #" + boardNum);
-            string[] lines = System.IO.File.ReadAllLines("board" + boardNum + ".txt");
+            string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string[] lines = System.IO.File.ReadAllLines(startupPath + "/Boards/board" + boardNum + ".txt");
             
             foreach (string line in lines)
             {
