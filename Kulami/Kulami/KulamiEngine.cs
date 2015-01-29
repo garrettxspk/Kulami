@@ -25,12 +25,15 @@ namespace Kulami
         private void GenerateGameBoard()
         {
             //int randomBoardNumber = random number 1-7
-            string[] lines = System.IO.File.ReadAllLines("board1.txt");
+            Random rnd = new Random();
+            int boardNum = rnd.Next(1, 8);
+
+            Console.WriteLine("Playing on board #" + boardNum);
+            string[] lines = System.IO.File.ReadAllLines("board" + boardNum + ".txt");
             
             foreach (string line in lines)
             {
                 string size = line.Substring(0, 3);
-                Console.WriteLine(size);
                 int row = Convert.ToInt32(size[0].ToString());
                 int col = Convert.ToInt32(size[2].ToString());
                 Tile t = new Tile(row, col);
