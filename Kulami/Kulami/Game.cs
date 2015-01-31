@@ -158,6 +158,11 @@ namespace Kulami
                 Console.WriteLine(s);
         }
 
+        public Gameboard GetCopyOfGameBoard()
+        {
+            return board.Clone();
+        }
+
         public bool IsGameOver()
         {
             bool results = true;

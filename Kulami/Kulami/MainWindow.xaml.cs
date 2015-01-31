@@ -45,6 +45,7 @@ namespace Kulami
                     if (getMove.ShowDialog() == true)
                         move += "R" + getMove.X + getMove.Y;
                     engine.CurrentGame.MakeMoveOnBoard(move);
+                    Gameboard copy = engine.CurrentGame.GetCopyOfGameBoard();
                 }
                 else
                 {
