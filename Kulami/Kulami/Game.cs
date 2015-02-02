@@ -104,11 +104,20 @@ namespace Kulami
                         {
                             h.MarbleInHole = m;
                             h.IsFilled = true;
+
                             Console.WriteLine("Placed a " + color + " marble at (" + moveCoord.X + "," + moveCoord.Y + ")");
                             if (c == Color.Red)
+                            {
+                                t.NumOfRedMarbles++;
+                                ResetLastPlayer1Tile();
                                 t.LastPlayedOnByPlayer1 = true;
+                            }
                             else
+                            {
+                                t.NumOfBlackMarbles++;
+                                ResetLastPlayer2Tile();
                                 t.LastPlayedOnByPlayer2 = true;
+                            }
                             DisableImpossibleMoves(moveCoord.X, moveCoord.Y);
                             results = true;
                         }
@@ -118,6 +127,22 @@ namespace Kulami
             return results;
         }
 
+        private void ResetLastPlayer1Tile()
+        {
+            foreach (Tile t in board.Tiles)
+            {
+                t.LastPlayedOnByPlayer1 = false;
+            }
+        }
+
+        private void ResetLastPlayer2Tile()
+        {
+            foreach (Tile t in board.Tiles)
+            {
+                t.LastPlayedOnByPlayer2 = false;
+            }
+        }
+
         private void DisableImpossibleMoves(int lastX, int lastY)
         {
             DisableAllHoles();
@@ -125,7 +150,7 @@ namespace Kulami
             {
                 foreach (Hole h in t.Holes)
                 {
-                    if (h.Coord.X == lastX || h.Coord.Y == lastY)
+                    if ((h.Coord.X == lastX || h.Coord.Y == lastY) && !h.IsFilled)
                         if(!t.LastPlayedOnByPlayer1 && !t.LastPlayedOnByPlayer2)
                             h.CanBePlayed = true;
                 }
@@ -224,6 +249,20 @@ namespace Kulami
             else
                 Console.WriteLine("TIE!");
            
+        }
+
+        public bool IsValidMove(int x, int y)
+        {
+            bool results = false;
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.Coord.X == x && h.Coord.Y == y && h.CanBePlayed)
+                        results = true;
+                }
+            }
+            return results;
         }
     }
 }

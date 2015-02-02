@@ -21,6 +21,7 @@ namespace Kulami
     public partial class MainWindow : Window
     {
         private KulamiEngine engine = new KulamiEngine();
+        private EasyAI easyAI;
         bool player1turn = true;
         public MainWindow()
         {
@@ -31,6 +32,7 @@ namespace Kulami
         {
             engine.StartGame();
             Console.WriteLine("Would you like to make the first move? (Y/N)");
+            easyAI = new EasyAI(engine.CurrentGame);
             string moveFirst = Console.ReadLine();
             if (moveFirst[0] == 'Y' || moveFirst[0] == 'y')
                 player1turn = true;
@@ -44,7 +46,7 @@ namespace Kulami
             if (!engine.CurrentGame.IsGameOver())
             {
                 string move = "";
-                bool madeMoveSuccessfully = false;
+                //bool madeMoveSuccessfully = false;
                 if (player1turn)
                 {
                     GetMoveFromUser getMove = new GetMoveFromUser();
@@ -55,20 +57,9 @@ namespace Kulami
                 }
                 else
                 {
-                    while (!madeMoveSuccessfully)
-                    {
-                        move = "";
-                        Random rnd = new Random();
+                    string AIMove = easyAI.GetMove();
+                    engine.CurrentGame.MakeMoveOnBoard(AIMove);
 
-                        move += "B";
-
-                        int x = rnd.Next(0, 8);
-                        int y = rnd.Next(0, 8);
-
-                        move += x.ToString() + y.ToString();
-
-                        madeMoveSuccessfully = engine.CurrentGame.MakeMoveOnBoard(move);
-                    }
                 }
                 engine.CurrentGame.PrintGameBoard();
                 player1turn = !player1turn;

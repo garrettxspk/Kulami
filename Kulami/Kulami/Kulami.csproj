@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Color.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="EasyAI.cs" />
     <Compile Include="GetMoveFromUser.xaml.cs">
       <DependentUpon>GetMoveFromUser.xaml</DependentUpon>
     </Compile>
