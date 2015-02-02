@@ -48,10 +48,19 @@ namespace Kulami
             set { lastPlayedOnByPlayer2 = value; }
         }
 
+        private int points;
+
+        public int Points
+        {
+            get { return points; }
+            set { points = value; }
+        }
+
         public Tile(int rows, int cols)
         {
             numOfRows = rows;
             numOfCols = cols;
+            points = numOfRows * numOfCols;
             lastPlayedOnByPlayer1 = false;
             lastPlayedOnByPlayer2 = false;
             holes = new Hole[numOfRows, numOfCols];

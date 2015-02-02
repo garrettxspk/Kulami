@@ -39,8 +39,26 @@ namespace Kulami
             set { player2 = value; }
         }
 
+        private int player1Points;
+
+        public int Player1Points
+        {
+            get { return player1Points; }
+            set { player1Points = value; }
+        }
+
+        private int player2Points;
+
+        public int Player2Points
+        {
+            get { return player2Points; }
+            set { player2Points = value; }
+        }
+
         public Game(GameType gt)
         {
+            player1Points = 0;
+            player2Points = 0;
             board = new Gameboard();
             gameType = gt;
             if (gameType == GameType.LocalComputer)
@@ -179,38 +197,32 @@ namespace Kulami
 
         public void GetPoint()
         {
-            int RedTotal=0;
-            int BlackTotal=0;
-
-                foreach (Tile t in board.Tiles)
+            foreach (Tile t in board.Tiles)
+            {
+                int R = 0;
+                int B = 0;
+                foreach (Hole h in t.Holes)
                 {
-                    int R = 0;
-                    int B = 0;
-                    int point = 0;
-                    int number = t.NumOfCols * t.NumOfRows;
-                    for (int i = 0; i < number; i++) { point++; }
-                    foreach (Hole h in t.Holes)
-                    {
-                        if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
-                            R++;
-                        else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
-                            B++;
-                    }
-                    if (R > B)
-                        RedTotal += point;
-                    else if(R < B)
-                            BlackTotal += point;
+                    if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
+                        R++;
+                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
+                        B++;
                 }
+                if (R > B)
+                    player1Points += t.Points;
+                else if(R < B)
+                    player2Points += t.Points;
+            }
 
-                Console.WriteLine("Red total point:" + RedTotal);
-                Console.WriteLine("Black total point:" + BlackTotal);
+            Console.WriteLine("Red total point:" + player1Points);
+            Console.WriteLine("Black total point:" + player2Points);
 
-                if (RedTotal > BlackTotal)
-                    Console.WriteLine("Red win!");
-                else if (RedTotal < BlackTotal)
-                    Console.WriteLine("Black win!");
-                else
-                    Console.WriteLine("TIE!");
+            if (player1Points > player2Points)
+                Console.WriteLine("Red win!");
+            else if (player1Points < player2Points)
+                Console.WriteLine("Black win!");
+            else
+                Console.WriteLine("TIE!");
            
         }
     }
