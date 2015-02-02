@@ -30,6 +30,12 @@ namespace Kulami
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.StartGame();
+            Console.WriteLine("Would you like to make the first move? (Y/N)");
+            string moveFirst = Console.ReadLine();
+            if (moveFirst[0] == 'Y' || moveFirst[0] == 'y')
+                player1turn = true;
+            else
+                player1turn = false;
             engine.CurrentGame.PrintGameBoard();
         }
 
