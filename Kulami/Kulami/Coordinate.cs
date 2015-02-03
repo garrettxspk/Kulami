@@ -8,37 +8,37 @@ namespace Kulami
 {
     class Coordinate
     {
-        private int x;
+        private int row;
 
-        public int X
+        public int Row
         {
-            get { return x; }
-            set { x = value; }
+            get { return row; }
+            set { row = value; }
         }
         
-        private int y;
+        private int col;
 
-        public int Y
+        public int Col
         {
-            get { return y; }
-            set { y = value; }
+            get { return col; }
+            set { col = value; }
         }
 
-        public Coordinate(int row, int col)
+        public Coordinate(int r, int c)
         {
-            x = row;
-            y = col;
+            row = r;
+            col = c;
         }
 
         public Coordinate()
         {
-            x = -1;
-            y = -1;
+            row = -1;
+            col = -1;
         }
 
         public override string ToString()
         {
-            string results = "(" + x.ToString() + "," + y.ToString() + ")";
+            string results = "(" + row.ToString() + "," + col.ToString() + ")";
             return results;
         }
     }

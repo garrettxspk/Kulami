@@ -37,7 +37,7 @@ namespace Kulami
                 {
                     for (int c = 0; c < t.NumOfCols; c++)
                     {
-                        Hole newHole = new Hole(t.Holes[r, c].Coord.X, t.Holes[r, c].Coord.Y);
+                        Hole newHole = new Hole(t.Holes[r, c].Coord.Row, t.Holes[r, c].Coord.Col);
                         newHole.IsFilled = t.Holes[r, c].IsFilled;
                         newHole.CanBePlayed = t.Holes[r, c].CanBePlayed;
                         newHole.MarbleInHole = t.Holes[r, c].MarbleInHole;

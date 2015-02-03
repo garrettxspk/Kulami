@@ -19,18 +19,18 @@ namespace Kulami
     /// </summary>
     public partial class GetMoveFromUser : Window
     {
-        private string x;
-        public string X
+        private string row;
+        public string Row
         {
             get { return xTxtBox.Text; }
-            set { x = value; }
+            set { row = value; }
         }
 
-        private string y;
-        public string Y
+        private string col;
+        public string Col
         {
             get { return yTxtBox.Text; }
-            set { y = value; }
+            set { col = value; }
         }
 
         public GetMoveFromUser()

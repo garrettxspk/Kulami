@@ -51,7 +51,7 @@ namespace Kulami
                 {
                     GetMoveFromUser getMove = new GetMoveFromUser();
                     if (getMove.ShowDialog() == true)
-                        move += "R" + getMove.X + getMove.Y;
+                        move += "R" + getMove.Row + getMove.Col;
                     engine.CurrentGame.MakeMoveOnBoard(move);
                     Gameboard copy = engine.CurrentGame.GetCopyOfGameBoard();
                 }

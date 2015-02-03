@@ -39,14 +39,14 @@ namespace Kulami
             set { canBePlayed = value; }
         }
 
-        public Hole(int x, int y)
+        public Hole(int row, int col)
         {
             coord = new Coordinate();
             isFilled = false;
             canBePlayed = false;
             marbleInHole = null;
-            coord.X = x;
-            coord.Y = y;
+            coord.Row = row;
+            coord.Col = col;
         }
 
     }

@@ -29,7 +29,7 @@ namespace Kulami
                     {
                         if (h.CanBePlayed)
                         {
-                            results += h.Coord.X.ToString() + h.Coord.Y.ToString();
+                            results += h.Coord.Row.ToString() + h.Coord.Col.ToString();
                             madeMove = true;
                             break;
                         }
@@ -49,7 +49,7 @@ namespace Kulami
                         {
                             if (h.CanBePlayed)
                             {
-                                results += h.Coord.X.ToString() + h.Coord.Y.ToString();
+                                results += h.Coord.Row.ToString() + h.Coord.Col.ToString();
                                 madeMove = true;
                                 break;
                             }
@@ -70,7 +70,7 @@ namespace Kulami
                         {
                             if (h.CanBePlayed)
                             {
-                                results += h.Coord.X.ToString() + h.Coord.Y.ToString();
+                                results += h.Coord.Row.ToString() + h.Coord.Col.ToString();
                                 madeMove = true;
                                 break;
                             }
@@ -91,7 +91,7 @@ namespace Kulami
                         {
                             if (h.CanBePlayed)
                             {
-                                results += h.Coord.X.ToString() + h.Coord.Y.ToString();
+                                results += h.Coord.Row.ToString() + h.Coord.Col.ToString();
                                 madeMove = true;
                                 break;
                             }
@@ -116,8 +116,8 @@ namespace Kulami
                 //    madeMoveSuccessfully = game.IsValidMove(x, y);
                 //}
                 //results += x.ToString() + y.ToString();
-                int currentX = 0;
-                int currentY = 0;
+                int currentRow = 0;
+                int currentCol = 0;
                 int currentPointValue = 0;
 
                 foreach (Tile t in gameboard.Tiles)
@@ -126,13 +126,13 @@ namespace Kulami
                     {
                         if (h.CanBePlayed && (t.Points > currentPointValue) )
                         {
-                            currentX = h.Coord.X;
-                            currentY = h.Coord.Y;
+                            currentRow = h.Coord.Row;
+                            currentCol = h.Coord.Col;
                             currentPointValue = t.Points;
                         }
                     }
                 }
-                results += currentX.ToString() + currentY.ToString();
+                results += currentRow.ToString() + currentCol.ToString();
             }
 
             return results;

@@ -98,14 +98,14 @@ namespace Kulami
             {
                 foreach (Hole h in t.Holes)
                 {
-                    if (h.Coord.X == moveCoord.X && h.Coord.Y == moveCoord.Y)
+                    if (h.Coord.Row == moveCoord.Row && h.Coord.Col == moveCoord.Col)
                     {
                         if (!h.IsFilled && h.CanBePlayed)
                         {
                             h.MarbleInHole = m;
                             h.IsFilled = true;
 
-                            Console.WriteLine("Placed a " + color + " marble at (" + moveCoord.X + "," + moveCoord.Y + ")");
+                            Console.WriteLine("Placed a " + color + " marble at (" + moveCoord.Row + "," + moveCoord.Col + ")");
                             if (c == Color.Red)
                             {
                                 t.NumOfRedMarbles++;
@@ -118,7 +118,7 @@ namespace Kulami
                                 ResetLastPlayer2Tile();
                                 t.LastPlayedOnByPlayer2 = true;
                             }
-                            DisableImpossibleMoves(moveCoord.X, moveCoord.Y);
+                            DisableImpossibleMoves(moveCoord.Row, moveCoord.Col);
                             results = true;
                         }
                     }
@@ -150,7 +150,7 @@ namespace Kulami
             {
                 foreach (Hole h in t.Holes)
                 {
-                    if ((h.Coord.X == lastX || h.Coord.Y == lastY) && !h.IsFilled)
+                    if ((h.Coord.Row == lastX || h.Coord.Col == lastY) && !h.IsFilled)
                         if(!t.LastPlayedOnByPlayer1 && !t.LastPlayedOnByPlayer2)
                             h.CanBePlayed = true;
                 }
@@ -190,11 +190,11 @@ namespace Kulami
                     else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
                         toInsert = "B";
 
-                    string rowString = boardConfig[h.Coord.X];
+                    string rowString = boardConfig[h.Coord.Row];
                     var sb = new StringBuilder(rowString);
-                    sb.Remove(h.Coord.Y, 1);
-                    sb.Insert(h.Coord.Y, toInsert);
-                    boardConfig[h.Coord.X] = sb.ToString();
+                    sb.Remove(h.Coord.Col, 1);
+                    sb.Insert(h.Coord.Col, toInsert);
+                    boardConfig[h.Coord.Row] = sb.ToString();
                 }
             }
             foreach (string s in boardConfig)
@@ -258,7 +258,7 @@ namespace Kulami
             {
                 foreach (Hole h in t.Holes)
                 {
-                    if (h.Coord.X == x && h.Coord.Y == y && h.CanBePlayed)
+                    if (h.Coord.Row == x && h.Coord.Col == y && h.CanBePlayed)
                         results = true;
                 }
             }
