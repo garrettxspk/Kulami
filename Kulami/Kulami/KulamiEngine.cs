@@ -25,13 +25,12 @@ namespace Kulami
 
         private void GenerateGameBoard()
         {
-            //int randomBoardNumber = random number 1-7
-            //Random rnd = new Random();
-            //int boardNum = rnd.Next(1, 8);
+            Random rnd = new Random();
+            int boardNum = rnd.Next(1, 8);
 
-            //Console.WriteLine("Playing on board #" + boardNum);
+            Console.WriteLine("Playing on board #" + boardNum);
             string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            string[] lines = System.IO.File.ReadAllLines(startupPath + "/Boards/board" + "2" + ".txt");
+            string[] lines = System.IO.File.ReadAllLines(startupPath + "/Boards/board" + boardNum + ".txt");
             
             foreach (string line in lines)
             {
