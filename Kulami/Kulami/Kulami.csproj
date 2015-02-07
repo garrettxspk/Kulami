@@ -59,9 +59,11 @@
     <Compile Include="Color.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="EasyAI.cs" />
+    <Compile Include="GameTreeNode.cs" />
     <Compile Include="GetMoveFromUser.xaml.cs">
       <DependentUpon>GetMoveFromUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HardAI.cs" />
     <Compile Include="Hole.cs" />
     <Compile Include="KulamiEngine.cs" />
     <Compile Include="Marble.cs" />

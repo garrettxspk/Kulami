@@ -22,7 +22,10 @@ namespace Kulami
     {
         private KulamiEngine engine = new KulamiEngine();
         private EasyAI easyAI;
+        private HardAI hardAI;
         bool player1turn = true;
+        bool easyLevelAIOn = false;
+        bool hardLevelAIOn = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,13 +35,24 @@ namespace Kulami
         {
             engine.StartGame();
             Console.WriteLine("Would you like to make the first move? (Y/N)");
-            easyAI = new EasyAI(engine.CurrentGame);
             string moveFirst = Console.ReadLine();
             if (moveFirst[0] == 'Y' || moveFirst[0] == 'y')
                 player1turn = true;
             else
                 player1turn = false;
-            engine.CurrentGame.PrintGameBoard();
+            Console.WriteLine("Play against easy (e) or hard (h) computer?");
+            string aiLevel = Console.ReadLine();
+            if (aiLevel[0] == 'e' || aiLevel[0] == 'E')
+            {
+                easyLevelAIOn = true;
+                easyAI = new EasyAI(engine.CurrentGame);
+            }
+            else if (aiLevel[0] == 'h' || aiLevel[0] == 'H')
+            {
+                hardLevelAIOn = true;
+                hardAI = new HardAI(engine.CurrentGame);
+            }
+            engine.CurrentGame.Board.PrintGameBoard();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -52,16 +66,23 @@ namespace Kulami
                     GetMoveFromUser getMove = new GetMoveFromUser();
                     if (getMove.ShowDialog() == true)
                         move += "R" + getMove.Row + getMove.Col;
-                    engine.CurrentGame.MakeMoveOnBoard(move);
+                    engine.CurrentGame.Board.MakeMoveOnBoard(move);
                     Gameboard copy = engine.CurrentGame.GetCopyOfGameBoard();
                 }
                 else
                 {
-                    string AIMove = easyAI.GetMove();
-                    engine.CurrentGame.MakeMoveOnBoard(AIMove);
+                    if (easyLevelAIOn)
+                    {
+                        string AIMove = easyAI.GetMove();
+                        engine.CurrentGame.Board.MakeMoveOnBoard(AIMove);
+                    }
+                    else
+                    {
+                        string blahblahblah = hardAI.GetMove();
+                    }
 
                 }
-                engine.CurrentGame.PrintGameBoard();
+                engine.CurrentGame.Board.PrintGameBoard();
                 player1turn = !player1turn;
             }
             else
