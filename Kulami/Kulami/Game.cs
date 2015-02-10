@@ -128,14 +128,14 @@ namespace Kulami
            
         }
 
-        public bool IsValidMove(int x, int y)
+        public bool IsValidMove(int row, int col)
         {
             bool results = false;
             foreach (Tile t in board.Tiles)
             {
                 foreach (Hole h in t.Holes)
                 {
-                    if (h.Coord.Row == x && h.Coord.Col == y && h.CanBePlayed)
+                    if (h.Coord.Row == row && h.Coord.Col == col && h.CanBePlayed)
                         results = true;
                 }
             }

@@ -10,40 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Kulami
 {
     /// <summary>
-    /// Interaction logic for GetMoveFromUser.xaml
+    /// Interaction logic for Scores.xaml
     /// </summary>
-    public partial class GetMoveFromUser : Window
+    public partial class Scores : UserControl
     {
-        private string row;
-        public string Row
-        {
-            get { return xTxtBox.Text; }
-            set { row = value; }
-        }
-
-        private string col;
-        public string Col
-        {
-            get { return yTxtBox.Text; }
-            set { col = value; }
-        }
-
-        public GetMoveFromUser()
+        private String gameResult;
+        public Scores(String result)
         {
             InitializeComponent();
+            gameResult = result;
+            resultLabel.Content = gameResult;
+            ImageBrush ib = new ImageBrush();
+            ib.ImageSource = new BitmapImage(new Uri(@"images\ScoresBackground.png", UriKind.Relative));
+            ScoresBackground.Background = ib;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            Switcher.Switch(new MainPage());
         }
-
-
-
     }
 }

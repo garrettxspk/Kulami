@@ -1,0 +1,9 @@
+﻿<Window x:Class="Kulami.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OptionsWindow" Height="880" Width="1720" ResizeMode="NoResize">
+    <Grid>
+        <Canvas Name="OptionsBackgrnd" HorizontalAlignment="Left" Height="851" VerticalAlignment="Top" Width="1714"/>
+
+    </Grid>
+</Window>

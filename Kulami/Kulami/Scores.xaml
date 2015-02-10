@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="Kulami.Scores"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="880" d:DesignWidth="1720">
+    <Grid>
+        <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="920" VerticalAlignment="Top" Width="1760">
+            <Button Content="main menu" Canvas.Left="28" Canvas.Top="84" Width="260" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Button_Click"/>
+            <Label x:Name="resultLabel" Content="Label" Canvas.Left="738" Canvas.Top="842" Height="68" Width="305" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" Foreground="#FFBEEAFF"/>
+        </Canvas>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,8 @@
+--------Chris----------
+-Add screen for AI difficulty selection
+-pass AI difficulty to game screen
+-animate Computer's Turn label (. -> .. -> ...)
+
+--------Garrett----------
+-randomize who moves first
+-build and pass game stats object when game is over

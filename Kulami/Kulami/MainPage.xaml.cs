@@ -16,25 +16,30 @@ using System.Windows.Shapes;
 namespace Kulami
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainMenu
+    public partial class MainPage : UserControl, ISwitchable
     {
-        public MainMenu()
+        public MainPage()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(@"images\BackgroundMain.jpg", UriKind.Relative));
-            Backgrnd.Background = ib;
+            MainBackground.Background = ib;
         }
-
-        private void Button_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
-        public void UtilizeState (object state)
+        public void UtilizeState(object state)
         {
             throw new NotImplementedException();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new GamePage());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new OptionsPage());
         }
     }
 }

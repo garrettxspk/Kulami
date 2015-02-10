@@ -10,6 +10,13 @@ namespace Kulami
     class KulamiEngine
     {
         private Game currentGame;
+        
+        private int gameBoardNumber;
+
+        public int GameBoardNumber
+        {
+            get { return gameBoardNumber; }
+        }
 
         internal Game CurrentGame
         {
@@ -26,11 +33,11 @@ namespace Kulami
         private void GenerateGameBoard()
         {
             Random rnd = new Random();
-            int boardNum = rnd.Next(1, 8);
+            gameBoardNumber = rnd.Next(1, 8);
 
-            Console.WriteLine("Playing on board #" + boardNum);
+            Console.WriteLine("Playing on board #" + gameBoardNumber);
             string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            string[] lines = System.IO.File.ReadAllLines(startupPath + "/Boards/board" + boardNum + ".txt");
+            string[] lines = System.IO.File.ReadAllLines(startupPath + "/boards/board" + gameBoardNumber + ".txt");
             
             foreach (string line in lines)
             {

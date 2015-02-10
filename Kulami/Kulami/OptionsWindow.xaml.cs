@@ -10,29 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Kulami
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class MainMenu
+    public partial class OptionsWindow
     {
-        public MainMenu()
+        public OptionsWindow()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\BackgroundMain.jpg", UriKind.Relative));
-            Backgrnd.Background = ib;
+            ib.ImageSource = new BitmapImage(new Uri(@"images\OptionsScreen.png", UriKind.Relative));
+            OptionsBackgrnd.Background = ib;
         }
-
-        private void Button_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            
-        }
-        public void UtilizeState (object state)
+        public void UtilizeState(object state)
         {
             throw new NotImplementedException();
         }
