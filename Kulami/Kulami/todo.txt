@@ -6,3 +6,6 @@
 --------Garrett----------
 -randomize who moves first
 -build and pass game stats object when game is over
+
+--------Next Meeting------
+-update GUI with valid moves (change btn backgrounds accordingly)
