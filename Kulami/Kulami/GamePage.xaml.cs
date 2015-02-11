@@ -48,15 +48,13 @@ namespace Kulami
             easyLevelAIOn = true;
             //
 
-            //Random rnd = new Random();
-            //int playFirst = rnd.Next(0, 2);
+            Random rnd = new Random();
+            int playFirst = rnd.Next(0, 2);
 
-            //if (playFirst == 1)
-            //    player1turn = true;
-            //else
-            //    player1turn = false;
-
-            player1turn = true;
+            if (playFirst == 1)
+                player1turn = true;
+            else
+                player1turn = false;
 
             if (easyLevelAIOn)
                 easyAI = new EasyAI(engine.CurrentGame);
@@ -70,6 +68,12 @@ namespace Kulami
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\GenericPlan.png", UriKind.Relative));
             ApplyBackgroundButtons(ButtonImage);
+
+            if (!player1turn)
+            {
+                PlayerTurnLabel.Content = "Computer's Turn";
+                MakeAIMove();
+            }
         }
 
         public void UtilizeState(object state)
@@ -97,36 +101,44 @@ namespace Kulami
 
         private async void planetBtn_Click(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
-            string btnName = btn.Name.ToString();
-            int row, col;
-            row = Convert.ToInt32(btnName.Substring(6, 1));
-            col = Convert.ToInt32(btnName.Substring(7, 1));
-            Console.WriteLine(row + " " + col);
-            if (engine.CurrentGame.IsValidMove(row, col) && player1turn)
+            if (!engine.CurrentGame.IsGameOver())
             {
-                ImageBrush ButtonImage = new ImageBrush();
-                ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\RedPlan1.png", UriKind.Relative));
-                btn.Background = ButtonImage;
-                engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
-                engine.CurrentGame.Board.PrintGameBoard();
-                player1turn = !player1turn;
-                PlayerTurnLabel.Content = "Computer's Turn";
+                Button btn = sender as Button;
+                string btnName = btn.Name.ToString();
+                int row, col;
+                row = Convert.ToInt32(btnName.Substring(6, 1));
+                col = Convert.ToInt32(btnName.Substring(7, 1));
+                Console.WriteLine(row + " " + col);
+                if (engine.CurrentGame.IsValidMove(row, col) && player1turn)
+                {
+                    ImageBrush ButtonImage = new ImageBrush();
+                    ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\RedPlan1.png", UriKind.Relative));
+                    btn.Background = ButtonImage;
+                    engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
+                    engine.CurrentGame.Board.PrintGameBoard();
+                    player1turn = !player1turn;
+                    PlayerTurnLabel.Content = "Computer's Turn";
 
-                //get move from AI
-                string aiMove = easyAI.GetMove();
-                int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
-                int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
-                string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
-                Button aiMoveBtn = buttonNames[aiMoveBtnName];
-                ImageBrush AIButtonImage = new ImageBrush();
-                AIButtonImage.ImageSource = new BitmapImage(new Uri(@"images\WaterPlan1.png", UriKind.Relative));
-                await Task.Delay(3000);
-                aiMoveBtn.Background = AIButtonImage;
-                engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-                PlayerTurnLabel.Content = "Your Turn";
-                player1turn = !player1turn;
+                    //get move from AI
+                    MakeAIMove();
+                }
             }
+        }
+
+        private async void MakeAIMove()
+        {
+            string aiMove = easyAI.GetMove();
+            int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
+            int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
+            string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
+            Button aiMoveBtn = buttonNames[aiMoveBtnName];
+            ImageBrush AIButtonImage = new ImageBrush();
+            AIButtonImage.ImageSource = new BitmapImage(new Uri(@"images\WaterPlan1.png", UriKind.Relative));
+            await Task.Delay(3000);
+            aiMoveBtn.Background = AIButtonImage;
+            engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
+            PlayerTurnLabel.Content = "Your Turn";
+            player1turn = !player1turn;
         }
     }
 }
