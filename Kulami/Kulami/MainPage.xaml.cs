@@ -34,7 +34,7 @@ namespace Kulami
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new GamePage());
+            Switcher.Switch(new DifficultySelectionPage());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)

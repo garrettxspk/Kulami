@@ -59,6 +59,9 @@
     </ApplicationDefinition>
     <Compile Include="Color.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="DifficultySelectionPage.xaml.cs">
+      <DependentUpon>DifficultySelectionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EasyAI.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Gameboard.cs" />
@@ -89,6 +92,10 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Tile.cs" />
+    <Page Include="DifficultySelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

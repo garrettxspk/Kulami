@@ -30,7 +30,7 @@ namespace Kulami
         bool easyLevelAIOn = false;
         bool hardLevelAIOn = false;
 
-        public GamePage()
+        public GamePage(bool easyLevel)
         {
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace Kulami
             engine.StartGame();
 
             //replace this with boolean passed from the difficulty selection screen
-            easyLevelAIOn = true;
+            easyLevelAIOn = easyLevel;
             //
 
             Random rnd = new Random();
@@ -71,7 +71,8 @@ namespace Kulami
 
             if (!player1turn)
             {
-                PlayerTurnLabel.Content = "Computer's Turn";
+                PlayerTurnLabel.Visibility = Visibility.Hidden;
+                ComputerTurnLabel.Visibility = Visibility.Visible;
                 MakeAIMove();
             }
         }
@@ -117,7 +118,8 @@ namespace Kulami
                     engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
                     engine.CurrentGame.Board.PrintGameBoard();
                     player1turn = !player1turn;
-                    PlayerTurnLabel.Content = "Computer's Turn";
+                    PlayerTurnLabel.Visibility = Visibility.Hidden;
+                    ComputerTurnLabel.Visibility = Visibility.Visible;
 
                     //get move from AI
                     MakeAIMove();
@@ -137,7 +139,8 @@ namespace Kulami
             await Task.Delay(3000);
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-            PlayerTurnLabel.Content = "Your Turn";
+            PlayerTurnLabel.Visibility = Visibility.Visible;
+            ComputerTurnLabel.Visibility = Visibility.Hidden;
             player1turn = !player1turn;
         }
     }
