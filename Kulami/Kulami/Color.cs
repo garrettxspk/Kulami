@@ -9,6 +9,6 @@ namespace Kulami
     enum Color
     {
         Red,
-        Black
+        Blue
     }
 }

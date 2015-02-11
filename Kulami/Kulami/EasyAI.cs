@@ -23,7 +23,7 @@ namespace Kulami
             bool madeMove = false;
             foreach (Tile t in gameboard.Tiles) 
             {
-                if (t.Points == 6 && (t.NumOfRedMarbles > t.NumOfBlackMarbles))
+                if (t.Points == 6 && (t.NumOfRedMarbles > t.NumOfBlueMarbles))
                 {
                     foreach (Hole h in t.Holes)
                     {
@@ -43,7 +43,7 @@ namespace Kulami
             {
                 foreach (Tile t in gameboard.Tiles)
                 {
-                    if (t.Points == 4 && (t.NumOfRedMarbles > t.NumOfBlackMarbles))
+                    if (t.Points == 4 && (t.NumOfRedMarbles > t.NumOfBlueMarbles))
                     {
                         foreach (Hole h in t.Holes)
                         {
@@ -64,7 +64,7 @@ namespace Kulami
             {
                 foreach (Tile t in gameboard.Tiles)
                 {
-                    if (t.Points == 3 && (t.NumOfRedMarbles > t.NumOfBlackMarbles))
+                    if (t.Points == 3 && (t.NumOfRedMarbles > t.NumOfBlueMarbles))
                     {
                         foreach (Hole h in t.Holes)
                         {
@@ -85,7 +85,7 @@ namespace Kulami
             {
                 foreach (Tile t in gameboard.Tiles)
                 {
-                    if (t.Points == 2 && (t.NumOfRedMarbles > t.NumOfBlackMarbles))
+                    if (t.Points == 2 && (t.NumOfRedMarbles > t.NumOfBlueMarbles))
                     {
                         foreach (Hole h in t.Holes)
                         {

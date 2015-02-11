@@ -64,12 +64,12 @@ namespace Kulami
             set { numOfRedMarbles = value; }
         }
 
-        private int numOfBlackMarbles;
+        private int numOfBlueMarbles;
 
-        public int NumOfBlackMarbles
+        public int NumOfBlueMarbles
         {
-            get { return numOfBlackMarbles; }
-            set { numOfBlackMarbles = value; }
+            get { return numOfBlueMarbles; }
+            set { numOfBlueMarbles = value; }
         }
 
 
@@ -80,7 +80,7 @@ namespace Kulami
             points = numOfRows * numOfCols;
             lastPlayedOnByPlayer1 = false;
             lastPlayedOnByPlayer2 = false;
-            numOfBlackMarbles = 0;
+            numOfBlueMarbles = 0;
             numOfRedMarbles = 0;
             holes = new Hole[numOfRows, numOfCols];
         }

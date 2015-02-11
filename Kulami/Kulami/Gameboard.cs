@@ -34,7 +34,7 @@ namespace Kulami
             if (color == "R")
                 c = Color.Red;
             else
-                c = Color.Black;
+                c = Color.Blue;
 
             Marble m = new Marble(c);
 
@@ -58,7 +58,7 @@ namespace Kulami
                             }
                             else
                             {
-                                t.NumOfBlackMarbles++;
+                                t.NumOfBlueMarbles++;
                                 ResetLastPlayer2Tile();
                                 t.LastPlayedOnByPlayer2 = true;
                             }
@@ -131,7 +131,7 @@ namespace Kulami
                     }
                     else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
                         toInsert = "R";
-                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
+                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Blue)
                         toInsert = "B";
 
                     string rowString = boardConfig[h.Coord.Row];
@@ -153,7 +153,7 @@ namespace Kulami
                 Tile newTile = new Tile(t.NumOfRows, t.NumOfCols);
                 newTile.Points = t.Points;
                 newTile.NumOfRedMarbles = t.NumOfRedMarbles;
-                newTile.NumOfBlackMarbles = t.NumOfBlackMarbles;
+                newTile.NumOfBlueMarbles = t.NumOfBlueMarbles;
                 newTile.LastPlayedOnByPlayer1 = t.LastPlayedOnByPlayer1;
                 newTile.LastPlayedOnByPlayer2 = t.LastPlayedOnByPlayer2;
 

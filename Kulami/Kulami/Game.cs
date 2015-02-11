@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Kulami
 {
     class Game
     {
         private Gameboard board;
+        private Stopwatch gameTimeStopWatch;
+        public GameStatistics gameStats;
+        private const int NUM_TILES = 17;
 
         internal Gameboard Board
         {
@@ -76,6 +80,8 @@ namespace Kulami
                 player1 = new Player(PlayerType.HumanOpponent);
                 player2 = new Player(PlayerType.HumanPlayer);
             }
+            gameTimeStopWatch = new Stopwatch();
+            gameTimeStopWatch.Start();
         }
 
         public Gameboard GetCopyOfGameBoard()
@@ -94,6 +100,12 @@ namespace Kulami
                         results = false;
                 }
             }
+            if (results)
+            {
+                gameTimeStopWatch.Stop();
+                SetGameStatistics();
+            }
+
             return results;
         }
 
@@ -107,7 +119,7 @@ namespace Kulami
                 {
                     if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
                         R++;
-                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Black)
+                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Blue)
                         B++;
                 }
                 if (R > B)
@@ -125,7 +137,6 @@ namespace Kulami
                 Console.WriteLine("Black win!");
             else
                 Console.WriteLine("TIE!");
-           
         }
 
         public bool IsValidMove(int row, int col)
@@ -138,6 +149,98 @@ namespace Kulami
                     if (h.Coord.Row == row && h.Coord.Col == col && h.CanBePlayed)
                         results = true;
                 }
+            }
+            return results;
+        }
+
+        private void SetGameStatistics()
+        {
+            TimeSpan ts = gameTimeStopWatch.Elapsed;
+            gameStats.ElapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                                    ts.Hours, ts.Minutes, ts.Seconds,
+                                    ts.Milliseconds / 10);
+            gameStats.RedPlanetsConquered = GetNumRedPlanetsConquered();
+            gameStats.BluePlanetsConquered = GetNumBluePlanetsConquered();
+
+            gameStats.RedSectorsWon = GetNumRedSectorsWon();
+            gameStats.BlueSectorsWon = GetNumBlueSectorsWon();
+
+            gameStats.RedSectorsLost = NUM_TILES - gameStats.RedSectorsWon;
+            gameStats.BlueSectorsLost = NUM_TILES - gameStats.BlueSectorsWon;
+
+            gameStats.RedPoints = GetNumRedPoints();
+            gameStats.BluePoints = GetNumBluePoints();
+
+        }
+
+        private int GetNumRedPlanetsConquered()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.MarbleInHole.MarbleColor == Color.Red)
+                        results++;
+                }
+            }
+            return results;
+        }
+
+        private int GetNumBluePlanetsConquered()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.MarbleInHole.MarbleColor == Color.Blue)
+                        results++;
+                }
+            }
+            return results;
+        }
+
+        private int GetNumRedSectorsWon()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                if (t.NumOfRedMarbles > t.NumOfBlueMarbles)
+                    results++;
+            }
+            return results;
+        }
+
+        private int GetNumBlueSectorsWon()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                if (t.NumOfBlueMarbles > t.NumOfRedMarbles)
+                    results++;
+            }
+            return results;
+        }
+
+        private int GetNumRedPoints()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                if (t.NumOfRedMarbles > t.NumOfBlueMarbles)
+                    results += t.Points;
+            }
+            return results;
+        }
+
+        private int GetNumBluePoints()
+        {
+            int results = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                if (t.NumOfBlueMarbles > t.NumOfRedMarbles)
+                    results += t.Points;
             }
             return results;
         }

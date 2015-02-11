@@ -16,36 +16,68 @@ namespace Kulami
             set { elapsedTime = value; }
         }
 
-        private int planetsConquered;
+        private int redPlanetsConquered;
 
-        public int PlanetsConquered
+        public int RedPlanetsConquered
         {
-            get { return planetsConquered; }
-            set { planetsConquered = value; }
+            get { return redPlanetsConquered; }
+            set { redPlanetsConquered = value; }
         }
 
-        private int sectorsConquered;
+        private int bluePlanetsConquered;
 
-        public int SectorsConquered
+        public int BluePlanetsConquered
         {
-            get { return sectorsConquered; }
-            set { sectorsConquered = value; }
+            get { return bluePlanetsConquered; }
+            set { bluePlanetsConquered = value; }
         }
 
-        private int sectorsLost;
+        private int redSectorsWon;
 
-        public int SectorsLost
+        public int RedSectorsWon
         {
-            get { return sectorsLost; }
-            set { sectorsLost = value; }
+            get { return redSectorsWon; }
+            set { redSectorsWon = value; }
         }
 
-        private int points;
+        private int redSectorsLost;
 
-        public int Points
+        public int RedSectorsLost
         {
-            get { return points; }
-            set { points = value; }
+            get { return redSectorsLost; }
+            set { redSectorsLost = value; }
+        }
+
+        private int blueSectorsWon;
+
+        public int BlueSectorsWon
+        {
+            get { return blueSectorsWon; }
+            set { blueSectorsWon = value; }
+        }
+
+        private int blueSectorsLost;
+
+        public int BlueSectorsLost
+        {
+            get { return blueSectorsLost; }
+            set { blueSectorsLost = value; }
+        }
+
+        private int bluePoints;
+
+        public int BluePoints
+        {
+            get { return bluePoints; }
+            set { bluePoints = value; }
+        }
+
+        private int redPoints;
+
+        public int RedPoints
+        {
+            get { return redPoints; }
+            set { redPoints = value; }
         }
     }
 }
