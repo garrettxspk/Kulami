@@ -97,10 +97,12 @@ namespace Kulami
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Scores("You Won!"));
+            engine.CurrentGame.ForceEndGame();
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+
         }
 
-        private async void planetBtn_Click(object sender, RoutedEventArgs e)
+        private void planetBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!engine.CurrentGame.IsGameOver())
             {
@@ -116,32 +118,73 @@ namespace Kulami
                     ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\RedPlan1.png", UriKind.Relative));
                     btn.Background = ButtonImage;
                     engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
+                    HighlightAvailableMovesOnBoard();
                     engine.CurrentGame.Board.PrintGameBoard();
                     player1turn = !player1turn;
                     PlayerTurnLabel.Visibility = Visibility.Hidden;
                     ComputerTurnLabel.Visibility = Visibility.Visible;
 
                     //get move from AI
-                    MakeAIMove();
+                    if (!engine.CurrentGame.IsGameOver())
+                    {
+                        MakeAIMove();
+                    }
+
+                    if (engine.CurrentGame.IsGameOver())
+                    {
+                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                    }
                 }
             }
         }
 
         private async void MakeAIMove()
         {
-            string aiMove = easyAI.GetMove();
-            int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
-            int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
-            string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
-            Button aiMoveBtn = buttonNames[aiMoveBtnName];
-            ImageBrush AIButtonImage = new ImageBrush();
-            AIButtonImage.ImageSource = new BitmapImage(new Uri(@"images\WaterPlan1.png", UriKind.Relative));
-            await Task.Delay(3000);
-            aiMoveBtn.Background = AIButtonImage;
-            engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-            PlayerTurnLabel.Visibility = Visibility.Visible;
-            ComputerTurnLabel.Visibility = Visibility.Hidden;
-            player1turn = !player1turn;
+            if (easyLevelAIOn)
+            {
+                string aiMove = easyAI.GetMove();
+                int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
+                int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
+                string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
+                Button aiMoveBtn = buttonNames[aiMoveBtnName];
+                ImageBrush AIButtonImage = new ImageBrush();
+                AIButtonImage.ImageSource = new BitmapImage(new Uri(@"images\WaterPlan1.png", UriKind.Relative));
+                await Task.Delay(3000);
+                aiMoveBtn.Background = AIButtonImage;
+                engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
+                HighlightAvailableMovesOnBoard();
+                PlayerTurnLabel.Visibility = Visibility.Visible;
+                ComputerTurnLabel.Visibility = Visibility.Hidden;
+                player1turn = !player1turn;
+            }
+        }
+
+        private void HighlightAvailableMovesOnBoard()
+        {
+            List<Coordinate> availableMoves = engine.CurrentGame.GetAllAvailableMoves();
+            ImageBrush InvalidHole = new ImageBrush();
+            InvalidHole.ImageSource = new BitmapImage(new Uri(@"images\GenericPlanDisabled.png", UriKind.Relative));
+
+            ImageBrush ValidHole = new ImageBrush();
+            ValidHole.ImageSource = new BitmapImage(new Uri(@"images\GenericPlan.png", UriKind.Relative));
+
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                    {
+                        Button b = buttonNames["planet" + row.ToString() + col.ToString()];
+                        b.Background = InvalidHole;
+                    }
+                }
+            }
+
+            foreach (Coordinate c in availableMoves)
+            {
+                Button b = buttonNames["planet" + c.Row.ToString() + c.Col.ToString()];
+                b.Background = ValidHole;
+            }
         }
     }
 }

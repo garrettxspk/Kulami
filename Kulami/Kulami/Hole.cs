@@ -44,7 +44,7 @@ namespace Kulami
             coord = new Coordinate();
             isFilled = false;
             canBePlayed = false;
-            marbleInHole = null;
+            marbleInHole = new Marble(Color.Empty);
             coord.Row = row;
             coord.Col = col;
         }

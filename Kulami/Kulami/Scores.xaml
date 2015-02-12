@@ -7,8 +7,13 @@
              d:DesignHeight="880" d:DesignWidth="1720">
     <Grid>
         <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="920" VerticalAlignment="Top" Width="1760">
+            
             <Button Content="main menu" Canvas.Left="28" Canvas.Top="84" Width="260" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Button_Click"/>
-            <Label x:Name="resultLabel" Content="Label" Canvas.Left="738" Canvas.Top="842" Height="68" Width="305" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" Foreground="#FFBEEAFF"/>
+            <Label x:Name="gameTimeLabel" Content="00" Canvas.Left="1177" Canvas.Top="281" Height="80" Width="338" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="59" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="planetsConqueredLabel" Content="00" Canvas.Left="1270" Canvas.Top="374" Height="73" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="59" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsConqueredLabel" Content="00" Canvas.Left="1270" Canvas.Top="465" Height="98" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="59" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsLostLabel" Content="00" Canvas.Left="1270" Canvas.Top="567" Height="98" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="59" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="totalScoreLabel" Content="00" Canvas.Left="1270" Canvas.Top="670" Height="88" Width="155" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="59" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Canvas>
 
     </Grid>

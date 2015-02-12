@@ -11,7 +11,7 @@ namespace Kulami
     {
         private Gameboard board;
         private Stopwatch gameTimeStopWatch;
-        public GameStatistics gameStats;
+        public GameStatistics GameStats = new GameStatistics();
         private const int NUM_TILES = 17;
 
         internal Gameboard Board
@@ -156,20 +156,20 @@ namespace Kulami
         private void SetGameStatistics()
         {
             TimeSpan ts = gameTimeStopWatch.Elapsed;
-            gameStats.ElapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                                    ts.Hours, ts.Minutes, ts.Seconds,
+            GameStats.ElapsedTime = String.Format("{0:00}:{1:00}.{2:00}",
+                                    ts.Minutes, ts.Seconds,
                                     ts.Milliseconds / 10);
-            gameStats.RedPlanetsConquered = GetNumRedPlanetsConquered();
-            gameStats.BluePlanetsConquered = GetNumBluePlanetsConquered();
+            GameStats.RedPlanetsConquered = GetNumRedPlanetsConquered();
+            GameStats.BluePlanetsConquered = GetNumBluePlanetsConquered();
 
-            gameStats.RedSectorsWon = GetNumRedSectorsWon();
-            gameStats.BlueSectorsWon = GetNumBlueSectorsWon();
+            GameStats.RedSectorsWon = GetNumRedSectorsWon();
+            GameStats.BlueSectorsWon = GetNumBlueSectorsWon();
 
-            gameStats.RedSectorsLost = NUM_TILES - gameStats.RedSectorsWon;
-            gameStats.BlueSectorsLost = NUM_TILES - gameStats.BlueSectorsWon;
+            GameStats.RedSectorsLost = NUM_TILES - GameStats.RedSectorsWon;
+            GameStats.BlueSectorsLost = NUM_TILES - GameStats.BlueSectorsWon;
 
-            gameStats.RedPoints = GetNumRedPoints();
-            gameStats.BluePoints = GetNumBluePoints();
+            GameStats.RedPoints = GetNumRedPoints();
+            GameStats.BluePoints = GetNumBluePoints();
 
         }
 
@@ -243,6 +243,32 @@ namespace Kulami
                     results += t.Points;
             }
             return results;
+        }
+
+        public List<Coordinate> GetAllAvailableMoves()
+        {
+            List<Coordinate> results = new List<Coordinate>();
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.CanBePlayed && !h.IsFilled)
+                        results.Add(h.Coord);
+                }
+            }
+            return results;
+        }
+
+        public void ForceEndGame()
+        {
+            foreach (Tile t in board.Tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    h.CanBePlayed = false;
+                }
+            }
+            IsGameOver();
         }
     }
 }

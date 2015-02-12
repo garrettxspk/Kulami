@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kulami
 {
-    class GameStatistics
+    public class GameStatistics
     {
         private string elapsedTime;
 

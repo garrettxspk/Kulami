@@ -21,13 +21,18 @@ namespace Kulami
     public partial class Scores : UserControl
     {
         private String gameResult;
-        public Scores(String result)
+        public Scores(GameStatistics stats)
         {
             InitializeComponent();
-            gameResult = result;
-            resultLabel.Content = gameResult;
+            //gameResult = result;
+            //resultLabel.Content = gameResult;
+            gameTimeLabel.Content = stats.ElapsedTime;
+            planetsConqueredLabel.Content = stats.RedPlanetsConquered.ToString();
+            sectorsConqueredLabel.Content = stats.RedSectorsWon.ToString();
+            sectorsLostLabel.Content = stats.RedSectorsLost.ToString();
+            totalScoreLabel.Content = stats.RedPoints.ToString();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\ScoresBackground.png", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(@"images\GameStatsBackground.png", UriKind.Relative));
             ScoresBackground.Background = ib;
         }
 

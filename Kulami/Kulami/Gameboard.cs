@@ -186,5 +186,19 @@ namespace Kulami
             }
             return moves;
         }
+
+        public bool IsHoleFilled(int row, int col)
+        {
+            bool results = false;
+            foreach (Tile t in tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.Coord.Row == row && h.Coord.Col == col && h.IsFilled)
+                        results = true;
+                }
+            }
+            return results;
+        }
     }
 }
