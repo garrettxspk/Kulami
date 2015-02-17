@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Kulami
     public partial class Scores : UserControl
     {
         private String gameResult;
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public Scores(GameStatistics stats)
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace Kulami
             sectorsLostLabel.Content = stats.RedSectorsLost.ToString();
             totalScoreLabel.Content = stats.RedPoints.ToString();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\GameStatsBackground.png", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
             ScoresBackground.Background = ib;
         }
 

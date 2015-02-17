@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Kulami
 {
@@ -20,11 +21,12 @@ namespace Kulami
     /// </summary>
     public partial class MainMenu
     {
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public MainMenu()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\BackgroundMain.jpg", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
             Backgrnd.Background = ib;
         }
 

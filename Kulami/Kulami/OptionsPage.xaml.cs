@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,12 @@ namespace Kulami
     /// </summary>
     public partial class OptionsPage : UserControl, ISwitchable
     {
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public OptionsPage()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\OptionsScreen.png", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OptionsScreen.png", UriKind.Absolute));
             OptionsBackground.Background = ib;
         }
         public void UtilizeState(object state)

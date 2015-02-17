@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -29,6 +30,7 @@ namespace Kulami
         bool player1turn = true;
         bool easyLevelAIOn = false;
         bool hardLevelAIOn = false;
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
         public GamePage(bool easyLevel)
         {
@@ -62,11 +64,11 @@ namespace Kulami
                 hardAI = new HardAI(engine.CurrentGame);
 
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\GameBoard" + engine.GameBoardNumber + ".png", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBoard" + engine.GameBoardNumber + ".png", UriKind.Absolute));
             GameBackground.Background = ib;
             
             ImageBrush ButtonImage = new ImageBrush();
-            ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\GenericPlan.png", UriKind.Relative));
+            ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
 
             if (!player1turn)
@@ -115,7 +117,7 @@ namespace Kulami
                 if (engine.CurrentGame.IsValidMove(row, col) && player1turn)
                 {
                     ImageBrush ButtonImage = new ImageBrush();
-                    ButtonImage.ImageSource = new BitmapImage(new Uri(@"images\RedPlan1.png", UriKind.Relative));
+                    ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/RedPlan1.png", UriKind.Absolute));
                     btn.Background = ButtonImage;
                     engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
                     HighlightAvailableMovesOnBoard();
@@ -148,7 +150,7 @@ namespace Kulami
                 string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
                 Button aiMoveBtn = buttonNames[aiMoveBtnName];
                 ImageBrush AIButtonImage = new ImageBrush();
-                AIButtonImage.ImageSource = new BitmapImage(new Uri(@"images\WaterPlan1.png", UriKind.Relative));
+                AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/WaterPlan1.png", UriKind.Absolute));
                 await Task.Delay(3000);
                 aiMoveBtn.Background = AIButtonImage;
                 engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
@@ -163,10 +165,10 @@ namespace Kulami
         {
             List<Coordinate> availableMoves = engine.CurrentGame.GetAllAvailableMoves();
             ImageBrush InvalidHole = new ImageBrush();
-            InvalidHole.ImageSource = new BitmapImage(new Uri(@"images\GenericPlanDisabled.png", UriKind.Relative));
+            InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
 
             ImageBrush ValidHole = new ImageBrush();
-            ValidHole.ImageSource = new BitmapImage(new Uri(@"images\GenericPlan.png", UriKind.Relative));
+            ValidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
 
             for (int row = 0; row < 8; row++)
             {

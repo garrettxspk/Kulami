@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Kulami
     /// </summary>
     public partial class DifficultySelectionPage : UserControl, ISwitchable
     {
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public DifficultySelectionPage()
         {
             InitializeComponent();
@@ -27,9 +29,9 @@ namespace Kulami
             ImageBrush easyBtnBackgrnd = new ImageBrush();
             ImageBrush hardBtnBackgrnd = new ImageBrush();
 
-            backgrnd.ImageSource = new BitmapImage(new Uri(@"images\SelectionPage.png", UriKind.Relative));
-            easyBtnBackgrnd.ImageSource = new BitmapImage(new Uri(@"images\EasyLevelButton.png", UriKind.Relative));
-            hardBtnBackgrnd.ImageSource = new BitmapImage(new Uri(@"images\HardLevelButton.png", UriKind.Relative));
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
+            easyBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyLevelButton.png", UriKind.Absolute));
+            hardBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardLevelButton.png", UriKind.Absolute));
 
             SelectionBackground.Background = backgrnd;
             EasyLevelButton.Background = easyBtnBackgrnd;

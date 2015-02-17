@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,12 @@ namespace Kulami
     /// </summary>
     public partial class MainPage : UserControl, ISwitchable
     {
+        string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public MainPage()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(@"images\BackgroundMain.jpg", UriKind.Relative));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
             MainBackground.Background = ib;
         }
         public void UtilizeState(object state)
