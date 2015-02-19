@@ -97,7 +97,10 @@ namespace Kulami
                 foreach (Hole h in t.Holes)
                 {
                     if (h.CanBePlayed)
+                    {
                         results = false;
+                        break;
+                    }
                 }
             }
             if (results)
