@@ -34,14 +34,19 @@ namespace Kulami
             throw new NotImplementedException();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void QuickGameButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new DifficultySelectionPage());
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new OptionsPage());
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Kulami
         bool hardLevelAIOn = false;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
-        public GamePage(bool easyLevel)
+        public GamePage(bool easyLevel, GameType gType)
         {
             InitializeComponent();
 
@@ -44,7 +44,7 @@ namespace Kulami
             }
 
             engine = new KulamiEngine();
-            engine.StartGame();
+            engine.StartGame(gType);
 
             //replace this with boolean passed from the difficulty selection screen
             easyLevelAIOn = easyLevel;

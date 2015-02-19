@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kulami
 {
-    enum GameType
+    public enum GameType
     {
         LocalComputer,
         LANHost,

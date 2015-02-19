@@ -24,9 +24,9 @@ namespace Kulami
             set { currentGame = value; }
         }
 
-        public void StartGame()
+        public void StartGame(GameType gType)
         {
-            currentGame = new Game(GameType.LocalComputer);
+            currentGame = new Game(gType);
             GenerateGameBoard();
         }
 

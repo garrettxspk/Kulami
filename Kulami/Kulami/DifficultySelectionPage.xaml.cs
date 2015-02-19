@@ -41,12 +41,12 @@ namespace Kulami
 
         private void EasyLevelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new GamePage(true));
+            Switcher.Switch(new GamePage(true, GameType.LocalComputer));
         }
 
         private void HardLevelButton_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new GamePage(false));
+            Switcher.Switch(new GamePage(false, GameType.LocalComputer));
         }
 
         public void UtilizeState(object state)
