@@ -70,15 +70,15 @@ namespace Kulami
                 player1 = new Player(PlayerType.HumanPlayer);
                 player2 = new Player(PlayerType.ComputerOpponent);
             }
-            else if (gameType == GameType.LANHost)
+            else if (gameType == GameType.LocalMultiplayer)
             {
                 player1 = new Player(PlayerType.HumanPlayer);
-                player2 = new Player(PlayerType.HumanOpponent);
+                player2 = new Player(PlayerType.HumanPlayer);
             }
             else
             {
-                player1 = new Player(PlayerType.HumanOpponent);
-                player2 = new Player(PlayerType.HumanPlayer);
+                player1 = new Player(PlayerType.HumanPlayer);
+                player2 = new Player(PlayerType.HumanOpponent);
             }
             gameTimeStopWatch = new Stopwatch();
             gameTimeStopWatch.Start();

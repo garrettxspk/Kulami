@@ -9,7 +9,7 @@ namespace Kulami
     public enum GameType
     {
         LocalComputer,
-        LANHost,
-        LANPlayer
+        LocalMultiplayer,
+        LANMultiplayer
     }
 }

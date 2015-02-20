@@ -58,10 +58,13 @@ namespace Kulami
             else
                 player1turn = false;
 
-            if (easyLevelAIOn)
-                easyAI = new EasyAI(engine.CurrentGame);
-            else
-                hardAI = new HardAI(engine.CurrentGame);
+            if (engine.CurrentGame.GameType == GameType.LocalComputer)
+            {
+                if (easyLevelAIOn)
+                    easyAI = new EasyAI(engine.CurrentGame);
+                else
+                    hardAI = new HardAI(engine.CurrentGame);
+            }
 
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBoard" + engine.GameBoardNumber + ".png", UriKind.Absolute));
@@ -71,11 +74,19 @@ namespace Kulami
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
 
-            if (!player1turn)
+            if (!player1turn && engine.CurrentGame.GameType == GameType.LocalComputer)
             {
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
                 ComputerTurnLabel.Visibility = Visibility.Visible;
                 MakeAIMove();
+            }
+            else if (engine.CurrentGame.GameType == GameType.LocalMultiplayer)
+            {
+                PlayerTurnLabel.Visibility = Visibility.Hidden;
+                if (player1turn)
+                    PlayerOneTurnLabel.Visibility = Visibility.Visible;
+                else
+                    PlayerTwoTurnLabel.Visibility = Visibility.Visible;
             }
         }
 
@@ -114,22 +125,30 @@ namespace Kulami
                 row = Convert.ToInt32(btnName.Substring(6, 1));
                 col = Convert.ToInt32(btnName.Substring(7, 1));
                 Console.WriteLine(row + " " + col);
-                if (engine.CurrentGame.IsValidMove(row, col) && player1turn)
+                if (engine.CurrentGame.IsValidMove(row, col))
                 {
-                    ImageBrush ButtonImage = new ImageBrush();
-                    ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/RedPlan1.png", UriKind.Absolute));
-                    btn.Background = ButtonImage;
-                    engine.CurrentGame.Board.MakeMoveOnBoard("R" + row.ToString() + col.ToString());
-                    HighlightAvailableMovesOnBoard();
-                    engine.CurrentGame.Board.PrintGameBoard();
-                    player1turn = !player1turn;
-                    PlayerTurnLabel.Visibility = Visibility.Hidden;
-                    ComputerTurnLabel.Visibility = Visibility.Visible;
-
-                    //get move from AI
-                    if (!engine.CurrentGame.IsGameOver())
+                    if (engine.CurrentGame.GameType == GameType.LocalComputer && player1turn)
                     {
-                        MakeAIMove();
+                        MakeHumanMove(btn, row, col, "Red");
+                        PlayerTurnLabel.Visibility = Visibility.Hidden;
+                        ComputerTurnLabel.Visibility = Visibility.Visible;
+                        //get move from AI
+                        if (!engine.CurrentGame.IsGameOver())
+                        {
+                            MakeAIMove();
+                        }
+                    }
+                    else if (engine.CurrentGame.GameType == GameType.LocalMultiplayer && player1turn)
+                    {
+                        MakeHumanMove(btn, row, col, "Red");
+                        PlayerOneTurnLabel.Visibility = Visibility.Hidden;
+                        PlayerTwoTurnLabel.Visibility = Visibility.Visible;
+                    }
+                    else if (engine.CurrentGame.GameType == GameType.LocalMultiplayer && !player1turn)
+                    {
+                        MakeHumanMove(btn, row, col, "Blue");
+                        PlayerOneTurnLabel.Visibility = Visibility.Visible;
+                        PlayerTwoTurnLabel.Visibility = Visibility.Hidden;
                     }
 
                     if (engine.CurrentGame.IsGameOver())
@@ -138,6 +157,17 @@ namespace Kulami
                     }
                 }
             }
+        }
+
+        private void MakeHumanMove(Button b, int row, int col, string playerColor)
+        {
+            ImageBrush ButtonImage = new ImageBrush();
+            ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
+            b.Background = ButtonImage;
+            engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
+            HighlightAvailableMovesOnBoard();
+            engine.CurrentGame.Board.PrintGameBoard();
+            player1turn = !player1turn;
         }
 
         private async void MakeAIMove()
@@ -150,7 +180,7 @@ namespace Kulami
                 string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
                 Button aiMoveBtn = buttonNames[aiMoveBtnName];
                 ImageBrush AIButtonImage = new ImageBrush();
-                AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/WaterPlan1.png", UriKind.Absolute));
+                AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BluePlan1.png", UriKind.Absolute));
                 await Task.Delay(3000);
                 aiMoveBtn.Background = AIButtonImage;
                 engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);

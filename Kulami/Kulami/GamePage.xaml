@@ -81,6 +81,8 @@
             <Button x:Name="planet72" Content="" Canvas.Left="710" Canvas.Top="788" Width="86" Height="86" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
             <Button x:Name="planet71" Content="" Canvas.Left="604" Canvas.Top="788" Width="86" Height="86" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
             <Label Name="PlayerTurnLabel" Content="Your Turn" Canvas.Left="611" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="72" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Name="PlayerOneTurnLabel" Content="Player 1 Turn" Canvas.Left="611" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="72" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+            <Label Name="PlayerTwoTurnLabel" Content="Player 2 Turn" Canvas.Left="611" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="72" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
 
             <Label Name="ComputerTurnLabel" Content="Computer's Turn" Canvas.Left="611" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="72" FontWeight="Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <Label.Style>
