@@ -41,7 +41,7 @@ namespace Kulami
 
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Switcher.Switch(new GamePage(true, GameType.LocalMultiplayer));
         }
 
         private void OnlineModeButton_Click(object sender, RoutedEventArgs e)

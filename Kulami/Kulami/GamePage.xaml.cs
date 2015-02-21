@@ -83,6 +83,8 @@ namespace Kulami
             else if (engine.CurrentGame.GameType == GameType.LocalMultiplayer)
             {
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
+                ComputerTurnLabel.Visibility = Visibility.Hidden;
+
                 if (player1turn)
                     PlayerOneTurnLabel.Visibility = Visibility.Visible;
                 else
