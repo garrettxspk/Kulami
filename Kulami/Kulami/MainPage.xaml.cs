@@ -48,5 +48,10 @@ namespace Kulami
         {
             Application.Current.Shutdown();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MultiplayerMode());
+        }
     }
 }
