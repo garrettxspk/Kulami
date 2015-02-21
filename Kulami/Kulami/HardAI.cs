@@ -89,27 +89,27 @@ namespace Kulami
                         grandChildNode.Alpha = childNode.Alpha;
                         grandChildNode.Beta = childNode.Beta;
 
-                        if(grandChildNode.HeuristicValue < childNode.Beta)
+                        if(grandChildNode.HeuristicValue > childNode.Alpha)
                         {
-                            childNode.Beta = grandChildNode.HeuristicValue;
+                            childNode.Alpha = grandChildNode.HeuristicValue;
                         }
                         if(childNode.Alpha > childNode.Beta)
                         {
                             break;
                         }
                     }
-                    if(childNode.Beta > node.Alpha)
+                    if(childNode.Alpha < node.Beta)
                     {
-                        node.Alpha = childNode.Beta;
+                        node.Beta = childNode.Alpha;
                     }
                     if(node.Alpha > node.Beta)
                     {
                         break;
                     }
                 }
-                if(node.Alpha < root.Beta)
+                if(node.Beta > root.Alpha)
                 {
-                    root.Beta = node.Alpha;
+                    root.Alpha = node.Beta;
                     chosenMove = node;
                 }
             }
