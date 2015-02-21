@@ -32,6 +32,30 @@ namespace Kulami
             set { heuristicValue = value; }
         }
 
+        private int alpha;
+
+        public int Alpha
+        {
+            get { return alpha; }
+            set { alpha = value; }
+        }
+
+        private int beta;
+
+        public int Beta
+        {
+            get { return beta; }
+            set { beta = value; }
+        }
+
+        private string move;
+
+        public string Move
+        {
+            get { return move; }
+            set { move = value; }
+        }
+
         private List<GameTreeNode> children;
 
         internal List<GameTreeNode> Children
@@ -46,6 +70,8 @@ namespace Kulami
             currentBoardConfig = board;
             children = new List<GameTreeNode>();
             heuristicValue = 0;
+            Alpha = -100000;
+            Beta = 100000;
         }
     }
 }
