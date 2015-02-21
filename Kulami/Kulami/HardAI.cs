@@ -19,10 +19,11 @@ namespace Kulami
 
         public string GetMove()
         {
-            return BuildGameTree();
+            BuildGameTree();
+            return "";
         }
 
-        private string BuildGameTree()
+        private void BuildGameTree()
         {
             GameTreeNode root = new GameTreeNode(null, gameboard);
             List<Coordinate> moves = game.Board.GetAllAvailableMoves();
@@ -33,8 +34,6 @@ namespace Kulami
                 string move = "B" + c.Row + c.Col;
                 newConfig.MakeMoveOnBoard(move);
                 GameTreeNode child = new GameTreeNode(root, newConfig);
-                child.Move = move;
-                child.HeuristicValue = -100000;
                 root.Children.Add(child);
             }
             //level two
@@ -47,8 +46,6 @@ namespace Kulami
                     string move = "R" + c.Row + c.Col;
                     newConfig.MakeMoveOnBoard(move);
                     GameTreeNode child = new GameTreeNode(node, newConfig);
-                    child.Move = move;
-                    child.HeuristicValue = 100000;
                     node.Children.Add(child);
                 }
             }
@@ -64,57 +61,10 @@ namespace Kulami
                         string move = "B" + c.Row + c.Col;
                         newConfig.MakeMoveOnBoard(move);
                         GameTreeNode child = new GameTreeNode(childNode, newConfig);
-                        child.Move = move;
-                        child.HeuristicValue = game.Player2Points;
                         childNode.Children.Add(child);
                     }
                 }
             }
-
-            GameTreeNode chosenMove = new GameTreeNode(null, gameboard);
-
-            //Game tree has been built, now perform min-max/AB Pruning
-            foreach(GameTreeNode node in root.Children)
-            {
-                node.Alpha = root.Alpha;
-                node.Beta = root.Beta;
-
-                foreach(GameTreeNode childNode in node.Children)
-                {
-                    childNode.Alpha = node.Alpha;
-                    childNode.Beta = node.Beta;
-
-                    foreach(GameTreeNode grandChildNode in childNode.Children)
-                    {
-                        grandChildNode.Alpha = childNode.Alpha;
-                        grandChildNode.Beta = childNode.Beta;
-
-                        if(grandChildNode.HeuristicValue < childNode.Beta)
-                        {
-                            childNode.Beta = grandChildNode.HeuristicValue;
-                        }
-                        if(childNode.Alpha > childNode.Beta)
-                        {
-                            break;
-                        }
-                    }
-                    if(childNode.Beta > node.Alpha)
-                    {
-                        node.Alpha = childNode.Beta;
-                    }
-                    if(node.Alpha > node.Beta)
-                    {
-                        break;
-                    }
-                }
-                if(node.Alpha < root.Beta)
-                {
-                    root.Beta = node.Alpha;
-                    chosenMove = node;
-                }
-            }
-
-            return chosenMove.Move;
         }
     }
 }
