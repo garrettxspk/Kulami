@@ -174,23 +174,29 @@ namespace Kulami
 
         private async void MakeAIMove()
         {
+            string aiMove;
             if (easyLevelAIOn)
             {
-                string aiMove = easyAI.GetMove();
-                int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
-                int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
-                string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
-                Button aiMoveBtn = buttonNames[aiMoveBtnName];
-                ImageBrush AIButtonImage = new ImageBrush();
-                AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BluePlan1.png", UriKind.Absolute));
+                aiMove = easyAI.GetMove();
                 await Task.Delay(3000);
-                aiMoveBtn.Background = AIButtonImage;
-                engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-                HighlightAvailableMovesOnBoard();
-                PlayerTurnLabel.Visibility = Visibility.Visible;
-                ComputerTurnLabel.Visibility = Visibility.Hidden;
-                player1turn = !player1turn;
             }
+            else
+            {
+                aiMove = hardAI.GetMove();
+            }
+
+            int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
+            int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
+            string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
+            Button aiMoveBtn = buttonNames[aiMoveBtnName];
+            ImageBrush AIButtonImage = new ImageBrush();
+            AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BluePlan1.png", UriKind.Absolute));
+            aiMoveBtn.Background = AIButtonImage;
+            engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
+            HighlightAvailableMovesOnBoard();
+            PlayerTurnLabel.Visibility = Visibility.Visible;
+            ComputerTurnLabel.Visibility = Visibility.Hidden;
+            player1turn = !player1turn;
         }
 
         private void HighlightAvailableMovesOnBoard()
