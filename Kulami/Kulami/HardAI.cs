@@ -17,13 +17,14 @@ namespace Kulami
             game = g;
         }
 
-        public string GetMove()
+        /*public string GetMove()
         {
             return BuildGameTree();
         }
-
-        private string BuildGameTree()
+        */
+        public string GetMove()
         {
+            gameboard = game.GetCopyOfGameBoard();
             GameTreeNode root = new GameTreeNode(null, gameboard);
             List<Coordinate> moves = game.Board.GetAllAvailableMoves();
             //level one
