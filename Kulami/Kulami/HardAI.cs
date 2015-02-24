@@ -66,11 +66,16 @@ namespace Kulami
                         newConfig.MakeMoveOnBoard(move);
                         GameTreeNode child = new GameTreeNode(childNode, newConfig);
                         child.Move = move;
+                        game.Board = newConfig;
+                        game.getPlayer2Points();
+
                         child.HeuristicValue = game.Player2Points;
                         childNode.Children.Add(child);
                     }
                 }
             }
+
+            game.Board = gameboard;
 
             GameTreeNode chosenMove = new GameTreeNode(null, gameboard);
 
