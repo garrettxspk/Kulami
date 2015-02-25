@@ -59,6 +59,11 @@ namespace Kulami
                 foreach (GameTreeNode childNode in node.Children)
                 {
                     List<Coordinate> childMoves = childNode.CurrentBoardConfig.GetAllAvailableMoves();
+                    if(childMoves.Count == 0)
+                    {
+                        game.getPlayer2Points();
+                        childNode.HeuristicValue = game.Player2Points;
+                    }
                     foreach (Coordinate c in childMoves)
                     {
                         Gameboard newConfig = childNode.CurrentBoardConfig.Clone();
@@ -67,6 +72,7 @@ namespace Kulami
                         GameTreeNode child = new GameTreeNode(childNode, newConfig);
                         child.Move = move;
                         game.Board = newConfig;
+                        
                         game.getPlayer2Points();
 
                         child.HeuristicValue = game.Player2Points;
@@ -84,24 +90,30 @@ namespace Kulami
             {
                 node.Alpha = root.Alpha;
                 node.Beta = root.Beta;
-
                 foreach(GameTreeNode childNode in node.Children)
                 {
-                    childNode.Alpha = node.Alpha;
-                    childNode.Beta = node.Beta;
-
-                    foreach(GameTreeNode grandChildNode in childNode.Children)
+                    if (childNode.Children.Count == 0)
                     {
-                        grandChildNode.Alpha = childNode.Alpha;
-                        grandChildNode.Beta = childNode.Beta;
+                        childNode.Alpha = childNode.HeuristicValue;
+                    }
+                    else
+                    {
+                        childNode.Alpha = node.Alpha;
+                        childNode.Beta = node.Beta;
 
-                        if(grandChildNode.HeuristicValue > childNode.Alpha)
+                        foreach (GameTreeNode grandChildNode in childNode.Children)
                         {
-                            childNode.Alpha = grandChildNode.HeuristicValue;
-                        }
-                        if(childNode.Alpha > childNode.Beta)
-                        {
-                            break;
+                            grandChildNode.Alpha = childNode.Alpha;
+                            grandChildNode.Beta = childNode.Beta;
+
+                            if (grandChildNode.HeuristicValue > childNode.Alpha)
+                            {
+                                childNode.Alpha = grandChildNode.HeuristicValue;
+                            }
+                            if (childNode.Alpha > childNode.Beta)
+                            {
+                                break;
+                            }
                         }
                     }
                     if(childNode.Alpha < node.Beta)
