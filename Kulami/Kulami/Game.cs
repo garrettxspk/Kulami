@@ -142,6 +142,31 @@ namespace Kulami
                 Console.WriteLine("TIE!");
         }
 
+        public void getPlayer1Points()
+        {
+            player1Points = 0;
+            foreach (Tile t in board.Tiles)
+            {
+                int R = 0;
+                int B = 0;
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
+                    {
+                        R++;
+                    }
+                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Blue)
+                    {
+                        B++;
+                    }
+                }
+                if (R > B)
+                {
+                    player1Points += t.Points;
+                }
+            }
+        }
+
         public void getPlayer2Points()
         {
             player2Points = 0;
