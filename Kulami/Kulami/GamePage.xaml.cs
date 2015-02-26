@@ -27,6 +27,9 @@ namespace Kulami
         private KulamiEngine engine;
         private EasyAI easyAI;
         private HardAI hardAI;
+        private MediaPlayer soundTrackMediaPlayer = new MediaPlayer();
+        private MediaPlayer soundEffectsMediaPlayer = new MediaPlayer();
+        bool soundOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
         bool hardLevelAIOn = false;
@@ -35,6 +38,11 @@ namespace Kulami
         public GamePage(bool easyLevel, GameType gType)
         {
             InitializeComponent();
+
+            string songPath = startupPath + "/sound/music/Soundtrack.mp3";
+            soundTrackMediaPlayer.Open(new Uri(songPath));
+            soundTrackMediaPlayer.MediaEnded += new EventHandler(Song_Ended);
+            soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string,Button>();
             allButtons = GameBackground.Children.OfType<Button>();
@@ -90,6 +98,12 @@ namespace Kulami
                 else
                     PlayerTwoTurnLabel.Visibility = Visibility.Visible;
             }
+        }
+
+        private void Song_Ended(object sender, EventArgs e)
+        {
+            soundTrackMediaPlayer.Position = TimeSpan.Zero;
+            soundTrackMediaPlayer.Play();
         }
 
         public void UtilizeState(object state)
@@ -226,5 +240,16 @@ namespace Kulami
                 b.Background = ValidHole;
             }
         }
+
+        private void Toggle_Sound(object sender, RoutedEventArgs e)
+        {
+            soundOn = !soundOn;
+            if (soundOn)
+                soundTrackMediaPlayer.Play();
+            else
+                soundTrackMediaPlayer.Pause();
+        }
+
+       
     }
 }
