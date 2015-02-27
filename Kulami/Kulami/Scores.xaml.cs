@@ -33,6 +33,13 @@ namespace Kulami
             sectorsConqueredLabel.Content = stats.RedSectorsWon.ToString();
             sectorsLostLabel.Content = stats.RedSectorsLost.ToString();
             totalScoreLabel.Content = stats.RedPoints.ToString();
+            gameTimeLabel2.Content = stats.ElapsedTime;
+            planetsConqueredLabel2.Content = stats.BluePlanetsConquered.ToString();
+            sectorsConqueredLabel2.Content = stats.BlueSectorsWon.ToString();
+            sectorsLostLabel2.Content = stats.BlueSectorsLost.ToString();
+            totalScoreLabel2.Content = stats.BluePoints.ToString();
+            winnerLabel.Content = (stats.BluePoints == stats.RedPoints) ? "It's a tie!" : "Game Over";
+            winnerLabel.Content = (stats.BluePoints > stats.RedPoints) ? "Blue player wins!" : "Red player wins!";
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
             ScoresBackground.Background = ib;

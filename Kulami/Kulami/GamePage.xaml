@@ -108,6 +108,7 @@
                 </Label.Style>
             </Label>
             <Button x:Name="toggleSound_Btn" Content="Sound" Canvas.Left="1490" Canvas.Top="757" Width="260" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Toggle_Sound"/>
+            <Button Content="" Canvas.Left="10" Canvas.Top="10" Width="109" Height="88" Background="Black" BorderBrush="{x:Null}"/>
         </Canvas>
 
     </Grid>
