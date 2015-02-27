@@ -24,10 +24,17 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public MainPage()
         {
-            InitializeComponent();
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
-            MainBackground.Background = ib;
+            try
+            {
+                InitializeComponent();
+                ImageBrush ib = new ImageBrush();
+                ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
+                MainBackground.Background = ib;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.ToString());
+            }
         }
         public void UtilizeState(object state)
         {

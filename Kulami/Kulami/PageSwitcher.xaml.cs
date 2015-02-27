@@ -21,9 +21,17 @@ namespace Kulami
     {
         public PageSwitcher()
         {
-            InitializeComponent();
-            Switcher.pageSwitcher = this;
-            Switcher.Switch(new MainPage());
+            try
+            {
+                InitializeComponent();
+                Switcher.pageSwitcher = this;
+                Switcher.Switch(new MainPage());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.ToString());
+                Console.WriteLine(e.Message.ToString());
+            }
         }
         public void Navigate(UserControl nextPage)
         {

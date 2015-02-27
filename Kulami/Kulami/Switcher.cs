@@ -9,7 +9,7 @@ namespace Kulami
 {
     class Switcher
     {
-        public static PageSwitcher pageSwitcher;
+        public static PageSwitcher pageSwitcher = new PageSwitcher();
 
         public static void Switch(UserControl newPage)
         {

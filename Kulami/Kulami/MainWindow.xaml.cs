@@ -24,10 +24,17 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public MainMenu()
         {
-            InitializeComponent();
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
-            Backgrnd.Background = ib;
+            try
+            {
+                InitializeComponent();
+                ImageBrush ib = new ImageBrush();
+                ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.jpg", UriKind.Absolute));
+                Backgrnd.Background = ib;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.ToString());
+            }
         }
 
         private void Button_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
