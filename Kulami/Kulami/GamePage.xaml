@@ -10,7 +10,7 @@
                 <ImageBrush Stretch="Uniform"/>
             </Canvas.Background>
 
-            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1490" Canvas.Top="850" Width="260" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Button_Click"/>
+            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1490" Canvas.Top="840" Width="226" Height="62" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
             <Button x:Name="planet00" Content="" Canvas.Left="506" Canvas.Top="129" Width="86" Height="86" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Foreground="{x:Null}" BorderBrush="{x:Null}" MaxWidth="86" MaxHeight="86" Click="planetBtn_Click">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform"/>
@@ -107,7 +107,7 @@
                     </Style>
                 </Label.Style>
             </Label>
-            <Button x:Name="toggleSound_Btn" Content="Sound" Canvas.Left="1490" Canvas.Top="757" Width="260" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Toggle_Sound"/>
+            <Button x:Name="toggleSound_Btn" Content="Sound" Canvas.Left="1490" Canvas.Top="757" Width="226" Height="62" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Toggle_Sound"/>
             <Button Content="" Canvas.Left="10" Canvas.Top="10" Width="109" Height="88" Background="Black" BorderBrush="{x:Null}"/>
         </Canvas>
 

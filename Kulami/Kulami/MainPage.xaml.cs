@@ -63,7 +63,7 @@ namespace Kulami
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new HelpScreen1());
+            Switcher.Switch(new HelpScreen());
         }
     }
 }

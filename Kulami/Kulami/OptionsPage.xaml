@@ -7,7 +7,7 @@
              d:DesignHeight="940" d:DesignWidth="1760">
     <Grid>
         <Canvas Name="OptionsBackground" Height="940" Width="1760">
-            <Button Content="back" Canvas.Left="10" Canvas.Top="102" Width="149" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="Button_Click"/>
+            <Button Content="back" Canvas.Left="25" Canvas.Top="102" Width="226" Height="62" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
         </Canvas>
     </Grid>
 </UserControl>
