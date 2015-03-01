@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="Kulami.HelpScreen1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="920" d:DesignWidth="1760">
+    <Grid>
+        <Canvas Name="HelpBackground" HorizontalAlignment="Left" Height="920" VerticalAlignment="Top" Width="1760">
+            <Button Content="quick game" Canvas.Left="769" Canvas.Top="262" Width="481" Height="96" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="92" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="QuickGameButton_Click" Style="{StaticResource MyButtonStyle}"/>
+        </Canvas>
+    </Grid>
+</UserControl>
