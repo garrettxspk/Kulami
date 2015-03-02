@@ -29,10 +29,17 @@ namespace Kulami
         public string GetMove()
         {
             gameboard = game.GetCopyOfGameBoard();
-
             GameTreeNode testroot = new GameTreeNode(null, gameboard);
-            expandTree(testroot, 4, 1);
+            if (gameboard.GetAllAvailableMoves().Count > 13)
+            {
+                expandTree(testroot, 3, 1);
+            }
+            else
+            {
+                expandTree(testroot, 5, 1);
+            }
             pruneTree(testroot, 1);
+            
             game.Board = gameboard;
             return chosenMove;
             /*
