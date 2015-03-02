@@ -198,8 +198,7 @@ namespace Kulami
             }
             else
             {
-                await Task.Delay(500);
-                aiMove = await hardAI.GetMove();
+                aiMove = await Task.Run(() => hardAI.GetMove());
             }
 
             int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
