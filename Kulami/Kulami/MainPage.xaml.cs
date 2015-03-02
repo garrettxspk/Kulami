@@ -60,5 +60,10 @@ namespace Kulami
         {
             Switcher.Switch(new MultiplayerMode());
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new HelpScreen());
+        }
     }
 }

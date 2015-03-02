@@ -72,6 +72,9 @@
     <Compile Include="GameTreeNode.cs" />
     <Compile Include="GameType.cs" />
     <Compile Include="HardAI.cs" />
+    <Compile Include="HelpScreen.xaml.cs">
+      <DependentUpon>HelpScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Hole.cs" />
     <Compile Include="KulamiEngine.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -100,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HelpScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
