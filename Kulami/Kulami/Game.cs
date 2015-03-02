@@ -13,6 +13,7 @@ namespace Kulami
         private Stopwatch gameTimeStopWatch;
         public GameStatistics GameStats = new GameStatistics();
         private const int NUM_TILES = 17;
+        private const int MAX_NUM_MARBLES = 28;
 
         internal Gameboard Board
         {
@@ -103,6 +104,14 @@ namespace Kulami
                     }
                 }
             }
+
+            int numBlueMarbles = GetNumBluePlanetsConquered();
+            int numRedMarbles = GetNumRedPlanetsConquered();
+            if (numBlueMarbles == MAX_NUM_MARBLES && numRedMarbles == MAX_NUM_MARBLES)
+            {
+                results = true;
+            }
+
             if (results)
             {
                 gameTimeStopWatch.Stop();
@@ -110,36 +119,6 @@ namespace Kulami
             }
 
             return results;
-        }
-
-        public void GetPoint()
-        {
-            foreach (Tile t in board.Tiles)
-            {
-                int R = 0;
-                int B = 0;
-                foreach (Hole h in t.Holes)
-                {
-                    if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Red)
-                        R++;
-                    else if (h.IsFilled && h.MarbleInHole.MarbleColor == Color.Blue)
-                        B++;
-                }
-                if (R > B)
-                    player1Points += t.Points;
-                else if(R < B)
-                    player2Points += t.Points;
-            }
-
-            Console.WriteLine("Red total point:" + player1Points);
-            Console.WriteLine("Black total point:" + player2Points);
-
-            if (player1Points > player2Points)
-                Console.WriteLine("Red win!");
-            else if (player1Points < player2Points)
-                Console.WriteLine("Black win!");
-            else
-                Console.WriteLine("TIE!");
         }
 
         public void getPlayer1Points()

@@ -104,18 +104,6 @@ namespace Kulami
 
             if (!madeMove)
             {
-                //bool madeMoveSuccessfully = false;
-                //int x = 0;
-                //int y = 0;
-                //while (!madeMoveSuccessfully)
-                //{
-                //    Random rnd = new Random();
-                //    x = rnd.Next(0, 8);
-                //    y = rnd.Next(0, 8);
-
-                //    madeMoveSuccessfully = game.IsValidMove(x, y);
-                //}
-                //results += x.ToString() + y.ToString();
                 int currentRow = 0;
                 int currentCol = 0;
                 int currentPointValue = 0;

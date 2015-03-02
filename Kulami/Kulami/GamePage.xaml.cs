@@ -127,11 +127,12 @@ namespace Kulami
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.CurrentGame.ForceEndGame();
+            soundTrackMediaPlayer.Close();
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
 
-        private void planetBtn_Click(object sender, RoutedEventArgs e)
+        private async void planetBtn_Click(object sender, RoutedEventArgs e)
         {
             if (!engine.CurrentGame.IsGameOver())
             {
@@ -151,7 +152,7 @@ namespace Kulami
                         //get move from AI
                         if (!engine.CurrentGame.IsGameOver())
                         {
-                            MakeAIMove();
+                            await MakeAIMove();
                         }
                     }
                     else if (engine.CurrentGame.GameType == GameType.LocalMultiplayer && player1turn)
@@ -169,6 +170,7 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        soundTrackMediaPlayer.Close();
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
                     }
                 }
@@ -186,7 +188,7 @@ namespace Kulami
             player1turn = !player1turn;
         }
 
-        private async void MakeAIMove()
+        private async Task MakeAIMove()
         {
             string aiMove;
             if (easyLevelAIOn)
@@ -196,7 +198,8 @@ namespace Kulami
             }
             else
             {
-                aiMove = hardAI.GetMove();
+                await Task.Delay(500);
+                aiMove = await hardAI.GetMove();
             }
 
             int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));

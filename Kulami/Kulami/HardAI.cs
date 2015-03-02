@@ -21,24 +21,19 @@ namespace Kulami
 
         private string chosenMove;
 
-        /*public string GetMove()
-        {
-            return BuildGameTree();
-        }
-        */
-        public string GetMove()
+        public async Task<string> GetMove()
         {
             gameboard = game.GetCopyOfGameBoard();
             GameTreeNode testroot = new GameTreeNode(null, gameboard);
             if (gameboard.GetAllAvailableMoves().Count > 13)
             {
-                expandTree(testroot, 3, 1);
+                await expandTree(testroot, 3, 1);
             }
             else
             {
-                expandTree(testroot, 5, 1);
+                await expandTree(testroot, 5, 1);
             }
-            pruneTree(testroot, 1);
+            await pruneTree(testroot, 1);
             
             game.Board = gameboard;
             return chosenMove;
@@ -190,7 +185,7 @@ namespace Kulami
             }
         }*/
 
-        private void expandTree(GameTreeNode node, int level, int currentLevel)
+        private async Task expandTree(GameTreeNode node, int level, int currentLevel)
         {
             List<Coordinate> moves = node.CurrentBoardConfig.GetAllAvailableMoves();
             if(moves.Count == 0)
@@ -222,7 +217,7 @@ namespace Kulami
                 node.Children.Add(child);
                 if (currentLevel != level)
                 {
-                    expandTree(child, level, currentLevel + 1);
+                    await expandTree(child, level, currentLevel + 1);
                 }
                 else
                 {
@@ -236,7 +231,7 @@ namespace Kulami
             }
         }
 
-        private void pruneTree(GameTreeNode node, int level)
+        private async Task pruneTree(GameTreeNode node, int level)
         {
             if(node.Parent == null)
             {
@@ -244,7 +239,7 @@ namespace Kulami
                 node.Beta = 10000;
                 foreach (GameTreeNode child in node.Children)
                 {
-                    pruneTree(child, level + 1);
+                    await pruneTree(child, level + 1);
                 }
             }
             //if this is a leaf node
@@ -275,7 +270,7 @@ namespace Kulami
                 node.Beta = node.Parent.Beta;
                 foreach (GameTreeNode child in node.Children)
                 {
-                    pruneTree(child, level + 1);
+                    await pruneTree(child, level + 1);
                     
                     if (node.Alpha > node.Beta)
                     {
