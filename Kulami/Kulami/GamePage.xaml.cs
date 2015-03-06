@@ -77,6 +77,10 @@ namespace Kulami
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBoard" + engine.GameBoardNumber + ".png", UriKind.Absolute));
             GameBackground.Background = ib;
+
+            ImageBrush sb = new ImageBrush();
+            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            toggleSound_Btn.Background = sb;
             
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
@@ -245,11 +249,21 @@ namespace Kulami
 
         private void Toggle_Sound(object sender, RoutedEventArgs e)
         {
+            ImageBrush sb = new ImageBrush();
+            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
             soundOn = !soundOn;
             if (soundOn)
+            {
                 soundTrackMediaPlayer.Play();
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            }
             else
+            {
                 soundTrackMediaPlayer.Pause();
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+            }
+            toggleSound_Btn.Background = sb;
+
         }
 
        

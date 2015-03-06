@@ -43,6 +43,10 @@ namespace Kulami
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
             ScoresBackground.Background = ib;
+
+            ImageBrush hb = new ImageBrush();
+            hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
+            homeButton.Background = hb;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

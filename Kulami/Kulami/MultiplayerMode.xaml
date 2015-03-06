@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="920" d:DesignWidth="1760">
+             d:DesignHeight="800" d:DesignWidth="1480">
     <Grid>
         <Canvas Name="SelectionBackground" >
-            <Button Name="LocalModeButton" Content="" Canvas.Left="378" Canvas.Top="280" Width="420" Height="400" Click="LocalModeButton_Click" BorderBrush="{x:Null}"/>
-            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="280" Width="420" Height="400" Click="OnlineModeButton_Click" BorderBrush="{x:Null}"/>
-            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Left="465" Canvas.Top="60" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC"/>
+            <Button Name="LocalModeButton" Content="" Canvas.Left="342" Canvas.Top="302" Width="337" Height="321" Click="LocalModeButton_Click" BorderBrush="{x:Null}"/>
+            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="302" Width="337" Height="321" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="819"/>
+            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Left="339" Canvas.Top="76" Height="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC" Width="817"/>
         </Canvas>
     </Grid>
 </UserControl>

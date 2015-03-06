@@ -30,12 +30,15 @@ namespace Kulami
             ImageBrush ib = new ImageBrush();
             ImageBrush backButtonib = new ImageBrush();
             ImageBrush nextButtonib = new ImageBrush();
+            ImageBrush homeButtonib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HelpScreen1.png", UriKind.Absolute));
             backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             nextButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
+            homeButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
             HelpBackground.Background = ib;
             NextButton.Background = nextButtonib;
             BackButton.Background = backButtonib;
+            HomeButton.Background = homeButtonib;
 
             if (currentScreen <= 1)
             {
