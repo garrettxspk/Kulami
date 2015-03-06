@@ -118,6 +118,7 @@
             </Label>
             <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1312" Canvas.Top="582" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound"/>
             <Button Content="" Canvas.Left="10" Canvas.Top="10" Width="92" Height="75" Background="Black" BorderBrush="{x:Null}"/>
+            <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1312" Canvas.Top="476" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click"/>
         </Canvas>
 
     </Grid>

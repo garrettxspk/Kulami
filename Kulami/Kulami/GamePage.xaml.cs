@@ -33,6 +33,7 @@ namespace Kulami
         bool player1turn = true;
         bool easyLevelAIOn = false;
         bool hardLevelAIOn = false;
+        bool radarOn = true;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
         public GamePage(bool easyLevel, GameType gType)
@@ -81,6 +82,10 @@ namespace Kulami
             ImageBrush sb = new ImageBrush();
             sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
             toggleSound_Btn.Background = sb;
+
+            ImageBrush rb = new ImageBrush();
+            rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
+            toggleRadar_Btn.Background = rb;
             
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
@@ -221,30 +226,55 @@ namespace Kulami
 
         private void HighlightAvailableMovesOnBoard()
         {
-            List<Coordinate> availableMoves = engine.CurrentGame.GetAllAvailableMoves();
-            ImageBrush InvalidHole = new ImageBrush();
-            InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
-
-            ImageBrush ValidHole = new ImageBrush();
-            ValidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
-
-            for (int row = 0; row < 8; row++)
+            if (radarOn)
             {
-                for (int col = 0; col < 8; col++)
+                List<Coordinate> availableMoves = engine.CurrentGame.GetAllAvailableMoves();
+                ImageBrush InvalidHole = new ImageBrush();
+                InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
+
+                ImageBrush ValidHole = new ImageBrush();
+                ValidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
+
+                for (int row = 0; row < 8; row++)
                 {
-                    if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                    for (int col = 0; col < 8; col++)
                     {
-                        Button b = buttonNames["planet" + row.ToString() + col.ToString()];
-                        b.Background = InvalidHole;
+                        if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                        {
+                            Button b = buttonNames["planet" + row.ToString() + col.ToString()];
+                            b.Background = InvalidHole;
+                        }
                     }
                 }
-            }
 
-            foreach (Coordinate c in availableMoves)
-            {
-                Button b = buttonNames["planet" + c.Row.ToString() + c.Col.ToString()];
-                b.Background = ValidHole;
+                foreach (Coordinate c in availableMoves)
+                {
+                    Button b = buttonNames["planet" + c.Row.ToString() + c.Col.ToString()];
+                    b.Background = ValidHole;
+                }
+
             }
+        }
+
+        private void TurnOffMoveHelp()
+        {
+            
+                ImageBrush ValidHole = new ImageBrush();
+                ValidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
+
+                for (int row = 0; row < 8; row++)
+                {
+                    for (int col = 0; col < 8; col++)
+                    {
+                        if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                        {
+                            Button b = buttonNames["planet" + row.ToString() + col.ToString()];
+                            b.Background = ValidHole;
+                        }
+                    }
+                }
+
+            
         }
 
         private void Toggle_Sound(object sender, RoutedEventArgs e)
@@ -264,6 +294,24 @@ namespace Kulami
             }
             toggleSound_Btn.Background = sb;
 
+        }
+
+        private void toggleRadar_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            radarOn = !radarOn;
+            ImageBrush rb = new ImageBrush();
+            if (radarOn)
+            {
+                HighlightAvailableMovesOnBoard();
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
+            }
+            else
+            {
+                TurnOffMoveHelp();
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOffButton.png", UriKind.Absolute));   
+            }
+
+            toggleRadar_Btn.Background = rb;
         }
 
        
