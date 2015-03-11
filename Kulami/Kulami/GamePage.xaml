@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" d:DesignHeight="780" d:DesignWidth="1480">
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0" Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
@@ -116,9 +116,23 @@
                     </Style>
                 </Label.Style>
             </Label>
-            <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1312" Canvas.Top="582" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound"/>
+            <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1312" Canvas.Top="582" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
             <Button Content="" Canvas.Left="10" Canvas.Top="10" Width="92" Height="75" Background="Black" BorderBrush="{x:Null}"/>
-            <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1312" Canvas.Top="476" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click"/>
+            <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1312" Canvas.Top="476" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click" IsMouseDirectlyOverChanged="toggleRadar_Btn_IsMouseDirectlyOverChanged" MouseEnter="toggleRadar_Btn_MouseEnter" MouseLeave="toggleRadar_Btn_MouseLeave"/>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="GameBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:2" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
 
     </Grid>

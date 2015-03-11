@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -23,6 +24,7 @@ namespace Kulami
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private int currentScreen = 1;
+        private Storyboard myStoryboard;
 
         public HelpScreen()
         {
@@ -39,6 +41,17 @@ namespace Kulami
             NextButton.Background = nextButtonib;
             BackButton.Background = backButtonib;
             HomeButton.Background = homeButtonib;
+
+            DoubleAnimation myDoubleAnimation = new DoubleAnimation();
+            myDoubleAnimation.From = 0.0;
+            myDoubleAnimation.To = 1.0;
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
+            myDoubleAnimation.AutoReverse = false;
+
+            myStoryboard = new Storyboard();
+            myStoryboard.Children.Add(myDoubleAnimation);
+            Storyboard.SetTargetName(myDoubleAnimation, HelpBackground.Name);
+            Storyboard.SetTargetProperty(myDoubleAnimation, new PropertyPath(Rectangle.OpacityProperty));
 
             if (currentScreen <= 1)
             {
@@ -81,6 +94,53 @@ namespace Kulami
             HelpBackground.Background = ib;
             if (currentScreen >= 5)
                 NextButton.Visibility = Visibility.Hidden;
+        }
+
+        private void HomeButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush hb = new ImageBrush();
+            hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButtonHover.png", UriKind.Absolute));
+            HomeButton.Background = hb;
+        }
+
+        private void HomeButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush hb = new ImageBrush();
+            hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
+            HomeButton.Background = hb;
+        }
+
+        private void HelpBackground_Loaded(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Begin(this);
+        }
+
+        private void NextButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush nb = new ImageBrush();
+            nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButtonOn.png", UriKind.Absolute));
+            NextButton.Background = nb;
+        }
+
+        private void NextButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush nb = new ImageBrush();
+            nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
+            NextButton.Background = nb;
+        }
+
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButtonOn.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
         }
     }
 }

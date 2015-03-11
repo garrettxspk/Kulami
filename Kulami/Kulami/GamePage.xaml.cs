@@ -280,17 +280,17 @@ namespace Kulami
         private void Toggle_Sound(object sender, RoutedEventArgs e)
         {
             ImageBrush sb = new ImageBrush();
-            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
             soundOn = !soundOn;
             if (soundOn)
             {
                 soundTrackMediaPlayer.Play();
-                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
             }
             else
             {
                 soundTrackMediaPlayer.Pause();
-                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
             }
             toggleSound_Btn.Background = sb;
 
@@ -303,16 +303,74 @@ namespace Kulami
             if (radarOn)
             {
                 HighlightAvailableMovesOnBoard();
-                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButtonHover.png", UriKind.Absolute));
             }
             else
             {
                 TurnOffMoveHelp();
-                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOffButton.png", UriKind.Absolute));   
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOffButtonHover.png", UriKind.Absolute));   
             }
 
             toggleRadar_Btn.Background = rb;
         }
+
+        private void toggleRadar_Btn_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
+        private void toggleRadar_Btn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush rb = new ImageBrush();
+            if (radarOn)
+            {
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOffButtonHover.png", UriKind.Absolute));
+
+            toggleRadar_Btn.Background = rb;
+        }
+
+        private void toggleRadar_Btn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush rb = new ImageBrush();
+            if (radarOn)
+            {
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
+            }
+            else
+                rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOffButton.png", UriKind.Absolute));
+
+            toggleRadar_Btn.Background = rb;
+        }
+
+        private void toggleSound_Btn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (soundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
+
+            toggleSound_Btn.Background = sb;
+        }
+
+        private void toggleSound_Btn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (soundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+
+            toggleSound_Btn.Background = sb;
+        }
+
 
        
     }

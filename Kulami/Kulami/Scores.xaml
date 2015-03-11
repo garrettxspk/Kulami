@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1480">
-    <Grid>
+    <Grid Background="Black">
         <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1480">
 
-            <Button Name="homeButton" Content="" Canvas.Left="55" Canvas.Top="45" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click"/>
+            <Button Name="homeButton" Content="" Canvas.Left="55" Canvas.Top="45" Width="65" Height="65" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
             <Label x:Name="gameTimeLabel" Content="00" Canvas.Left="1038" Canvas.Top="248" Height="70" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="planetsConqueredLabel" Content="00" Canvas.Left="1118" Canvas.Top="329" Height="64" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="sectorsConqueredLabel" Content="00" Canvas.Left="1118" Canvas.Top="409" Height="85" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -21,7 +21,21 @@
             <Label x:Name="totalScoreLabel2" Content="00" Canvas.Left="261" Canvas.Top="588" Height="76" Width="133" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="player2Label" Content="blue" Canvas.Left="181" Canvas.Top="183" Height="60" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="player1Label" Content="red" Canvas.Left="1038" Canvas.Top="183" Height="60" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="winnerLabel" Content="player x wins!" Canvas.Left="514" Canvas.Top="682" Height="61" Width="492" Background="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="winnerLabel" Content="player x wins!" Canvas.Left="514" Canvas.Top="682" Height="61" Width="492" Background="{x:Null}" FontFamily="SquareFont" FontSize="39" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="ScoresBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.8" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
 
     </Grid>

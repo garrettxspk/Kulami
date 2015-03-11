@@ -5,14 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="780" d:DesignWidth="1480">
-    <Grid>
+    <Grid Background="Black">
         <Canvas Name="MainBackground" HorizontalAlignment="Left" Height="780" VerticalAlignment="Top" Width="1480">
-            <Button Content="quick game" Canvas.Left="769" Canvas.Top="245" Width="337" Height="69" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="QuickGameButton_Click" Style="{StaticResource MyButtonStyle}"/>
-            <Button Content="multiplayer" Canvas.Left="769" Canvas.Top="317" Width="399" Height="68" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Style="{StaticResource MyButtonStyle}" Click="Button_Click"/>
-            <Button Content="options" Canvas.Left="769" Canvas.Top="390" Width="250" Height="68" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="OptionsButton_Click" Style="{StaticResource MyButtonStyle}"/>
-            <Button Content="quit" Canvas.Left="769" Canvas.Top="535" Width="143" Height="69" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Style="{StaticResource MyButtonStyle}" Click="QuitButton_Click"/>
-            <Button Content="how to play" Canvas.Left="769" Canvas.Top="466" Width="381" Height="69" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Style="{StaticResource MyButtonStyle}" Click="Button_Click_1"/>
-
+            <Button Name="QuickGameButton" Content="" Canvas.Left="590" Canvas.Top="270" Width="290" Height="250" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBCDDFD" Click="QuickGameButton_Click" Style="{StaticResource MyButtonStyle}" MouseEnter="QuickGameButton_MouseEnter" MouseLeave="QuickGameButton_MouseLeave"/>
+            <Button Name="MultiplayerButton" Canvas.Left="353" Canvas.Top="441" Width="290" Height="250" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBCDDFD" Style="{StaticResource MyButtonStyle}" Click="Button_Click" MouseEnter="MultiplayerButton_MouseEnter" MouseLeave="MultiplayerButton_MouseLeave"/>
+            <Button Name="OptionsButton" Canvas.Left="839" Canvas.Top="441" Width="290" Height="250" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBCDDFD" Click="OptionsButton_Click" Style="{StaticResource MyButtonStyle}" MouseEnter="OptionsButton_MouseEnter" MouseLeave="OptionsButton_MouseLeave"/>
+            <Button Name="ExitButton" Canvas.Left="1086" Canvas.Top="270" Width="290" Height="250" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBCDDFD" Style="{StaticResource MyButtonStyle}" Click="QuitButton_Click" MouseEnter="ExitButton_MouseEnter" MouseLeave="ExitButton_MouseLeave"/>
+            <Button Name="HelpButton" Canvas.Top="270" Width="290" Height="250" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="62" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBCDDFD" Style="{StaticResource MyButtonStyle}" Click="Button_Click_1" MouseEnter="HelpButton_MouseEnter" MouseLeave="HelpButton_MouseLeave" Canvas.Left="108"/>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="MainBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.8" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
 
     </Grid>

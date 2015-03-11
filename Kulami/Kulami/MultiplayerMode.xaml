@@ -5,11 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1480">
-    <Grid>
+    <Grid Background="Black">
         <Canvas Name="SelectionBackground" >
-            <Button Name="LocalModeButton" Content="" Canvas.Left="342" Canvas.Top="302" Width="337" Height="321" Click="LocalModeButton_Click" BorderBrush="{x:Null}"/>
-            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="302" Width="337" Height="321" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="819"/>
+            <Button Name="LocalModeButton" Content="" Canvas.Left="342" Canvas.Top="278" Width="357" Height="317" Click="LocalModeButton_Click" BorderBrush="{x:Null}" MouseEnter="LocalModeButton_MouseEnter" MouseLeave="LocalModeButton_MouseLeave"/>
+            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="278" Width="357" Height="317" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="819" MouseEnter="OnlineModeButton_MouseEnter" MouseLeave="OnlineModeButton_MouseLeave"/>
             <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Left="339" Canvas.Top="76" Height="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC" Width="817"/>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SelectionBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.8" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
     </Grid>
 </UserControl>

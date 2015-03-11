@@ -30,8 +30,8 @@ namespace Kulami
             ImageBrush hardBtnBackgrnd = new ImageBrush();
 
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
-            easyBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyLevelButton.png", UriKind.Absolute));
-            hardBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardLevelButton.png", UriKind.Absolute));
+            easyBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyButton.png", UriKind.Absolute));
+            hardBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardButton.png", UriKind.Absolute));
 
             SelectionBackground.Background = backgrnd;
             EasyLevelButton.Background = easyBtnBackgrnd;
@@ -52,6 +52,35 @@ namespace Kulami
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
+        }
+
+        private void EasyLevelButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush backgrnd = new ImageBrush();
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyButtonOn.png", UriKind.Absolute));
+            EasyLevelButton.Background = backgrnd;
+
+        }
+
+        private void EasyLevelButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush backgrnd = new ImageBrush();
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyButton.png", UriKind.Absolute));
+            EasyLevelButton.Background = backgrnd;
+        }
+
+        private void HardLevelButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush backgrnd = new ImageBrush();
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardButtonOn.png", UriKind.Absolute));
+            HardLevelButton.Background = backgrnd;
+        }
+
+        private void HardLevelButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush backgrnd = new ImageBrush();
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardButton.png", UriKind.Absolute));
+            HardLevelButton.Background = backgrnd;
         }
     }
 }

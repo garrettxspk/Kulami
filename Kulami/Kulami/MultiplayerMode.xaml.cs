@@ -31,8 +31,8 @@ namespace Kulami
             ImageBrush onlineBtnBackgrnd = new ImageBrush();
 
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
-            localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/MultiplayerLocalButton.png", UriKind.Absolute));
-            onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/MultiplayerOnlineButton.png", UriKind.Absolute));
+            localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButton.png", UriKind.Absolute));
+            onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
 
             SelectionBackground.Background = backgrnd;
             LocalModeButton.Background = localBtnBackgrnd;
@@ -52,6 +52,37 @@ namespace Kulami
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
+        }
+
+        private void LocalModeButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush localBtnBackgrnd = new ImageBrush();
+            localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButtonOn.png", UriKind.Absolute));
+            LocalModeButton.Background = localBtnBackgrnd;
+
+        }
+
+        private void LocalModeButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush localBtnBackgrnd = new ImageBrush();
+            localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButton.png", UriKind.Absolute));
+            LocalModeButton.Background = localBtnBackgrnd;
+
+        }
+        private void OnlineModeButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush onlineBtnBackgrnd = new ImageBrush();
+            onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButtonOn.png", UriKind.Absolute));
+            OnlineModeButton.Background = onlineBtnBackgrnd;
+
+        }
+
+        private void OnlineModeButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush onlineBtnBackgrnd = new ImageBrush();
+            onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
+            OnlineModeButton.Background = onlineBtnBackgrnd;
+
         }
     }
 }

@@ -53,5 +53,19 @@ namespace Kulami
         {
             Switcher.Switch(new MainPage());
         }
+
+        private void homeButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush hb = new ImageBrush();
+            hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButtonHover.png", UriKind.Absolute));
+            homeButton.Background = hb;
+        }
+
+        private void homeButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush hb = new ImageBrush();
+            hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
+            homeButton.Background = hb;
+        }
     }
 }

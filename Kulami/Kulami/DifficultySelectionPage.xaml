@@ -5,11 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1480">
-    <Grid>
+    <Grid Background="Black">
         <Canvas Name="SelectionBackground" >
-            <Button Name="EasyLevelButton" Content="" Canvas.Left="306" Canvas.Top="328" Width="337" Height="321" Click="EasyLevelButton_Click" BorderBrush="{x:Null}"/>
-            <Button x:Name="HardLevelButton" Content="" Canvas.Right="378" Canvas.Top="328" Width="337" Height="321" Click="HardLevelButton_Click" BorderBrush="{x:Null}" Canvas.Left="816"/>
+            <Button Name="EasyLevelButton" Content="" Canvas.Left="315" Canvas.Top="292" Width="337" Height="317" Click="EasyLevelButton_Click" BorderBrush="{x:Null}" MouseEnter="EasyLevelButton_MouseEnter" MouseLeave="EasyLevelButton_MouseLeave"/>
+            <Button x:Name="HardLevelButton" Content="" Canvas.Right="378" Canvas.Top="292" Width="337" Height="317" Click="HardLevelButton_Click" BorderBrush="{x:Null}" Canvas.Left="825" MouseEnter="HardLevelButton_MouseEnter" MouseLeave="HardLevelButton_MouseLeave"/>
             <Label Name="LevelLabel" Content="Select Difficulty" Canvas.Left="333" Canvas.Top="99" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC"/>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="SelectionBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.8" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
 
     </Grid>
