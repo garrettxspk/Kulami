@@ -22,6 +22,8 @@ namespace Kulami
     /// </summary>
     public partial class MainPage : UserControl, ISwitchable
     {
+        private Storyboard myStoryboard;
+
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public MainPage()
         {
@@ -34,6 +36,11 @@ namespace Kulami
                 ImageBrush op = new ImageBrush();
                 ImageBrush hp = new ImageBrush();
                 ImageBrush ex = new ImageBrush();
+                ImageBrush ss1 = new ImageBrush();
+                ImageBrush ss2 = new ImageBrush();
+                ImageBrush ss3 = new ImageBrush();
+                ImageBrush ss4 = new ImageBrush();
+                ImageBrush ss5 = new ImageBrush();
 
                 ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.png", UriKind.Absolute));
                 qg.ImageSource = new BitmapImage(new Uri(startupPath + "/images/QuickGameButton.png", UriKind.Absolute));
@@ -41,6 +48,11 @@ namespace Kulami
                 op.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OptionsButton.png", UriKind.Absolute));
                 hp.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HelpButton.png", UriKind.Absolute));
                 ex.ImageSource = new BitmapImage(new Uri(startupPath + "/images/ExitButton.png", UriKind.Absolute));
+                ss1.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet1.png", UriKind.Absolute));
+                ss2.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet2.png", UriKind.Absolute));
+                ss3.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet3.png", UriKind.Absolute));
+                ss4.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet4.png", UriKind.Absolute));
+                ss5.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet5.png", UriKind.Absolute));
 
                 MainBackground.Background = ib;
                 QuickGameButton.Background = qg;
@@ -48,17 +60,70 @@ namespace Kulami
                 OptionsButton.Background = op;
                 HelpButton.Background = hp;
                 ExitButton.Background = ex;
+                StarSet1.Background = ss1;
+                StarSet2.Background = ss2;
+                StarSet3.Background = ss3;
+                StarSet4.Background = ss4;
+                StarSet5.Background = ss5;
+
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.ToString());
             }
 
-            DoubleAnimation myDoubleAnimation = new DoubleAnimation();
-            myDoubleAnimation.From = 0.0;
-            myDoubleAnimation.To = 1.0;
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
-            myDoubleAnimation.AutoReverse = false;
+            DoubleAnimation fadeInAnimation = new DoubleAnimation();
+            fadeInAnimation.From = 0.0;
+            fadeInAnimation.To = 1.0;
+            fadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(3));
+            fadeInAnimation.AutoReverse = true;
+            fadeInAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            
+            DoubleAnimation fadeInAnimation2 = new DoubleAnimation();
+            fadeInAnimation2.From = 0.0;
+            fadeInAnimation2.To = 1.0;
+            fadeInAnimation2.Duration = new Duration(TimeSpan.FromSeconds(6));
+            fadeInAnimation2.AutoReverse = true;
+            fadeInAnimation2.RepeatBehavior = RepeatBehavior.Forever;
+
+            DoubleAnimation fadeInAnimation3 = new DoubleAnimation();
+            fadeInAnimation3.From = 0.2;
+            fadeInAnimation3.To = 1.0;
+            fadeInAnimation3.Duration = new Duration(TimeSpan.FromSeconds(7));
+            fadeInAnimation3.AutoReverse = true;
+            fadeInAnimation3.RepeatBehavior = RepeatBehavior.Forever;
+
+            DoubleAnimation fadeInAnimation4 = new DoubleAnimation();
+            fadeInAnimation4.From = 0.2;
+            fadeInAnimation4.To = 1.0;
+            fadeInAnimation4.Duration = new Duration(TimeSpan.FromSeconds(4));
+            fadeInAnimation4.AutoReverse = true;
+            fadeInAnimation4.RepeatBehavior = RepeatBehavior.Forever;
+
+            DoubleAnimation fadeInAnimation5 = new DoubleAnimation();
+            fadeInAnimation5.From = 0.0;
+            fadeInAnimation5.To = 1.0;
+            fadeInAnimation5.Duration = new Duration(TimeSpan.FromSeconds(9));
+            fadeInAnimation5.AutoReverse = true;
+            fadeInAnimation5.RepeatBehavior = RepeatBehavior.Forever;
+
+            myStoryboard = new Storyboard();
+            myStoryboard.Children.Add(fadeInAnimation);
+            myStoryboard.Children.Add(fadeInAnimation2);
+            myStoryboard.Children.Add(fadeInAnimation3);
+            myStoryboard.Children.Add(fadeInAnimation4);
+            myStoryboard.Children.Add(fadeInAnimation5);
+
+            Storyboard.SetTargetName(fadeInAnimation, StarSet1.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(fadeInAnimation2, StarSet2.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation2, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(fadeInAnimation3, StarSet3.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation3, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(fadeInAnimation4, StarSet4.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation4, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(fadeInAnimation5, StarSet5.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation5, new PropertyPath(Rectangle.OpacityProperty));
             
 
         }
@@ -161,6 +226,34 @@ namespace Kulami
             ImageBrush ex = new ImageBrush();
             ex.ImageSource = new BitmapImage(new Uri(startupPath + "/images/ExitButton.png", UriKind.Absolute));
             ExitButton.Background = ex;
+        }
+
+        private void StarSet1_Loaded(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Begin(this);
+        }
+
+        private void StarSet2_Loaded(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Begin(this);
+        }
+
+        private void StarSet3_Loaded(object sender, RoutedEventArgs e)
+        {
+           myStoryboard.Begin(this);
+
+        }
+
+        private void StarSet4_Loaded(object sender, RoutedEventArgs e)
+        {
+            myStoryboard.Begin(this);
+
+        }
+
+        private void StarSet5_Loaded(object sender, RoutedEventArgs e)
+        {
+           myStoryboard.Begin(this);
+
         }
     }
 }
