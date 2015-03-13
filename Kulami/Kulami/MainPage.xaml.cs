@@ -82,20 +82,20 @@ namespace Kulami
             DoubleAnimation fadeInAnimation2 = new DoubleAnimation();
             fadeInAnimation2.From = 0.0;
             fadeInAnimation2.To = 1.0;
-            fadeInAnimation2.Duration = new Duration(TimeSpan.FromSeconds(6));
+            fadeInAnimation2.Duration = new Duration(TimeSpan.FromSeconds(5));
             fadeInAnimation2.AutoReverse = true;
             fadeInAnimation2.RepeatBehavior = RepeatBehavior.Forever;
 
             DoubleAnimation fadeInAnimation3 = new DoubleAnimation();
-            fadeInAnimation3.From = 0.2;
-            fadeInAnimation3.To = 1.0;
-            fadeInAnimation3.Duration = new Duration(TimeSpan.FromSeconds(7));
+            fadeInAnimation3.From = 1.0;
+            fadeInAnimation3.To = 0.0;
+            fadeInAnimation3.Duration = new Duration(TimeSpan.FromSeconds(4));
             fadeInAnimation3.AutoReverse = true;
             fadeInAnimation3.RepeatBehavior = RepeatBehavior.Forever;
 
             DoubleAnimation fadeInAnimation4 = new DoubleAnimation();
-            fadeInAnimation4.From = 0.2;
-            fadeInAnimation4.To = 1.0;
+            fadeInAnimation4.From = 1.0;
+            fadeInAnimation4.To = 0.0;
             fadeInAnimation4.Duration = new Duration(TimeSpan.FromSeconds(4));
             fadeInAnimation4.AutoReverse = true;
             fadeInAnimation4.RepeatBehavior = RepeatBehavior.Forever;
@@ -103,7 +103,7 @@ namespace Kulami
             DoubleAnimation fadeInAnimation5 = new DoubleAnimation();
             fadeInAnimation5.From = 0.0;
             fadeInAnimation5.To = 1.0;
-            fadeInAnimation5.Duration = new Duration(TimeSpan.FromSeconds(9));
+            fadeInAnimation5.Duration = new Duration(TimeSpan.FromSeconds(6));
             fadeInAnimation5.AutoReverse = true;
             fadeInAnimation5.RepeatBehavior = RepeatBehavior.Forever;
 

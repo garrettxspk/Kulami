@@ -14,10 +14,11 @@
             <RowDefinition Height="0*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
-        <Canvas Name="GameBackground" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="780" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1480">
+        <Canvas Name="GameBackground" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="780" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1480" Panel.ZIndex="2">
             <Canvas.Background>
                 <ImageBrush Stretch="None"/>
             </Canvas.Background>
+            <Button Name="BoardBackground" IsEnabled="False" Height="780" Width="1480" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
 
             <Button x:Name="advanceButton" Content="advance" Canvas.Left="1258" Canvas.Top="690" Width="190" Height="50" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
             <Button x:Name="planet00" Content="" Canvas.Left="428" Canvas.Top="111" Width="70" Height="71" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Foreground="{x:Null}" BorderBrush="{x:Null}" MaxWidth="86" MaxHeight="86" Click="planetBtn_Click">
@@ -93,7 +94,7 @@
             <Label Name="PlayerOneTurnLabel" Content="Player 1 Turn" Canvas.Left="517" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
             <Label Name="PlayerTwoTurnLabel" Content="Player 2 Turn" Canvas.Left="517" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
 
-            <Label Name="ComputerTurnLabel" Content="Computer's Turn" Canvas.Left="517" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="52" FontWeight="Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <Label Name="ComputerTurnLabel" Content="Computer's Turn" Canvas.Left="517" Canvas.Top="10" Height="98" Width="515" Foreground="#FFBDE4FC" FontSize="52" FontWeight="Light" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Panel.ZIndex="1">
                 <Label.Style>
                     <Style TargetType="{x:Type Label}">
                         <Style.Resources>
@@ -117,8 +118,21 @@
                 </Label.Style>
             </Label>
             <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1312" Canvas.Top="582" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
-            <Button Content="" Canvas.Left="10" Canvas.Top="10" Width="92" Height="75" Background="Black" BorderBrush="{x:Null}"/>
             <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1312" Canvas.Top="476" Width="80" Height="80" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click" IsMouseDirectlyOverChanged="toggleRadar_Btn_IsMouseDirectlyOverChanged" MouseEnter="toggleRadar_Btn_MouseEnter" MouseLeave="toggleRadar_Btn_MouseLeave"/>
+            <Button x:Name="backgroundButton" Content="" Width="1480" Height="4690" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
+                <Button.Background>
+                    <ImageBrush TileMode="Tile"/>
+                </Button.Background>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation From="0" To="-4620" Duration="0:12:0" Storyboard.TargetProperty="(Canvas.Top)" AutoReverse="True" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">
