@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1480">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid Background="Black">
-        <Canvas Name="HelpBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1480" Loaded="HelpBackground_Loaded" Background="Black">
-            <Button Name="BackButton" Content="" Canvas.Left="636" Canvas.Top="692" Width="48" Height="48" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
-            <Button Name="NextButton" Content="" Canvas.Left="784" Canvas.Top="692" Width="49" Height="48" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="NextButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="NextButton_MouseEnter" MouseLeave="NextButton_MouseLeave"/>
-            <Button Name="HomeButton" Content="" Canvas.Left="1361" Canvas.Top="692" Width="48" Height="48" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" Style="{StaticResource MyButtonStyle}" MouseEnter="HomeButton_MouseEnter" MouseLeave="HomeButton_MouseLeave"/>
+        <Canvas Name="HelpBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1280" Loaded="HelpBackground_Loaded" Background="Black">
+            <Button Name="BackButton" Content="" Canvas.Left="581" Canvas.Top="698" Width="45" Height="45" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
+            <Button Name="NextButton" Content="" Canvas.Left="704" Canvas.Top="698" Width="46" Height="45" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="NextButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="NextButton_MouseEnter" MouseLeave="NextButton_MouseLeave"/>
+            <Button Name="HomeButton" Content="" Canvas.Left="1174" Canvas.Top="698" Width="45" Height="45" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="26" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" Style="{StaticResource MyButtonStyle}" MouseEnter="HomeButton_MouseEnter" MouseLeave="HomeButton_MouseLeave"/>
         </Canvas>
     </Grid>
 </UserControl>

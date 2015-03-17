@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1480">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid Background="Black">
         <Canvas Name="SelectionBackground" >
-            <Button Name="LocalModeButton" Content="" Canvas.Left="342" Canvas.Top="278" Width="357" Height="317" Click="LocalModeButton_Click" BorderBrush="{x:Null}" MouseEnter="LocalModeButton_MouseEnter" MouseLeave="LocalModeButton_MouseLeave"/>
-            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="278" Width="357" Height="317" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="819" MouseEnter="OnlineModeButton_MouseEnter" MouseLeave="OnlineModeButton_MouseLeave"/>
-            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Left="339" Canvas.Top="76" Height="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC" Width="817"/>
+            <Button Name="LocalModeButton" Content="" Canvas.Left="225" Canvas.Top="311" Width="357" Height="317" Click="LocalModeButton_Click" BorderBrush="{x:Null}" MouseEnter="LocalModeButton_MouseEnter" MouseLeave="LocalModeButton_MouseLeave"/>
+            <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="311" Width="357" Height="317" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="702" MouseEnter="OnlineModeButton_MouseEnter" MouseLeave="OnlineModeButton_MouseLeave"/>
+            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Top="109" Height="111" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1280"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">

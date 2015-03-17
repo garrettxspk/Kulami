@@ -4,24 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1480">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid Background="Black">
-        <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1480">
+        <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1280">
 
-            <Button Name="homeButton" Content="" Canvas.Left="55" Canvas.Top="45" Width="65" Height="65" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
-            <Label x:Name="gameTimeLabel" Content="00" Canvas.Left="1038" Canvas.Top="248" Height="70" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="planetsConqueredLabel" Content="00" Canvas.Left="1118" Canvas.Top="329" Height="64" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="sectorsConqueredLabel" Content="00" Canvas.Left="1118" Canvas.Top="409" Height="85" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="sectorsLostLabel" Content="00" Canvas.Left="1118" Canvas.Top="498" Height="85" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="totalScoreLabel" Content="00" Canvas.Left="1118" Canvas.Top="588" Height="76" Width="134" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="gameTimeLabel2" Content="00" Canvas.Left="181" Canvas.Top="248" Height="70" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="planetsConqueredLabel2" Content="00" Canvas.Left="261" Canvas.Top="329" Height="64" Width="133" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="sectorsConqueredLabel2" Content="00" Canvas.Left="261" Canvas.Top="409" Height="85" Width="133" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="sectorsLostLabel2" Content="00" Canvas.Left="261" Canvas.Top="498" Height="85" Width="133" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="totalScoreLabel2" Content="00" Canvas.Left="261" Canvas.Top="588" Height="76" Width="133" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="player2Label" Content="blue" Canvas.Left="181" Canvas.Top="183" Height="60" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="player1Label" Content="red" Canvas.Left="1038" Canvas.Top="183" Height="60" Width="291" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="winnerLabel" Content="player x wins!" Canvas.Left="514" Canvas.Top="682" Height="61" Width="492" Background="{x:Null}" FontFamily="SquareFont" FontSize="39" HorizontalAlignment="Center" Foreground="#FFBEEAFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Button Name="homeButton" Content="" Canvas.Left="25" Canvas.Top="43" Width="59" Height="61" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
+            <Label x:Name="gameTimeLabel" Content="00" Canvas.Left="892" Canvas.Top="241" Height="69" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="planetsConqueredLabel" Content="00" Canvas.Left="964" Canvas.Top="320" Height="63" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsConqueredLabel" Content="00" Canvas.Left="964" Canvas.Top="399" Height="82" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsLostLabel" Content="00" Canvas.Left="964" Canvas.Top="485" Height="83" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="totalScoreLabel" Content="00" Canvas.Left="964" Canvas.Top="574" Height="74" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="gameTimeLabel2" Content="00" Canvas.Left="118" Canvas.Top="241" Height="69" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="planetsConqueredLabel2" Content="00" Canvas.Left="190" Canvas.Top="320" Height="63" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsConqueredLabel2" Content="00" Canvas.Left="190" Canvas.Top="399" Height="82" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="sectorsLostLabel2" Content="00" Canvas.Left="190" Canvas.Top="485" Height="83" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="totalScoreLabel2" Content="00" Canvas.Left="190" Canvas.Top="574" Height="74" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="player2Label" Content="blue" Canvas.Left="118" Canvas.Top="177" Height="60" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="player1Label" Content="red" Canvas.Left="892" Canvas.Top="177" Height="60" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label x:Name="winnerLabel" Content="player x wins!" Canvas.Left="317" Canvas.Top="655" Height="135" Width="666" Background="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="39" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Opacity="0"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">
@@ -32,6 +32,134 @@
                                     Storyboard.TargetProperty="Opacity"
                                     From="0.0" To="1.0" Duration="0:0:0.8" 
                                     AutoReverse="False" />
+                            <DoubleAnimation
+                                    Storyboard.TargetName="winnerLabel" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:2"
+                                    BeginTime="0:0:2"
+                                    AutoReverse="False"/>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="planetsConqueredLabel"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.3"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="12"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="9"/>
+                              
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="planetsConqueredLabel2"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.3"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="12"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="95"/>
+                                
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="sectorsConqueredLabel"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.4"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="15"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="2"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="25"/>
+                                
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="sectorsConqueredLabel2"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.4"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="5"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="42"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="2"/>
+
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="sectorsLostLabel"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.5"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="75"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="12"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="5"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="2"/>
+
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="sectorsLostLabel2"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.5"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="5"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="1"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="56"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="21"/>
+
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="totalScoreLabel"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.7"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="12"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="9"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="25"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.4"
+                                                            Value="3"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.5"
+                                                            Value="18"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.6"
+                                                            Value="15"/>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ObjectAnimationUsingKeyFrames
+                                    Storyboard.TargetName="totalScoreLabel2"
+                                    Storyboard.TargetProperty="Content"
+                                    Duration="00:00:0.7"
+                                    AutoReverse="True"
+                                    >
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.1"
+                                                            Value="1"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
+                                                            Value="91"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
+                                                            Value="53"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.4"
+                                                            Value="7"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.5"
+                                                            Value="28"/>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:0.6"
+                                                            Value="19"/>
+                            </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>

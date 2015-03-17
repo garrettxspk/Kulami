@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1480">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid Background="Black">
         <Canvas Name="SelectionBackground" >
-            <Button Name="EasyLevelButton" Content="" Canvas.Left="315" Canvas.Top="292" Width="337" Height="317" Click="EasyLevelButton_Click" BorderBrush="{x:Null}" MouseEnter="EasyLevelButton_MouseEnter" MouseLeave="EasyLevelButton_MouseLeave"/>
-            <Button x:Name="HardLevelButton" Content="" Canvas.Right="378" Canvas.Top="292" Width="337" Height="317" Click="HardLevelButton_Click" BorderBrush="{x:Null}" Canvas.Left="825" MouseEnter="HardLevelButton_MouseEnter" MouseLeave="HardLevelButton_MouseLeave"/>
-            <Label Name="LevelLabel" Content="Select Difficulty" Canvas.Left="333" Canvas.Top="99" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="SquareFont" FontSize="90" Foreground="#FFBDE4FC"/>
+            <Button Name="EasyLevelButton" Content="" Canvas.Left="215" Canvas.Top="312" Width="337" Height="317" Click="EasyLevelButton_Click" BorderBrush="{x:Null}" MouseEnter="EasyLevelButton_MouseEnter" MouseLeave="EasyLevelButton_MouseLeave"/>
+            <Button x:Name="HardLevelButton" Content="" Canvas.Right="378" Canvas.Top="312" Width="337" Height="317" Click="HardLevelButton_Click" BorderBrush="{x:Null}" Canvas.Left="725" MouseEnter="HardLevelButton_MouseEnter" MouseLeave="HardLevelButton_MouseLeave"/>
+            <Label Name="LevelLabel" Content="Select Difficulty" Canvas.Top="119" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1280" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">

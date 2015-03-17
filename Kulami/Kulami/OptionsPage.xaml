@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1480">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid>
-        <Canvas Name="OptionsBackground" Height="800" Width="1480">
+        <Canvas Name="OptionsBackground" Height="800" Width="1280">
             <Button Content="back" Canvas.Left="25" Canvas.Top="102" Width="226" Height="62" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
         </Canvas>
     </Grid>
