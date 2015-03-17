@@ -148,6 +148,7 @@
                 </EventTrigger>
             </Canvas.Triggers>
         </Canvas>
+        <Label x:Name="WinnerLabel" Content="Winner" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Margin="0,340,0,360" Opacity="0"/>
 
     </Grid>
 </UserControl>

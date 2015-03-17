@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -29,6 +30,7 @@ namespace Kulami
         private HardAI hardAI;
         private MediaPlayer soundTrackMediaPlayer = new MediaPlayer();
         private MediaPlayer soundEffectsMediaPlayer = new MediaPlayer();
+        private Storyboard myStoryboard;
         bool soundOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
@@ -95,6 +97,25 @@ namespace Kulami
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
 
+            DoubleAnimation fadeInAnimation = new DoubleAnimation();
+            fadeInAnimation.From = 0.0;
+            fadeInAnimation.To = 1.0;
+            fadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+
+            DoubleAnimation fadeOutAnimation = new DoubleAnimation();
+            fadeOutAnimation.From = 1.0;
+            fadeOutAnimation.To = 0.1;
+            fadeOutAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+
+            myStoryboard = new Storyboard();
+            myStoryboard.Children.Add(fadeInAnimation);
+            myStoryboard.Children.Add(fadeOutAnimation);
+
+            Storyboard.SetTargetName(fadeInAnimation, WinnerLabel.Name);
+            Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(fadeOutAnimation, GameBackground.Name);
+            Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath(Rectangle.OpacityProperty));
+
             if (!player1turn && engine.CurrentGame.GameType == GameType.LocalComputer)
             {
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
@@ -141,6 +162,8 @@ namespace Kulami
         {
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
+            //myStoryboard.Begin(GameBackground);
+            //myStoryboard.Begin(WinnerLabel);
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
@@ -184,6 +207,8 @@ namespace Kulami
                     if (engine.CurrentGame.IsGameOver())
                     {
                         soundTrackMediaPlayer.Close();
+                        //myStoryboard.Begin(GameBackground);
+                        //myStoryboard.Begin(WinnerLabel);
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
                     }
                 }
