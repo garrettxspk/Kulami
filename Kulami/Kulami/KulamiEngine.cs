@@ -24,16 +24,21 @@ namespace Kulami
             set { currentGame = value; }
         }
 
-        public void StartGame(GameType gType)
+        public void StartGame(GameType gType, int boardNum = 0)
         {
             currentGame = new Game(gType);
-            GenerateGameBoard();
+            GenerateGameBoard(boardNum);
         }
 
-        private void GenerateGameBoard()
+        private void GenerateGameBoard(int boardNum = 0)
         {
-            Random rnd = new Random();
-            gameBoardNumber = rnd.Next(1, 8);
+            if (boardNum == 0)
+            {
+                Random rnd = new Random();
+                gameBoardNumber = rnd.Next(1, 8);
+            }
+            else
+                gameBoardNumber = boardNum;
 
             Console.WriteLine("Playing on board #" + gameBoardNumber);
             string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;

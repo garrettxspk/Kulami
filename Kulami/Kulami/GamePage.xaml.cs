@@ -54,20 +54,45 @@ namespace Kulami
                 buttonNames.Add(b.Name.ToString(), b);
             }
 
+            int networkingBoardNum = 0;
+            if (gType == GameType.LANMultiplayer)
+            {
+                Random rnd = new Random();
+                int myRandomBoardNum = rnd.Next(1, 8);
+                //send your number
+                int opponentRandomBoardNum = 0; //recieve opponents number
+                networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum)/2;
+                while (myRandomBoardNum == opponentRandomBoardNum)
+                {
+                    myRandomBoardNum = rnd.Next(1, 8);
+                    //send number
+                    opponentRandomBoardNum = 0; //recieve opponents number
+                }
+                if (myRandomBoardNum > opponentRandomBoardNum)
+                    player1turn = true;
+                else
+                    player1turn = false;
+            }
+
             engine = new KulamiEngine();
-            engine.StartGame(gType);
+            if (gType == GameType.LANMultiplayer)
+                engine.StartGame(gType, networkingBoardNum);
+            else
+                engine.StartGame(gType);
 
             //replace this with boolean passed from the difficulty selection screen
             easyLevelAIOn = easyLevel;
             //
+            if (engine.CurrentGame.GameType != GameType.LANMultiplayer)
+            {
+                Random rndMoveFirst = new Random();
+                int playFirst = rndMoveFirst.Next(0, 2);
 
-            Random rnd = new Random();
-            int playFirst = rnd.Next(0, 2);
-
-            if (playFirst == 1)
-                player1turn = true;
-            else
-                player1turn = false;
+                if (playFirst == 1)
+                    player1turn = true;
+                else
+                    player1turn = false;
+            }
 
             if (engine.CurrentGame.GameType == GameType.LocalComputer)
             {
