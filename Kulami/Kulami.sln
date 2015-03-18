@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kulami", "Kulami\Kulami.csproj", "{8A07677B-A104-42B7-9E64-0B614D9CFF80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LidgrenChatClient", "LidgrenChatClient\LidgrenChatClient.csproj", "{77A4D4EC-0DCD-43FA-B882-B2EB7D147C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "lidgren-network-gen3-master\Lidgren.Network\Lidgren.Network.csproj", "{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8A07677B-A104-42B7-9E64-0B614D9CFF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A07677B-A104-42B7-9E64-0B614D9CFF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A07677B-A104-42B7-9E64-0B614D9CFF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A4D4EC-0DCD-43FA-B882-B2EB7D147C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A4D4EC-0DCD-43FA-B882-B2EB7D147C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A4D4EC-0DCD-43FA-B882-B2EB7D147C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A4D4EC-0DCD-43FA-B882-B2EB7D147C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
