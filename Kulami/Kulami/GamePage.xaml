@@ -14,13 +14,13 @@
             <RowDefinition Height="0*"/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
-        <Canvas Name="GameBackground" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="780" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1280" Panel.ZIndex="2">
+        <Canvas Name="GameBackground" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="780" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1280" Panel.ZIndex="1">
             <Canvas.Background>
                 <ImageBrush Stretch="None"/>
             </Canvas.Background>
             <Button Name="BoardBackground" IsEnabled="False" Height="720" Width="1370" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-57" Canvas.Top="10"/>
 
-            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1078" Canvas.Top="701" Width="180" Height="47" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
+            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1130" Canvas.Top="701" Width="128" Height="47" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="3" FontFamily="SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
             <Button x:Name="planet00" Content="" Canvas.Left="338" Canvas.Top="113" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Foreground="{x:Null}" BorderBrush="{x:Null}" MaxWidth="86" MaxHeight="86" Click="planetBtn_Click">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform"/>
@@ -90,6 +90,9 @@
             <Button x:Name="planet73" Content="" Canvas.Left="576" Canvas.Top="628" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
             <Button x:Name="planet72" Content="" Canvas.Left="498" Canvas.Top="629" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
             <Button x:Name="planet71" Content="" Canvas.Left="414" Canvas.Top="629" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planetConquerOne" Content="" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
+            <Button x:Name="planetConquerTwo" Content="" Width="65" Height="65" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
+
             <Label Name="PlayerTurnLabel" Content="Your Turn" Canvas.Top="10" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont"/>
             <Label Name="PlayerOneTurnLabel" Content="Player 1 Turn" Canvas.Top="10" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Visibility="Hidden"/>
             <Label Name="PlayerTwoTurnLabel" Content="Player 2 Turn" Canvas.Top="10" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Visibility="Hidden"/>
@@ -119,6 +122,7 @@
             </Label>
             <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1130" Canvas.Top="599" Width="75" Height="77" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
             <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1130" Canvas.Top="500" Width="75" Height="74" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click" IsMouseDirectlyOverChanged="toggleRadar_Btn_IsMouseDirectlyOverChanged" MouseEnter="toggleRadar_Btn_MouseEnter" MouseLeave="toggleRadar_Btn_MouseLeave"/>
+
             <Button x:Name="backgroundButton" Content="" Width="1280" Height="4690" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
                 <Button.Background>
                     <ImageBrush TileMode="Tile"/>
@@ -149,6 +153,8 @@
             </Canvas.Triggers>
         </Canvas>
         <Label x:Name="WinnerLabel" Content="Winner" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Margin="0,340,0,360" Opacity="0"/>
+        <Button x:Name="advanceButton_Copy" Width="150" Height="60" FontFamily="/Kulami;component/#SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{x:Null}" Margin="568,682,562,38" Click="advanceButton_Copy_Click" Panel.ZIndex="1" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0"/>
+
 
     </Grid>
 </UserControl>

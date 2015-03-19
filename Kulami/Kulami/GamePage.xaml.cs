@@ -30,7 +30,9 @@ namespace Kulami
         private HardAI hardAI;
         private MediaPlayer soundTrackMediaPlayer = new MediaPlayer();
         private MediaPlayer soundEffectsMediaPlayer = new MediaPlayer();
-        private Storyboard myStoryboard;
+        private Storyboard gameOverStoryboard;
+        private Storyboard HumanConquerStoryboard;
+        private Storyboard AIConquerStoryboard;
         bool soundOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
@@ -97,24 +99,67 @@ namespace Kulami
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
 
+            ImageBrush RedConquer = new ImageBrush();
+            RedConquer.ImageSource = new BitmapImage(new Uri(startupPath + "/images/PlanConquerRed.png", UriKind.Absolute));
+            planetConquerOne.Background = RedConquer;
+
+            ImageBrush BlueConquer = new ImageBrush();
+            BlueConquer.ImageSource = new BitmapImage(new Uri(startupPath + "/images/PlanConquerBlue.png", UriKind.Absolute));
+            planetConquerTwo.Background = BlueConquer;
+
+            ImageBrush advanceButton = new ImageBrush();
+            advanceButton.ImageSource = new BitmapImage(new Uri(startupPath + "/images/advanceButton.png", UriKind.Absolute));
+            advanceButton_Copy.Background = advanceButton;
+
             DoubleAnimation fadeInAnimation = new DoubleAnimation();
             fadeInAnimation.From = 0.0;
             fadeInAnimation.To = 1.0;
             fadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+
+            DoubleAnimation buttonFadeInAnimation = new DoubleAnimation();
+            buttonFadeInAnimation.From = 0.0;
+            buttonFadeInAnimation.To = 1.0;
+            buttonFadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
 
             DoubleAnimation fadeOutAnimation = new DoubleAnimation();
             fadeOutAnimation.From = 1.0;
             fadeOutAnimation.To = 0.1;
             fadeOutAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
 
-            myStoryboard = new Storyboard();
-            myStoryboard.Children.Add(fadeInAnimation);
-            myStoryboard.Children.Add(fadeOutAnimation);
+            DoubleAnimation planetConquerOneAnimation = new DoubleAnimation();
+            planetConquerOneAnimation.From = 0.0;
+            planetConquerOneAnimation.To = 1.0;
+            planetConquerOneAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            planetConquerOneAnimation.AutoReverse = true;
+
+            DoubleAnimation planetConquerTwoAnimation = new DoubleAnimation();
+            planetConquerTwoAnimation.From = 0.0;
+            planetConquerTwoAnimation.To = 1.0;
+            planetConquerTwoAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            planetConquerTwoAnimation.AutoReverse = true;
+
+            gameOverStoryboard = new Storyboard();
+            HumanConquerStoryboard = new Storyboard();
+            AIConquerStoryboard = new Storyboard();
+
+            gameOverStoryboard.Children.Add(fadeInAnimation);
+            gameOverStoryboard.Children.Add(fadeOutAnimation);
+            gameOverStoryboard.Children.Add(buttonFadeInAnimation);
+            HumanConquerStoryboard.Children.Add(planetConquerOneAnimation);
+            AIConquerStoryboard.Children.Add(planetConquerTwoAnimation);
 
             Storyboard.SetTargetName(fadeInAnimation, WinnerLabel.Name);
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(fadeOutAnimation, GameBackground.Name);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(buttonFadeInAnimation, advanceButton_Copy.Name);
+            Storyboard.SetTargetProperty(buttonFadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
+
+            Storyboard.SetTargetName(planetConquerOneAnimation, planetConquerOne.Name);
+            Storyboard.SetTargetProperty(planetConquerOneAnimation, new PropertyPath(Rectangle.OpacityProperty));
+
+            Storyboard.SetTargetName(planetConquerTwoAnimation, planetConquerTwo.Name);
+            Storyboard.SetTargetProperty(planetConquerTwoAnimation, new PropertyPath(Rectangle.OpacityProperty));
 
             if (!player1turn && engine.CurrentGame.GameType == GameType.LocalComputer)
             {
@@ -162,9 +207,8 @@ namespace Kulami
         {
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
-            //myStoryboard.Begin(GameBackground);
-            //myStoryboard.Begin(WinnerLabel);
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            gameOverStoryboard.Begin(this);
+            //Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
 
@@ -178,6 +222,8 @@ namespace Kulami
                 row = Convert.ToInt32(btnName.Substring(6, 1));
                 col = Convert.ToInt32(btnName.Substring(7, 1));
                 Console.WriteLine(row + " " + col);
+                
+
                 if (engine.CurrentGame.IsValidMove(row, col))
                 {
                     if (engine.CurrentGame.GameType == GameType.LocalComputer && player1turn)
@@ -207,9 +253,8 @@ namespace Kulami
                     if (engine.CurrentGame.IsGameOver())
                     {
                         soundTrackMediaPlayer.Close();
-                        //myStoryboard.Begin(GameBackground);
-                        //myStoryboard.Begin(WinnerLabel);
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        gameOverStoryboard.Begin(GameBackground);
+                        
                     }
                 }
             }
@@ -217,14 +262,24 @@ namespace Kulami
 
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
         {
+            Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
+            planetConquerOne.PointToScreen(point);
+            TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+            planetConquerOne.RenderTransform = transform;
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
+            
+            HumanConquerStoryboard.Begin(planetConquerOne);
             b.Background = ButtonImage;
+         
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
-            player1turn = !player1turn;
+            player1turn = !player1turn;       
+
         }
+
+        
 
         private async Task MakeAIMove()
         {
@@ -243,8 +298,16 @@ namespace Kulami
             int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
             string aiMoveBtnName = "planet" + aiRow.ToString() + aiCol.ToString();
             Button aiMoveBtn = buttonNames[aiMoveBtnName];
+
+            Point point = new Point(Canvas.GetLeft(aiMoveBtn), Canvas.GetTop(aiMoveBtn));
+            planetConquerTwo.PointToScreen(point);
+            TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+            planetConquerTwo.RenderTransform = transform;
+
             ImageBrush AIButtonImage = new ImageBrush();
             AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BluePlan1.png", UriKind.Absolute));
+            
+            AIConquerStoryboard.Begin(planetConquerTwo);
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
             HighlightAvailableMovesOnBoard();
@@ -398,6 +461,11 @@ namespace Kulami
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
 
             toggleSound_Btn.Background = sb;
+        }
+
+        private void advanceButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
         }
 
 
