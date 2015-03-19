@@ -134,19 +134,10 @@ namespace Kulami
             BlueConquer.ImageSource = new BitmapImage(new Uri(startupPath + "/images/PlanConquerBlue.png", UriKind.Absolute));
             planetConquerTwo.Background = BlueConquer;
 
-            ImageBrush advanceButton = new ImageBrush();
-            advanceButton.ImageSource = new BitmapImage(new Uri(startupPath + "/images/advanceButton.png", UriKind.Absolute));
-            advanceButton_Copy.Background = advanceButton;
-
             DoubleAnimation fadeInAnimation = new DoubleAnimation();
             fadeInAnimation.From = 0.0;
             fadeInAnimation.To = 1.0;
             fadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
-
-            DoubleAnimation buttonFadeInAnimation = new DoubleAnimation();
-            buttonFadeInAnimation.From = 0.0;
-            buttonFadeInAnimation.To = 1.0;
-            buttonFadeInAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
 
             DoubleAnimation fadeOutAnimation = new DoubleAnimation();
             fadeOutAnimation.From = 1.0;
@@ -171,7 +162,6 @@ namespace Kulami
 
             gameOverStoryboard.Children.Add(fadeInAnimation);
             gameOverStoryboard.Children.Add(fadeOutAnimation);
-            gameOverStoryboard.Children.Add(buttonFadeInAnimation);
             HumanConquerStoryboard.Children.Add(planetConquerOneAnimation);
             AIConquerStoryboard.Children.Add(planetConquerTwoAnimation);
 
@@ -179,8 +169,6 @@ namespace Kulami
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(fadeOutAnimation, GameBackground.Name);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath(Rectangle.OpacityProperty));
-            Storyboard.SetTargetName(buttonFadeInAnimation, advanceButton_Copy.Name);
-            Storyboard.SetTargetProperty(buttonFadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
 
             Storyboard.SetTargetName(planetConquerOneAnimation, planetConquerOne.Name);
             Storyboard.SetTargetProperty(planetConquerOneAnimation, new PropertyPath(Rectangle.OpacityProperty));
@@ -240,13 +228,23 @@ namespace Kulami
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
-                if(soundOn)
+                WinnerLabel.Content = "Red Wins!";
+                if (soundOn)
                     soundEffectPlayer.WinSound();
             }
-            else
-                if(soundOn)
+            else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
+            {
+                WinnerLabel.Content = "Blue Wins!";
+                if (soundOn)
                     soundEffectPlayer.LostSound();
-            await Task.Delay(3000);
+            }
+            else
+            {
+                WinnerLabel.Content = "It's a tie!";
+                if (soundOn)
+                    soundEffectPlayer.LostSound();
+            }
+            await Task.Delay(4000);
 
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
@@ -299,16 +297,27 @@ namespace Kulami
                         {
                             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                             {
+                                WinnerLabel.Content = "You Win!";
                                 if (soundOn)
                                     soundEffectPlayer.WinSound();
                             }
-                        }
-                        else
-                            if (soundOn)
+                            else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
+                            {
+                                WinnerLabel.Content = "You Lose";
+                                if (soundOn)
+                                    soundEffectPlayer.LostSound();
+                            }
+                            else
+                            {
+                                WinnerLabel.Content = "It's a tie!";
+                                if (soundOn)
                                 soundEffectPlayer.LostSound();
-                        await Task.Delay(3000);
+                            }
+
+                        }
+                        
+                        await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
-                        //myStoryboard.Begin(WinnerLabel);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
@@ -321,13 +330,24 @@ namespace Kulami
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
         {
             Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
-            planetConquerOne.PointToScreen(point);
-            TranslateTransform transform = new TranslateTransform(point.X, point.Y);
-            planetConquerOne.RenderTransform = transform;
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
-            
-            HumanConquerStoryboard.Begin(planetConquerOne);
+
+            if (playerColor == "Red")
+            {
+                planetConquerOne.PointToScreen(point);
+                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                planetConquerOne.RenderTransform = transform;
+                HumanConquerStoryboard.Begin(planetConquerOne);
+            }
+            else if (playerColor == "Blue")
+            {
+                planetConquerTwo.PointToScreen(point);
+                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                planetConquerTwo.RenderTransform = transform;
+                AIConquerStoryboard.Begin(planetConquerTwo);
+            }
+
             b.Background = ButtonImage;
          
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());

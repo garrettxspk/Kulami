@@ -8,7 +8,7 @@
     <Grid Background="Black">
         <Canvas Name="ScoresBackground" HorizontalAlignment="Left" Height="800" VerticalAlignment="Top" Width="1280">
 
-            <Button Name="homeButton" Content="" Canvas.Left="25" Canvas.Top="43" Width="59" Height="61" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
+            <Button Name="homeButton" Content="" Canvas.Left="613" Canvas.Top="685" Width="59" Height="61" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
             <Label x:Name="gameTimeLabel" Content="00" Canvas.Left="892" Canvas.Top="241" Height="69" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="planetsConqueredLabel" Content="00" Canvas.Left="964" Canvas.Top="320" Height="63" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="sectorsConqueredLabel" Content="00" Canvas.Left="964" Canvas.Top="399" Height="82" Width="121" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
@@ -21,7 +21,6 @@
             <Label x:Name="totalScoreLabel2" Content="00" Canvas.Left="190" Canvas.Top="574" Height="74" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="player2Label" Content="blue" Canvas.Left="118" Canvas.Top="177" Height="60" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label x:Name="player1Label" Content="red" Canvas.Left="892" Canvas.Top="177" Height="60" Width="263" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="49" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <Label x:Name="winnerLabel" Content="player x wins!" Canvas.Left="317" Canvas.Top="655" Height="135" Width="666" Background="{x:Null}" FontFamily="/Kulami;component/#SquareFont" FontSize="39" HorizontalAlignment="Center" Foreground="#FF79CCFF" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Opacity="0"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">
@@ -32,12 +31,6 @@
                                     Storyboard.TargetProperty="Opacity"
                                     From="0.0" To="1.0" Duration="0:0:0.8" 
                                     AutoReverse="False" />
-                            <DoubleAnimation
-                                    Storyboard.TargetName="winnerLabel" 
-                                    Storyboard.TargetProperty="Opacity"
-                                    From="0.0" To="1.0" Duration="0:0:2"
-                                    BeginTime="0:0:2"
-                                    AutoReverse="False"/>
                             <ObjectAnimationUsingKeyFrames
                                     Storyboard.TargetName="planetsConqueredLabel"
                                     Storyboard.TargetProperty="Content"
@@ -48,7 +41,7 @@
                                                             Value="12"/>
                                 <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
                                                             Value="9"/>
-                              
+
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames
                                     Storyboard.TargetName="planetsConqueredLabel2"
@@ -60,7 +53,7 @@
                                                             Value="12"/>
                                 <DiscreteObjectKeyFrame KeyTime="00:00:0.2"
                                                             Value="95"/>
-                                
+
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames
                                     Storyboard.TargetName="sectorsConqueredLabel"
@@ -74,7 +67,7 @@
                                                             Value="2"/>
                                 <DiscreteObjectKeyFrame KeyTime="00:00:0.3"
                                                             Value="25"/>
-                                
+
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames
                                     Storyboard.TargetName="sectorsConqueredLabel2"

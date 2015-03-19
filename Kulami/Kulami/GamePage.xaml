@@ -153,7 +153,6 @@
             </Canvas.Triggers>
         </Canvas>
         <Label x:Name="WinnerLabel" Content="Winner" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Margin="0,340,0,360" Opacity="0"/>
-        <Button x:Name="advanceButton_Copy" Width="150" Height="60" FontFamily="/Kulami;component/#SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{x:Null}" Margin="568,682,562,38" Click="advanceButton_Copy_Click" Panel.ZIndex="1" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0"/>
 
 
     </Grid>
