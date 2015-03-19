@@ -22,6 +22,7 @@ namespace Kulami
     public partial class DifficultySelectionPage : UserControl, ISwitchable
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         public DifficultySelectionPage()
         {
             InitializeComponent();
@@ -41,11 +42,13 @@ namespace Kulami
 
         private void EasyLevelButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new GamePage(true, GameType.LocalComputer));
         }
 
         private void HardLevelButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new GamePage(false, GameType.LocalComputer));
         }
 

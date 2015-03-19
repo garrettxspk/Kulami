@@ -25,6 +25,7 @@ namespace Kulami
         private Storyboard myStoryboard;
 
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         public MainPage()
         {
             try
@@ -134,26 +135,31 @@ namespace Kulami
 
         private void QuickGameButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new DifficultySelectionPage());
         }
 
         private void OptionsButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new OptionsPage());
         }
 
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Application.Current.Shutdown();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new MultiplayerMode());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new HelpScreen());
         }
 

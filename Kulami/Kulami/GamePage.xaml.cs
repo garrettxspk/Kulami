@@ -29,7 +29,7 @@ namespace Kulami
         private EasyAI easyAI;
         private HardAI hardAI;
         private MediaPlayer soundTrackMediaPlayer = new MediaPlayer();
-        private MediaPlayer soundEffectsMediaPlayer = new MediaPlayer();
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         private Storyboard myStoryboard;
         bool soundOn = true;
         bool player1turn = true;
@@ -141,6 +141,8 @@ namespace Kulami
             Storyboard.SetTargetName(fadeOutAnimation, GameBackground.Name);
             Storyboard.SetTargetProperty(fadeOutAnimation, new PropertyPath(Rectangle.OpacityProperty));
 
+            soundEffectPlayer.PlayStartGameSound();
+
             if (!player1turn && engine.CurrentGame.GameType == GameType.LocalComputer)
             {
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
@@ -183,10 +185,19 @@ namespace Kulami
             ib;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
+            if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+            {
+                if(soundOn)
+                    soundEffectPlayer.WinSound();
+            }
+            else
+                if(soundOn)
+                    soundEffectPlayer.LostSound();
+            await Task.Delay(3000);
             //myStoryboard.Begin(GameBackground);
             //myStoryboard.Begin(WinnerLabel);
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
@@ -231,9 +242,22 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
-                        soundTrackMediaPlayer.Close();
+                        if (engine.CurrentGame.GameType != GameType.LocalMultiplayer)
+                        {
+                            if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+                            {
+                                if (soundOn)
+                                    soundEffectPlayer.WinSound();
+                            }
+                        }
+                        else
+                            if (soundOn)
+                                soundEffectPlayer.LostSound();
+                        await Task.Delay(3000);
                         //myStoryboard.Begin(GameBackground);
                         //myStoryboard.Begin(WinnerLabel);
+                        soundTrackMediaPlayer.Close();
+                        soundEffectPlayer.Close();
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
                     }
                 }
@@ -246,6 +270,13 @@ namespace Kulami
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
             b.Background = ButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
+            if (soundOn)
+                soundEffectPlayer.MakeMoveSound();
+            if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
+            {
+                if (soundOn)
+                    soundEffectPlayer.ControlSectorSound();
+            }
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;
@@ -272,6 +303,13 @@ namespace Kulami
             AIButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BluePlan1.png", UriKind.Absolute));
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
+            if (soundOn)
+                soundEffectPlayer.MakeMoveSound();
+            if(engine.CurrentGame.Board.WasSectorConquered(aiMove))
+            {
+                if (soundOn)
+                    soundEffectPlayer.ControlSectorSound();
+            }
             HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;
