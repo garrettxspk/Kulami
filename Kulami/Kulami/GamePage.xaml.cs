@@ -33,6 +33,8 @@ namespace Kulami
         private Storyboard gameOverStoryboard;
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
+
         bool soundOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
@@ -56,20 +58,45 @@ namespace Kulami
                 buttonNames.Add(b.Name.ToString(), b);
             }
 
+            int networkingBoardNum = 0;
+            if (gType == GameType.LANMultiplayer)
+            {
+                Random rnd = new Random();
+                int myRandomBoardNum = rnd.Next(1, 8);
+                //send your number
+                int opponentRandomBoardNum = 0; //recieve opponents number
+                networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum)/2;
+                while (myRandomBoardNum == opponentRandomBoardNum)
+                {
+                    myRandomBoardNum = rnd.Next(1, 8);
+                    //send number
+                    opponentRandomBoardNum = 0; //recieve opponents number
+                }
+                if (myRandomBoardNum > opponentRandomBoardNum)
+                    player1turn = true;
+                else
+                    player1turn = false;
+            }
+
             engine = new KulamiEngine();
-            engine.StartGame(gType);
+            if (gType == GameType.LANMultiplayer)
+                engine.StartGame(gType, networkingBoardNum);
+            else
+                engine.StartGame(gType);
 
             //replace this with boolean passed from the difficulty selection screen
             easyLevelAIOn = easyLevel;
             //
+            if (engine.CurrentGame.GameType != GameType.LANMultiplayer)
+            {
+                Random rndMoveFirst = new Random();
+                int playFirst = rndMoveFirst.Next(0, 2);
 
-            Random rnd = new Random();
-            int playFirst = rnd.Next(0, 2);
-
-            if (playFirst == 1)
-                player1turn = true;
-            else
-                player1turn = false;
+                if (playFirst == 1)
+                    player1turn = true;
+                else
+                    player1turn = false;
+            }
 
             if (engine.CurrentGame.GameType == GameType.LocalComputer)
             {
@@ -161,6 +188,8 @@ namespace Kulami
             Storyboard.SetTargetName(planetConquerTwoAnimation, planetConquerTwo.Name);
             Storyboard.SetTargetProperty(planetConquerTwoAnimation, new PropertyPath(Rectangle.OpacityProperty));
 
+            soundEffectPlayer.PlayStartGameSound();
+
             if (!player1turn && engine.CurrentGame.GameType == GameType.LocalComputer)
             {
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
@@ -203,12 +232,23 @@ namespace Kulami
             ib;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
-            gameOverStoryboard.Begin(this);
-            //Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            gameOverStoryboard.Begin(GameBackground);
+
+            if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+            {
+                if(soundOn)
+                    soundEffectPlayer.WinSound();
+            }
+            else
+                if(soundOn)
+                    soundEffectPlayer.LostSound();
+            await Task.Delay(3000);
+
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
 
@@ -254,7 +294,25 @@ namespace Kulami
                     {
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
-                        
+                      
+                        if (engine.CurrentGame.GameType != GameType.LocalMultiplayer)
+                        {
+                            if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+                            {
+                                if (soundOn)
+                                    soundEffectPlayer.WinSound();
+                            }
+                        }
+                        else
+                            if (soundOn)
+                                soundEffectPlayer.LostSound();
+                        await Task.Delay(3000);
+                        gameOverStoryboard.Begin(GameBackground);
+                        //myStoryboard.Begin(WinnerLabel);
+                        soundTrackMediaPlayer.Close();
+                        soundEffectPlayer.Close();
+                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+
                     }
                 }
             }
@@ -273,6 +331,13 @@ namespace Kulami
             b.Background = ButtonImage;
          
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
+            if (soundOn)
+                soundEffectPlayer.MakeMoveSound();
+            if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
+            {
+                if (soundOn)
+                    soundEffectPlayer.ControlSectorSound();
+            }
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;       
@@ -310,6 +375,13 @@ namespace Kulami
             AIConquerStoryboard.Begin(planetConquerTwo);
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
+            if (soundOn)
+                soundEffectPlayer.MakeMoveSound();
+            if(engine.CurrentGame.Board.WasSectorConquered(aiMove))
+            {
+                if (soundOn)
+                    soundEffectPlayer.ControlSectorSound();
+            }
             HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;

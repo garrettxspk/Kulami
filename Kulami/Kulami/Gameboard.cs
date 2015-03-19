@@ -21,6 +21,34 @@ namespace Kulami
             tiles = new List<Tile>();
         }
 
+        public bool WasSectorConquered(string move)
+        {
+            bool results = false;
+            char color = move[0];
+            int row = Convert.ToInt32(move[1].ToString());
+            int col = Convert.ToInt32(move[2].ToString());
+            Coordinate moveCoord = new Coordinate(row, col);
+
+            foreach (Tile t in tiles)
+            {
+                foreach (Hole h in t.Holes)
+                {
+                    if (h.Coord.Row == moveCoord.Row && h.Coord.Col == moveCoord.Col)
+                    {
+                        if (color == 'R')
+                            if (t.NumOfRedMarbles == t.Points / 2 + 1)
+                                results = true;
+                        else
+                            if (t.NumOfBlueMarbles == t.Points / 2 + 1)
+                                results = true;
+                    }
+                }
+            }
+
+
+            return results;
+
+        }
 
         public bool MakeMoveOnBoard(string move)
         {

@@ -103,6 +103,7 @@
       <DependentUpon>Scores.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="SoundEffectsPlayer.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Tile.cs" />
     <Page Include="DifficultySelectionPage.xaml">

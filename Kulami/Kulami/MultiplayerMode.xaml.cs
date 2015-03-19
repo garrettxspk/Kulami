@@ -22,7 +22,7 @@ namespace Kulami
     public partial class MultiplayerMode : UserControl, ISwitchable
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         public MultiplayerMode()
         {
             InitializeComponent();
@@ -41,12 +41,14 @@ namespace Kulami
 
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new GamePage(true, GameType.LocalMultiplayer));
         }
 
         private void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            soundEffectPlayer.ButtonSound();
+            Switcher.Switch(new GamePage(true, GameType.LANMultiplayer));
         }
 
         public void UtilizeState(object state)

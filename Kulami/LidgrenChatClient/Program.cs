@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Lidgren.Network;
+using System.IO;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace LidgrenKulamiPeer
+{
+    class Program
+    {
+
+        //private static Form1 s_form;
+        public static KulamiPeer kulamiPeer;
+
+        
+        static void Main()
+        {
+            // This does nothing! just the way we like it!!!
+            kulamiPeer = new KulamiPeer();
+            kulamiPeer.sendMove(Console.ReadLine());
+            Thread.Sleep(5000);
+            Console.WriteLine(kulamiPeer.getMove());
+            kulamiPeer.killPeer();
+        }
+    }
+}

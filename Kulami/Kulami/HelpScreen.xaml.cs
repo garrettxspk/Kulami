@@ -25,6 +25,7 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private int currentScreen = 1;
         private Storyboard myStoryboard;
+        private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
 
         public HelpScreen()
         {
@@ -71,11 +72,13 @@ namespace Kulami
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             Switcher.Switch(new MainPage());
         }
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             currentScreen--;
             NextButton.Visibility = Visibility.Visible;
             ImageBrush ib = new ImageBrush();
@@ -87,6 +90,7 @@ namespace Kulami
 
         private void NextButtonClick(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.ButtonSound();
             currentScreen++;
             BackButton.Visibility = Visibility.Visible;
             ImageBrush ib = new ImageBrush();
