@@ -60,7 +60,7 @@ namespace Kulami
         public void LostSound()
         {
             soundEffectsMediaPlayer.Close();
-            string LostPath = startupPath + "/sound/soundEffects/lost.mp3";
+            string LostPath = startupPath + "/sound/soundEffects/lost.wav";
             soundEffectsMediaPlayer.Open(new Uri(LostPath));
             soundEffectsMediaPlayer.Play();
         }

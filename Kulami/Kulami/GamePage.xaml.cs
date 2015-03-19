@@ -34,11 +34,10 @@ namespace Kulami
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
-
+        private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
-        bool hardLevelAIOn = false;
         bool radarOn = true;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
@@ -50,6 +49,12 @@ namespace Kulami
             soundTrackMediaPlayer.Open(new Uri(songPath));
             soundTrackMediaPlayer.MediaEnded += new EventHandler(Song_Ended);
             soundTrackMediaPlayer.Play();
+
+            if (gType == GameType.LANMultiplayer)
+            {
+                networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+                //wait until connection is established
+            }
 
             buttonNames = new Dictionary<string,Button>();
             allButtons = GameBackground.Children.OfType<Button>();
@@ -63,14 +68,16 @@ namespace Kulami
             {
                 Random rnd = new Random();
                 int myRandomBoardNum = rnd.Next(1, 8);
-                //send your number
-                int opponentRandomBoardNum = 0; //recieve opponents number
+
+                networkPeer.sendMove(myRandomBoardNum.ToString());
+                int opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
+                
                 networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum)/2;
                 while (myRandomBoardNum == opponentRandomBoardNum)
                 {
                     myRandomBoardNum = rnd.Next(1, 8);
-                    //send number
-                    opponentRandomBoardNum = 0; //recieve opponents number
+                    networkPeer.sendMove(myRandomBoardNum.ToString());
+                    opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
                 }
                 if (myRandomBoardNum > opponentRandomBoardNum)
                     player1turn = true;
@@ -84,9 +91,8 @@ namespace Kulami
             else
                 engine.StartGame(gType);
 
-            //replace this with boolean passed from the difficulty selection screen
             easyLevelAIOn = easyLevel;
-            //
+           
             if (engine.CurrentGame.GameType != GameType.LANMultiplayer)
             {
                 Random rndMoveFirst = new Random();
@@ -286,6 +292,14 @@ namespace Kulami
                         MakeHumanMove(btn, row, col, "Blue");
                         PlayerOneTurnLabel.Visibility = Visibility.Visible;
                         PlayerTwoTurnLabel.Visibility = Visibility.Hidden;
+                    }
+                    else if (engine.CurrentGame.GameType == GameType.LANMultiplayer && player1turn)
+                    {
+                        MakeHumanMove(btn, row, col, "Red");
+                        PlayerOneTurnLabel.Visibility = Visibility.Visible;
+                        PlayerTwoTurnLabel.Visibility = Visibility.Hidden;
+                        string opponentMove = networkPeer.getMove();
+                        MakeHumanMove(btn, row, col, "Blue");
                     }
 
                     if (engine.CurrentGame.IsGameOver())
