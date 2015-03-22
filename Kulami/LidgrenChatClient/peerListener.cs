@@ -19,7 +19,7 @@ namespace LidgrenKulamiPeer
             public NetConnection connection;
             public static NetPeer peer = null;
             private static long localId;
-            private string signature;
+            private string SIGNATURE = "team2";
             //public static Form1 look = new Form1();
 
             public peerListener(NetPeer newPeer, long id)
@@ -35,6 +35,7 @@ namespace LidgrenKulamiPeer
                 Thread.Sleep(1000);// Is this needed?
                 connection = null;
                 Console.WriteLine("About to read messages... ");
+                string signature;
                 while (!quit)
                 {
 
@@ -43,7 +44,6 @@ namespace LidgrenKulamiPeer
                         continue;
                     //spin loop for the thread responsible for passing and recieving messages.
                     NetIncomingMessage msg;
-                   
                     while ((msg = KulamiPeer.peer.ReadMessage()) != null)
                     {
                         //Console.WriteLine(msg.ReadString() + "\n");
@@ -52,21 +52,21 @@ namespace LidgrenKulamiPeer
                             case NetIncomingMessageType.DiscoveryRequest:
                                 Console.WriteLine("Recieved Discovery Request");
                                 NetOutgoingMessage response = peer.CreateMessage();
-                                response.Write("team2");
+                                response.Write(SIGNATURE);
                                 KulamiPeer.peer.SendDiscoveryResponse(response, msg.SenderEndPoint);
-                                //KulamiPeer.connections.Add(msg);
+                                KulamiPeer.connections.Add(msg);
                                 break;
 
                             case NetIncomingMessageType.DiscoveryResponse:
                                 Console.WriteLine("Found peer at " + msg.SenderEndPoint + " name: " + msg.ReadString());
                                 if (msg != null && (msg.SenderEndPoint.ToString() != (GetLocalIP() + ":3070"))) //Make sure we aren't connecting to ourself?
                                 {
-                                    //signature = KuReadMessage();
-                                    //if (signature == KulamiPeer.signature)
-                                    //{
+                                    signature = msg.ReadString();
+                                    if (signature == SIGNATURE)
+                                    {
                                         KulamiPeer.peer.Connect(msg.SenderEndPoint);
                                         connection = msg.SenderConnection;
-                                    //}
+                                    }
 
                                 }
                                 break;
@@ -84,9 +84,13 @@ namespace LidgrenKulamiPeer
                                 break;
 
                             case NetIncomingMessageType.Data: //Moves being sent
-                                string move = msg.ReadString();
-                                KulamiPeer.moveQueue.Enqueue(move);
-                                Console.WriteLine("Move Recieved: " + move);
+                                signature = msg.ReadString();
+                                if (signature == SIGNATURE)
+                                {
+                                    string move = msg.ReadString();
+                                    KulamiPeer.moveQueue.Enqueue(move);
+                                    Console.WriteLine("Move Recieved: " + move);
+                                }
                                 break;
 
                             case NetIncomingMessageType.UnconnectedData:
@@ -127,6 +131,11 @@ namespace LidgrenKulamiPeer
                     }
                 }
                 return "127.0.0.1";
+            }
+
+            public void shouldQuit()
+            {
+                quit = true;
             }
         }
     }

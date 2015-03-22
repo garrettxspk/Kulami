@@ -17,7 +17,7 @@ namespace LidgrenKulamiPeer
         private static long localIdentifier;
         public const string signature = "team2";
         public NetPeerConfiguration config;
-        private peerListener listener; //Event Listener (GUI) implement later
+        public peerListener listener; //Event Listener (GUI) implement later
         public Thread NetThread;
         public static List<NetIncomingMessage> connections; //Figure out what they want to do with the connection list
         private List<NetIncomingMessage> peersList;
@@ -35,7 +35,7 @@ namespace LidgrenKulamiPeer
             config.AutoFlushSendQueue = true;
             config.Port = 3070;
             config.AcceptIncomingConnections = true;
-            moveQueue = new Queue<string>();
+
             peer = new NetPeer(config);
             peer.Start();
             listener = new peerListener(peer, localIdentifier);
@@ -45,32 +45,43 @@ namespace LidgrenKulamiPeer
             NetThread.Start();
         }
 
-        public void killPeer() // Do deconstructors get implicitly called in C# or do they need to be called?
+        ~KulamiPeer() // Do deconstructors get implicitly called in C# or do they need to be called?
         {
+            quit();
             NetThread.Abort();
             peer.Shutdown("Thread and Peer Terminated. No longer doing Network games\n");
             Console.WriteLine("Bye Bye!");
         }
 
-        public bool sendMove(string move)
+        public void sendMove(string move)
         {
             NetOutgoingMessage message = KulamiPeer.peer.CreateMessage();
-            if (listener.connection != null)
-            {
-                message.Write(move);
-                KulamiPeer.peer.SendMessage(message, listener.connection, NetDeliveryMethod.ReliableOrdered);
-                return true;
-            }
-            else
-                return false;          
+            message.Write(signature);
+            message.Write(move);
+            KulamiPeer.peer.SendMessage(message, listener.connection, NetDeliveryMethod.ReliableOrdered);
         }
 
         public string getMove()
         {
-            if (moveQueue.Count != 0)
-                return moveQueue.Dequeue();
-            else
-                return "";
+            // Checks the queue five times, waits at most 25 seconds before returning an error.
+            string result = "";
+            for (int i = 0; i < 5; i++)
+            {
+                Thread.Sleep(5000); 
+                if (moveQueue.Count != 0)
+                {
+                    result = moveQueue.Dequeue();
+                    break;
+                }
+            }
+
+            if (result == "")
+            {
+                result = "Network error occured. Check hardware connection.";
+                Console.WriteLine(result);
+            }
+
+            return result;
         }
 
         public void sendChatMessage(string text)
@@ -89,6 +100,9 @@ namespace LidgrenKulamiPeer
             peer.SendUnconnectedMessage(om, receiver);
         }
 
-
+        public void quit()
+        {
+            listener.shouldQuit();
+        }
     }
 }
