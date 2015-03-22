@@ -12,13 +12,14 @@ namespace LidgrenKulamiPeer
 {
     public partial class KulamiPeer
     {
-        private class peerListener
+        public class peerListener
         {
             private bool quit = false;
 
             public NetConnection connection;
             public static NetPeer peer = null;
             private static long localId;
+            private static long peerId;
             private string SIGNATURE = "team2";
             //public static Form1 look = new Form1();
 
@@ -53,19 +54,25 @@ namespace LidgrenKulamiPeer
                                 Console.WriteLine("Recieved Discovery Request");
                                 NetOutgoingMessage response = peer.CreateMessage();
                                 response.Write(SIGNATURE);
+                                response.Write(localId.ToString());
                                 KulamiPeer.peer.SendDiscoveryResponse(response, msg.SenderEndPoint);
                                 KulamiPeer.connections.Add(msg);
                                 break;
 
                             case NetIncomingMessageType.DiscoveryResponse:
-                                Console.WriteLine("Found peer at " + msg.SenderEndPoint + " name: " + msg.ReadString());
-                                if (msg != null && (msg.SenderEndPoint.ToString() != (GetLocalIP() + ":3070"))) //Make sure we aren't connecting to ourself?
+                                Console.WriteLine("Found peer at " + msg.SenderEndPoint);
+                                if (msg != null) //Make sure we aren't connecting to ourself?
                                 {
                                     signature = msg.ReadString();
                                     if (signature == SIGNATURE)
                                     {
-                                        KulamiPeer.peer.Connect(msg.SenderEndPoint);
-                                        connection = msg.SenderConnection;
+                                        string peerIdAsString = msg.ReadString();
+                                        peerId = Convert.ToInt64(peerIdAsString);
+                                        if (peerId != localId)
+                                        {
+                                            KulamiPeer.peer.Connect(msg.SenderEndPoint);
+                                            connection = msg.SenderConnection;
+                                        }
                                     }
 
                                 }

@@ -20,7 +20,6 @@ namespace LidgrenKulamiPeer
         public peerListener listener; //Event Listener (GUI) implement later
         public Thread NetThread;
         public static List<NetIncomingMessage> connections; //Figure out what they want to do with the connection list
-        private List<NetIncomingMessage> peersList;
         private static Queue<string> moveQueue;
 
         public KulamiPeer()
@@ -38,16 +37,17 @@ namespace LidgrenKulamiPeer
 
             peer = new NetPeer(config);
             peer.Start();
-            listener = new peerListener(peer, localIdentifier);
             localIdentifier = peer.UniqueIdentifier;
+            listener = new peerListener(peer, localIdentifier);
             connections = new List<NetIncomingMessage>();
+            moveQueue = new Queue<string>();
             NetThread = new Thread(new ThreadStart(listener.processNetwork));
             NetThread.Start();
         }
 
-        ~KulamiPeer() // Do deconstructors get implicitly called in C# or do they need to be called?
+        public void killPeer() // Do deconstructors get implicitly called in C# or do they need to be called?
         {
-            quit();
+            listener.shouldQuit();
             NetThread.Abort();
             peer.Shutdown("Thread and Peer Terminated. No longer doing Network games\n");
             Console.WriteLine("Bye Bye!");
@@ -67,12 +67,12 @@ namespace LidgrenKulamiPeer
             string result = "";
             for (int i = 0; i < 5; i++)
             {
-                Thread.Sleep(5000); 
                 if (moveQueue.Count != 0)
                 {
                     result = moveQueue.Dequeue();
                     break;
                 }
+                Thread.Sleep(5000); 
             }
 
             if (result == "")
