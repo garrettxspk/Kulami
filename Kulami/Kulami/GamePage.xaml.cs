@@ -127,6 +127,10 @@ namespace Kulami
             ImageBrush rb = new ImageBrush();
             rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
             toggleRadar_Btn.Background = rb;
+
+            ImageBrush mb = new ImageBrush();
+            mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
+            toggleMusicBtn.Background = mb;
             
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
@@ -572,6 +576,48 @@ namespace Kulami
         private void advanceButton_Copy_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+        }
+
+        private void toggleMusicBtn_Click(object sender, RoutedEventArgs e)
+        {
+            soundOn = !soundOn; // musicOn = !musicOn;
+            ImageBrush mb = new ImageBrush();
+            if (soundOn) //music on
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+            }
+
+            toggleMusicBtn.Background = mb;
+        }
+
+        private void toggleMusicBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush mb = new ImageBrush();
+            if (soundOn) //musicOn
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+
+            toggleMusicBtn.Background = mb;
+        }
+
+        private void toggleMusicBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush mb = new ImageBrush();
+            if (soundOn) //musicOn
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
+            }
+            else
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
+
+            toggleMusicBtn.Background = mb;
         }
 
 
