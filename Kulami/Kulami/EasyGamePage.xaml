@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="Kulami.EasyGamePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             d:DesignHeight="900" d:DesignWidth="1440">
+    <Grid Margin="0,0,0,0" Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Canvas Name="GameBackground" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="900" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1440" Panel.ZIndex="1">
+            <Canvas.Background>
+                <ImageBrush Stretch="None"/>
+            </Canvas.Background>
+            <Button Name="BoardBackground" IsEnabled="False" Height="810" Width="1530" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-57" Canvas.Top="10"/>
+
+            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1270" Canvas.Top="788" Width="144" Height="53" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="3" FontFamily="SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
+            <Button x:Name="planet00" Content="" Canvas.Left="380" Canvas.Top="127" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Foreground="{x:Null}" BorderBrush="{x:Null}" MaxWidth="86" MaxHeight="86" Click="planetBtn_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="planet07" Content="" Canvas.Left="1001" Canvas.Top="126" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet06" Content="" Canvas.Left="914" Canvas.Top="126" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet05" Content="" Canvas.Left="830" Canvas.Top="126" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet04" Content="" Canvas.Left="734" Canvas.Top="126" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet03" Content="" Canvas.Left="649" Canvas.Top="126" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet02" Content="" Canvas.Left="556" Canvas.Top="127" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet01" Content="" Canvas.Left="467" Canvas.Top="127" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet10" Content="" Canvas.Left="380" Canvas.Top="208" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet17" Content="" Canvas.Left="1001" Canvas.Top="207" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet16" Content="" Canvas.Left="914" Canvas.Top="207" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet15" Content="" Canvas.Left="825" Canvas.Top="207" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet14" Content="" Canvas.Left="734" Canvas.Top="207" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet13" Content="" Canvas.Left="649" Canvas.Top="207" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet12" Content="" Canvas.Left="558" Canvas.Top="208" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet11" Content="" Canvas.Left="465" Canvas.Top="208" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet20" Content="" Canvas.Left="380" Canvas.Top="291" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet27" Content="" Canvas.Left="1001" Canvas.Top="290" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet26" Content="" Canvas.Left="914" Canvas.Top="290" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet25" Content="" Canvas.Left="825" Canvas.Top="293" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet24" Content="" Canvas.Left="734" Canvas.Top="293" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet23" Content="" Canvas.Left="648" Canvas.Top="293" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet22" Content="" Canvas.Left="558" Canvas.Top="292" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet21" Content="" Canvas.Left="465" Canvas.Top="291" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet30" Content="" Canvas.Left="381" Canvas.Top="377" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet37" Content="" Canvas.Left="1002" Canvas.Top="373" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet36" Content="" Canvas.Left="917" Canvas.Top="373" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet35" Content="" Canvas.Left="825" Canvas.Top="377" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet34" Content="" Canvas.Left="734" Canvas.Top="377" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet33" Content="" Canvas.Left="649" Canvas.Top="377" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet32" Content="" Canvas.Left="558" Canvas.Top="377" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet31" Content="" Canvas.Left="465" Canvas.Top="377" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet40" Content="" Canvas.Left="380" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet47" Content="" Canvas.Left="1002" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet46" Content="" Canvas.Left="917" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet45" Content="" Canvas.Left="825" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet44" Content="" Canvas.Left="736" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet43" Content="" Canvas.Left="648" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet42" Content="" Canvas.Left="559" Canvas.Top="459" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet41" Content="" Canvas.Left="465" Canvas.Top="459" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet50" Content="" Canvas.Left="380" Canvas.Top="542" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet57" Content="" Canvas.Left="1002" Canvas.Top="541" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet56" Content="" Canvas.Left="917" Canvas.Top="541" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet55" Content="" Canvas.Left="825" Canvas.Top="541" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet54" Content="" Canvas.Left="736" Canvas.Top="541" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet53" Content="" Canvas.Left="648" Canvas.Top="541" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet52" Content="" Canvas.Left="559" Canvas.Top="542" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet51" Content="" Canvas.Left="465" Canvas.Top="542" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet60" Content="" Canvas.Left="378" Canvas.Top="630" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet67" Content="" Canvas.Left="1001" Canvas.Top="628" Width="73" Height="74" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet66" Content="" Canvas.Left="914" Canvas.Top="628" Width="73" Height="74" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet65" Content="" Canvas.Left="829" Canvas.Top="628" Width="73" Height="74" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet64" Content="" Canvas.Left="734" Canvas.Top="628" Width="73" Height="74" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet63" Content="" Canvas.Left="648" Canvas.Top="628" Width="73" Height="74" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet62" Content="" Canvas.Left="560" Canvas.Top="630" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet61" Content="" Canvas.Left="465" Canvas.Top="630" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet70" Content="" Canvas.Left="378" Canvas.Top="707" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet77" Content="" Canvas.Left="1001" Canvas.Top="706" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet76" Content="" Canvas.Left="914" Canvas.Top="706" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet75" Content="" Canvas.Left="829" Canvas.Top="706" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet74" Content="" Canvas.Left="734" Canvas.Top="706" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet73" Content="" Canvas.Left="648" Canvas.Top="706" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet72" Content="" Canvas.Left="560" Canvas.Top="707" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planet71" Content="" Canvas.Left="465" Canvas.Top="707" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
+            <Button x:Name="planetConquerOne" Content="" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
+            <Button x:Name="planetConquerTwo" Content="" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
+
+            <Label Name="PlayerTurnLabel" Content="Your Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont"/>
+            <Label Name="ComputerTurnLabel" Content="Computer's Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Panel.ZIndex="1">
+                <Label.Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Style.Resources>
+                            <Storyboard x:Key="flashAnimation" >
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" AutoReverse="True" Duration="0:0:1.0" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </Style.Resources>
+                        <Setter Property="Visibility" Value="Hidden" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=PlayerTurnLabel, Path=IsVisible}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Name="flash" Storyboard="{StaticResource flashAnimation}" />
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="flash"/>
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1270" Canvas.Top="673" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
+            <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1270" Canvas.Top="469" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click" IsMouseDirectlyOverChanged="toggleRadar_Btn_IsMouseDirectlyOverChanged" MouseEnter="toggleRadar_Btn_MouseEnter" MouseLeave="toggleRadar_Btn_MouseLeave"/>
+            <Button x:Name="toggleMusicBtn" Content="" Canvas.Left="1270" Canvas.Top="571" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleMusicBtn_Click" MouseEnter="toggleMusicBtn_MouseEnter" MouseLeave="toggleMusicBtn_MouseLeave" />
+
+            <Button x:Name="backgroundButton" Content="" Width="1473" Height="4797" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation From="0" To="-4620" Duration="0:12:0" Storyboard.TargetProperty="(Canvas.Top)" AutoReverse="True" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="GameBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:2" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
+        </Canvas>
+        <Label x:Name="WinnerLabel" Content="Winner" Height="80" Width="1280" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Margin="0,340,0,360" Opacity="0"/>
+
+
+    </Grid>
+</UserControl>

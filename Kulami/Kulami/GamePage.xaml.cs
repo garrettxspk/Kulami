@@ -374,7 +374,6 @@ namespace Kulami
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;       
-
         }
 
         private async Task MakeAIMove()
@@ -613,9 +612,6 @@ namespace Kulami
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
 
             toggleMusicBtn.Background = mb;
-        }
-
-
-       
+        }       
     }
 }

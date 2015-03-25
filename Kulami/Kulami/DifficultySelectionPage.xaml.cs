@@ -43,13 +43,13 @@ namespace Kulami
         private void EasyLevelButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new GamePage(true, GameType.LocalComputer));
+            Switcher.Switch(new EasyGamePage());
         }
 
         private void HardLevelButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new GamePage(false, GameType.LocalComputer));
+            Switcher.Switch(new HardGamePage());
         }
 
         public void UtilizeState(object state)

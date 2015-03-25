@@ -42,13 +42,13 @@ namespace Kulami
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new GamePage(true, GameType.LocalMultiplayer));
+            Switcher.Switch(new LocalGamePage());
         }
 
         private void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new GamePage(true, GameType.LANMultiplayer));
+            Switcher.Switch(new LANGamePage());
         }
 
         public void UtilizeState(object state)

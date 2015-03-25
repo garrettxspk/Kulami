@@ -70,6 +70,9 @@
       <DependentUpon>DifficultySelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="EasyAI.cs" />
+    <Compile Include="EasyGamePage.xaml.cs">
+      <DependentUpon>EasyGamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="Gameboard.cs" />
     <Compile Include="GamePage.xaml.cs">
@@ -79,11 +82,20 @@
     <Compile Include="GameTreeNode.cs" />
     <Compile Include="GameType.cs" />
     <Compile Include="HardAI.cs" />
+    <Compile Include="HardGamePage.xaml.cs">
+      <DependentUpon>HardGamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HelpScreen.xaml.cs">
       <DependentUpon>HelpScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Hole.cs" />
     <Compile Include="KulamiEngine.cs" />
+    <Compile Include="LANGamePage.xaml.cs">
+      <DependentUpon>LANGamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalGamePage.xaml.cs">
+      <DependentUpon>LocalGamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -110,11 +122,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EasyGamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="HardGamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HelpScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LANGamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LocalGamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
