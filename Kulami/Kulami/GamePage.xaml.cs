@@ -36,6 +36,7 @@ namespace Kulami
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
+        bool musicOn = true;
         bool player1turn = true;
         bool easyLevelAIOn = false;
         bool radarOn = true;
@@ -239,20 +240,17 @@ namespace Kulami
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
                 WinnerLabel.Content = "Red Wins!";
-                if (soundOn)
-                    soundEffectPlayer.WinSound();
+                soundEffectPlayer.WinSound();
             }
             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
             {
                 WinnerLabel.Content = "Blue Wins!";
-                if (soundOn)
-                    soundEffectPlayer.LostSound();
+                soundEffectPlayer.LostSound();
             }
             else
             {
                 WinnerLabel.Content = "It's a tie!";
-                if (soundOn)
-                    soundEffectPlayer.LostSound();
+                soundEffectPlayer.LostSound();
             }
             await Task.Delay(4000);
 
@@ -316,19 +314,16 @@ namespace Kulami
                             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                             {
                                 WinnerLabel.Content = "You Win!";
-                                if (soundOn)
-                                    soundEffectPlayer.WinSound();
+                                soundEffectPlayer.WinSound();
                             }
                             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
                             {
                                 WinnerLabel.Content = "You Lose";
-                                if (soundOn)
-                                    soundEffectPlayer.LostSound();
+                                soundEffectPlayer.LostSound();
                             }
                             else
                             {
                                 WinnerLabel.Content = "It's a tie!";
-                                if (soundOn)
                                 soundEffectPlayer.LostSound();
                             }
 
@@ -381,8 +376,6 @@ namespace Kulami
             player1turn = !player1turn;       
 
         }
-
-        
 
         private async Task MakeAIMove()
         {
@@ -486,16 +479,15 @@ namespace Kulami
             soundOn = !soundOn;
             if (soundOn)
             {
-                soundTrackMediaPlayer.Play();
+                soundEffectPlayer.UnMute();
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
             }
             else
             {
-                soundTrackMediaPlayer.Pause();
+                soundEffectPlayer.Mute();
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
             }
             toggleSound_Btn.Background = sb;
-
         }
 
         private void toggleRadar_Btn_Click(object sender, RoutedEventArgs e)
@@ -580,14 +572,17 @@ namespace Kulami
 
         private void toggleMusicBtn_Click(object sender, RoutedEventArgs e)
         {
-            soundOn = !soundOn; // musicOn = !musicOn;
+            musicOn = !musicOn; // musicOn = !musicOn;
             ImageBrush mb = new ImageBrush();
-            if (soundOn) //music on
+            mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+            if (musicOn) //music on
             {
+                soundTrackMediaPlayer.IsMuted = false;
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
             }
             else
             {
+                soundTrackMediaPlayer.IsMuted = true;
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
             }
 
@@ -597,7 +592,7 @@ namespace Kulami
         private void toggleMusicBtn_MouseEnter(object sender, MouseEventArgs e)
         {
             ImageBrush mb = new ImageBrush();
-            if (soundOn) //musicOn
+            if (musicOn) //musicOn
             {
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
             }
@@ -610,7 +605,7 @@ namespace Kulami
         private void toggleMusicBtn_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush mb = new ImageBrush();
-            if (soundOn) //musicOn
+            if (musicOn) //musicOn
             {
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
             }
