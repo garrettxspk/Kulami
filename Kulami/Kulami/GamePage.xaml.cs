@@ -244,6 +244,7 @@ namespace Kulami
             }
             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
             {
+                
                 WinnerLabel.Content = "Blue Wins!";
                 soundEffectPlayer.LostSound();
             }
@@ -368,6 +369,7 @@ namespace Kulami
                 soundEffectPlayer.MakeMoveSound();
             if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
             {
+                
                 if (soundOn)
                     soundEffectPlayer.ControlSectorSound();
             }
@@ -409,6 +411,7 @@ namespace Kulami
                 soundEffectPlayer.MakeMoveSound();
             if(engine.CurrentGame.Board.WasSectorConquered(aiMove))
             {
+
                 if (soundOn)
                     soundEffectPlayer.ControlSectorSound();
             }

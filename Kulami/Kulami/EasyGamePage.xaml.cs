@@ -164,6 +164,9 @@ namespace Kulami
                 soundEffectPlayer.MakeMoveSound();
             if (engine.CurrentGame.Board.WasSectorConquered(aiMove))
             {
+                bluePointsLabel.Content = engine.CurrentGame.GameStats.BluePoints.ToString();
+                bluePointsLabel.InvalidateVisual();
+
                 if (soundOn)
                     soundEffectPlayer.ControlSectorSound();
             }
@@ -201,6 +204,14 @@ namespace Kulami
                 soundEffectPlayer.MakeMoveSound();
             if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
             {
+                if (playerColor == "Red")
+                    redPointsLabel.Content = engine.CurrentGame.GameStats.RedPoints.ToString();
+                else if (playerColor == "Blue")
+                    bluePointsLabel.Content = engine.CurrentGame.GameStats.BluePoints.ToString();
+
+                redPointsLabel.InvalidateVisual();
+
+
                 if (soundOn)
                     soundEffectPlayer.ControlSectorSound();
             }

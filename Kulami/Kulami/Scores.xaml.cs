@@ -26,14 +26,12 @@ namespace Kulami
         public Scores(GameStatistics stats)
         {
             InitializeComponent();
-            //gameResult = result;
-            //resultLabel.Content = gameResult;
-            gameTimeLabel.Content = stats.ElapsedTime;
+            //gameTimeLabel.Content = stats.ElapsedTime;
             planetsConqueredLabel.Content = stats.RedPlanetsConquered.ToString();
             sectorsConqueredLabel.Content = stats.RedSectorsWon.ToString();
             sectorsLostLabel.Content = stats.RedSectorsLost.ToString();
             totalScoreLabel.Content = stats.RedPoints.ToString();
-            gameTimeLabel2.Content = stats.ElapsedTime;
+            //gameTimeLabel2.Content = stats.ElapsedTime;
             planetsConqueredLabel2.Content = stats.BluePlanetsConquered.ToString();
             sectorsConqueredLabel2.Content = stats.BlueSectorsWon.ToString();
             sectorsLostLabel2.Content = stats.BlueSectorsLost.ToString();
