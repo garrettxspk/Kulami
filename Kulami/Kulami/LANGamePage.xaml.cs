@@ -31,11 +31,13 @@ namespace Kulami
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
-       private LidgrenKulamiPeer.KulamiPeer networkPeer;
+        private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
         bool musicOn = true;
         bool player1turn = true;
         bool radarOn = true;
+        string myColor;
+        string opponentsColor;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
         public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer, int boardNum, bool meFirst)
@@ -49,12 +51,16 @@ namespace Kulami
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Visible;
                 OpponentTurnLabel.Visibility = System.Windows.Visibility.Hidden;
                 player1turn = true;
+                myColor = "Red";
+                opponentsColor = "Blue";
             }
             else
             {
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Hidden;
                 OpponentTurnLabel.Visibility = System.Windows.Visibility.Visible;
                 player1turn = false;
+                myColor = "Blue";
+                opponentsColor = "Red";
             }
 
             string songPath = startupPath + "/sound/music/Soundtrack.mp3";
@@ -98,7 +104,7 @@ namespace Kulami
                 {
                     if (player1turn)
                     {
-                        MakeHumanMove(btn, row, col, "Red");
+                        MakeHumanMove(btn, row, col, myColor);
                         networkPeer.sendMove("R" + row.ToString() + col.ToString());
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
@@ -153,7 +159,7 @@ namespace Kulami
             int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
             string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
             Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
-            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, "Blue");
+            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
             PlayerTurnLabel.Visibility = Visibility.Visible;
             OpponentTurnLabel.Visibility = Visibility.Hidden;
         }
