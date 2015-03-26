@@ -92,7 +92,6 @@ namespace Kulami
                 col = Convert.ToInt32(btnName.Substring(7, 1));
                 Console.WriteLine(row + " " + col);
 
-
                 if (engine.CurrentGame.IsValidMove(row, col))
                 {
                     if (player1turn)
@@ -101,7 +100,16 @@ namespace Kulami
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
                         string opponentMove = networkPeer.getMove();
-                        /*WAIT HERE*/MakeHumanMove(btn, row, col, "Blue");
+                        while (opponentMove == null)
+                        {
+                            await Task.Delay(1000);
+                            opponentMove = networkPeer.getMove();
+                        }
+                        int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+                        int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+                        string aiMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+                        Button aiMoveBtn = buttonNames[aiMoveBtnName];
+                        MakeHumanMove(btn, row, col, "Blue");
                         PlayerTurnLabel.Visibility = Visibility.Visible;
                         OpponentTurnLabel.Visibility = Visibility.Hidden;
                     }
