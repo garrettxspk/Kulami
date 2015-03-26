@@ -54,6 +54,7 @@ namespace Kulami
                 await Task.Delay(1000);
                 Console.WriteLine("Waiting for connection");
             }
+
             int networkingBoardNum = 0;
             Random rnd = new Random();
             int myRandomBoardNum = rnd.Next(1, 8);
@@ -63,6 +64,7 @@ namespace Kulami
             while (move == null)
             {
                 await Task.Delay(1000);
+                move = networkPeer.getMove();
             }
             int opponentRandomBoardNum = Convert.ToInt32(move);
 
@@ -75,6 +77,7 @@ namespace Kulami
                 while (move == null)
                 {
                     await Task.Delay(1000);
+                    move = networkPeer.getMove();
                 }
                 opponentRandomBoardNum = Convert.ToInt32(move);
             }

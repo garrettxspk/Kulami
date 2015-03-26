@@ -38,35 +38,13 @@ namespace Kulami
         bool radarOn = true;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
-        public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer)
+        public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer, int boardNum, bool meFirst)
         {
             InitializeComponent();
 
             networkPeer = netPeer;
 
-            //int i = 0;
-            //while (networkPeer.listener.connection == null)
-            //{
-            //    Task.Delay(5000);
-            //    i++;
-            //    Console.WriteLine(i.ToString());
-            //}
-
-            //int networkingBoardNum = 0;
-            //    Random rnd = new Random();
-            //int myRandomBoardNum = rnd.Next(1, 8);
-
-            //networkPeer.sendMove(myRandomBoardNum.ToString());
-            ///*WAIT HERE*/int opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
-
-            //networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
-            //while (myRandomBoardNum == opponentRandomBoardNum)
-            //{
-            //    myRandomBoardNum = rnd.Next(1, 8);
-            //    networkPeer.sendMove(myRandomBoardNum.ToString());
-            //    opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
-            //}
-            if (myRandomBoardNum > opponentRandomBoardNum)
+            if (meFirst)
             {
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Visible;
                 OpponentTurnLabel.Visibility = System.Windows.Visibility.Hidden;
@@ -94,7 +72,7 @@ namespace Kulami
             engine = new KulamiEngine();
             engine.StartGame(GameType.LANMultiplayer);
 
-            InitializeImages(networkingBoardNum);
+            InitializeImages(boardNum);
         }
 
         private void Song_Ended(object sender, EventArgs e)
