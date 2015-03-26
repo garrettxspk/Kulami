@@ -45,10 +45,47 @@ namespace Kulami
             Switcher.Switch(new LocalGamePage());
         }
 
-        private void OnlineModeButton_Click(object sender, RoutedEventArgs e)
+        private async void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new LANGamePage());
+            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+            while (networkPeer.listener.connection == null)
+            {
+                await Task.Delay(1000);
+                Console.WriteLine("Waiting for connection");
+            }
+            int networkingBoardNum = 0;
+            Random rnd = new Random();
+            int myRandomBoardNum = rnd.Next(1, 8);
+
+            networkPeer.sendMove(myRandomBoardNum.ToString());
+            string move = networkPeer.getMove();
+            while (move == null)
+            {
+                await Task.Delay(1000);
+            }
+            int opponentRandomBoardNum = Convert.ToInt32(move);
+
+            networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
+            while (myRandomBoardNum == opponentRandomBoardNum)
+            {
+                myRandomBoardNum = rnd.Next(1, 8);
+                networkPeer.sendMove(myRandomBoardNum.ToString());
+                move = networkPeer.getMove();
+                while (move == null)
+                {
+                    await Task.Delay(1000);
+                }
+                opponentRandomBoardNum = Convert.ToInt32(move);
+            }
+
+            bool meFirst;
+            if (myRandomBoardNum > opponentRandomBoardNum)
+                meFirst = true;
+            else
+                meFirst = false;
+
+            Switcher.Switch(new LANGamePage(networkPeer));
         }
 
         public void UtilizeState(object state)

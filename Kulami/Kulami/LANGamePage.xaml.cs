@@ -31,34 +31,41 @@ namespace Kulami
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
-        private LidgrenKulamiPeer.KulamiPeer networkPeer;
+       private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
         bool musicOn = true;
         bool player1turn = true;
         bool radarOn = true;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
-        public LANGamePage()
+        public delegate void StartLANGame();
+        public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer)
         {
             InitializeComponent();
 
-            networkPeer = new LidgrenKulamiPeer.KulamiPeer();
-            /*WAIT HERE*/
+            networkPeer = netPeer;
 
-            int networkingBoardNum = 0;
-                Random rnd = new Random();
-            int myRandomBoardNum = rnd.Next(1, 8);
+            //int i = 0;
+            //while (networkPeer.listener.connection == null)
+            //{
+            //    Task.Delay(5000);
+            //    i++;
+            //    Console.WriteLine(i.ToString());
+            //}
 
-            networkPeer.sendMove(myRandomBoardNum.ToString());
-            /*WAIT HERE*/int opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
+            //int networkingBoardNum = 0;
+            //    Random rnd = new Random();
+            //int myRandomBoardNum = rnd.Next(1, 8);
 
-            networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
-            while (myRandomBoardNum == opponentRandomBoardNum)
-            {
-                myRandomBoardNum = rnd.Next(1, 8);
-                networkPeer.sendMove(myRandomBoardNum.ToString());
-                opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
-            }
+            //networkPeer.sendMove(myRandomBoardNum.ToString());
+            ///*WAIT HERE*/int opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
+
+            //networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
+            //while (myRandomBoardNum == opponentRandomBoardNum)
+            //{
+            //    myRandomBoardNum = rnd.Next(1, 8);
+            //    networkPeer.sendMove(myRandomBoardNum.ToString());
+            //    opponentRandomBoardNum = Convert.ToInt32(networkPeer.getMove());
+            //}
             if (myRandomBoardNum > opponentRandomBoardNum)
             {
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Visible;

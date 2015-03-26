@@ -64,22 +64,22 @@ namespace LidgrenKulamiPeer
         public string getMove()
         {
             // Checks the queue five times, waits at most 25 seconds before returning an error.
-            string result = "";
-            for (int i = 0; i < 5; i++)
-            {
+            string result = null;
+            //for (int i = 0; i < 5; i++)
+            //{
                 if (moveQueue.Count != 0)
                 {
                     result = moveQueue.Dequeue();
-                    break;
+                    //break;
                 }
-                Thread.Sleep(5000); 
-            }
+                //Thread.Sleep(5000); 
+            //}
 
-            if (result == "")
-            {
-                result = "Network error occured. Check hardware connection.";
-                Console.WriteLine(result);
-            }
+            //if (result == "")
+            //{
+            //    result = "Network error occured. Check hardware connection.";
+            //    Console.WriteLine(result);
+            //}
 
             return result;
         }
