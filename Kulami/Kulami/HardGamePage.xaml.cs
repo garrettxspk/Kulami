@@ -142,7 +142,6 @@ namespace Kulami
         {
             string aiMove;
             aiMove = await Task.Run(() => AI.GetMove());
-            await Task.Delay(3000);
 
             int aiRow = Convert.ToInt32(aiMove.Substring(1, 1));
             int aiCol = Convert.ToInt32(aiMove.Substring(2, 1));
