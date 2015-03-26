@@ -49,6 +49,7 @@ namespace Kulami
         {
             soundEffectPlayer.ButtonSound();
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+            Switcher.Switch(new WaitingForConnectionPage());
             while (networkPeer.listener.connection == null)
             {
                 await Task.Delay(1000);
