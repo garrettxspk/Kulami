@@ -73,6 +73,8 @@ namespace Kulami
             engine.StartGame(GameType.LANMultiplayer);
 
             InitializeImages(boardNum);
+            if(!meFirst)
+                MakeOpponentMove();
         }
 
         private void Song_Ended(object sender, EventArgs e)
@@ -97,21 +99,10 @@ namespace Kulami
                     if (player1turn)
                     {
                         MakeHumanMove(btn, row, col, "Red");
+                        networkPeer.sendMove("R" + row.ToString() + col.ToString());
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
-                        string opponentMove = networkPeer.getMove();
-                        while (opponentMove == null)
-                        {
-                            await Task.Delay(1000);
-                            opponentMove = networkPeer.getMove();
-                        }
-                        int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
-                        int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
-                        string aiMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
-                        Button aiMoveBtn = buttonNames[aiMoveBtnName];
-                        MakeHumanMove(btn, row, col, "Blue");
-                        PlayerTurnLabel.Visibility = Visibility.Visible;
-                        OpponentTurnLabel.Visibility = Visibility.Hidden;
+                        await MakeOpponentMove();
                     }
 
                     if (engine.CurrentGame.IsGameOver())
@@ -148,6 +139,23 @@ namespace Kulami
                     }
                 }
             }
+        }
+
+        private async Task MakeOpponentMove()
+        {
+            string opponentMove = networkPeer.getMove();
+            while (opponentMove == null)
+            {
+                await Task.Delay(1000);
+                opponentMove = networkPeer.getMove();
+            }
+            int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+            int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+            string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+            Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
+            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, "Blue");
+            PlayerTurnLabel.Visibility = Visibility.Visible;
+            OpponentTurnLabel.Visibility = Visibility.Hidden;
         }
 
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
