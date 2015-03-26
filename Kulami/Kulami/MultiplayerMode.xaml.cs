@@ -88,7 +88,7 @@ namespace Kulami
             else
                 meFirst = false;
 
-            Switcher.Switch(new LANGamePage(networkPeer));
+            Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
         }
 
         public void UtilizeState(object state)
