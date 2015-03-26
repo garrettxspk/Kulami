@@ -76,7 +76,8 @@ namespace Kulami
             }
 
             engine = new KulamiEngine();
-            engine.StartGame(GameType.LANMultiplayer);
+            engine.StartGame(GameType.LANMultiplayer, boardNum);
+            soundEffectPlayer.PlayStartGameSound();
 
             InitializeImages(boardNum);
             if(!meFirst)
@@ -108,7 +109,8 @@ namespace Kulami
                         networkPeer.sendMove("R" + row.ToString() + col.ToString());
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
-                        await MakeOpponentMove();
+                        if(!engine.CurrentGame.IsGameOver())
+                            await MakeOpponentMove();
                     }
 
                     if (engine.CurrentGame.IsGameOver())

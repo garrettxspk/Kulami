@@ -56,6 +56,7 @@ namespace Kulami
 
             engine = new KulamiEngine();
             engine.StartGame(GameType.LocalMultiplayer);
+            soundEffectPlayer.PlayStartGameSound();
 
             Random rndMoveFirst = new Random();
             int playFirst = rndMoveFirst.Next(0, 2);
