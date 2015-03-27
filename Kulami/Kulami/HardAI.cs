@@ -21,36 +21,62 @@ namespace Kulami
 
         private string chosenMove;
 
+        private bool finishedTree = true;
+
         public async Task<string> GetMove()
         {
+            DateTime beginFunction = DateTime.Now;
             gameboard = game.GetCopyOfGameBoard();
             GameTreeNode testroot = new GameTreeNode(null, gameboard);
-            if (gameboard.GetAllAvailableMoves().Count > 13)
+            GameTreeNode root = new GameTreeNode(null, gameboard);
+            DateTime start = DateTime.Now;
+            int levelsTraveled = 0;
+            for (int i = 0; (DateTime.Now - start).TotalSeconds < 5; i++)
             {
-                await expandTree(testroot, 3, 1);
+                game.Board = gameboard;
+                finishedTree = true;
+                await expandTree(testroot, i+1, 1, start, DateTime.Now);
+                if(finishedTree)
+                {
+                    root = testroot;
+                }
+                levelsTraveled = i;
             }
-            else
-            {
-                await expandTree(testroot, 5, 1);
-            }
-            await pruneTree(testroot, 1);
+            /*
+                if (gameboard.GetAllAvailableMoves().Count > 13)
+                {
+                    await expandTree(testroot, 3, 1);
+                }
+                else
+                {
+                    DateTime start = DateTime.Now;
+                    await expandTree(testroot, 5, 1);
+                    DateTime end = DateTime.Now;
+                    Console.WriteLine(end - start);
+                }
+            DateTime start2 = DateTime.Now;*/
+            //await pruneTree(testroot, 1);
+            await pruneTree(root, 1);
+            //game.Board = gameboard;
+            //await originalExpandTree(testroot, levelsTraveled, 1);
+            //await pruneTree(testroot, 1);
             
             game.Board = gameboard;
+            Console.WriteLine(DateTime.Now - beginFunction);
             return chosenMove;
         }
 
-        private async Task expandTree(GameTreeNode node, int level, int currentLevel)
+        private async Task originalExpandTree(GameTreeNode node, int level, int currentLevel)
         {
             List<Coordinate> moves = node.CurrentBoardConfig.GetAllAvailableMoves();
-            if(moves.Count == 0)
+            if (moves.Count == 0)
             {
                 game.Board = node.CurrentBoardConfig.Clone();
-                        
+
                 game.getPlayer1Points();
                 game.getPlayer2Points();
                 node.HeuristicValue = game.Player2Points - game.Player1Points;
             }
-            //level one
             foreach (Coordinate c in moves)
             {
                 Gameboard newConfig = node.CurrentBoardConfig.Clone();
@@ -71,7 +97,7 @@ namespace Kulami
                 node.Children.Add(child);
                 if (currentLevel != level)
                 {
-                    await expandTree(child, level, currentLevel + 1);
+                    await originalExpandTree(child, level, currentLevel + 1);
                 }
                 else
                 {
@@ -84,6 +110,59 @@ namespace Kulami
                 }
             }
         }
+
+         private async Task expandTree(GameTreeNode node, int level, int currentLevel, DateTime start, DateTime current)
+        {
+            List<Coordinate> moves = node.CurrentBoardConfig.GetAllAvailableMoves();
+            if(moves.Count == 0)
+            {
+                game.Board = node.CurrentBoardConfig.Clone();
+                        
+                game.getPlayer1Points();
+                game.getPlayer2Points();
+                node.HeuristicValue = game.Player2Points - game.Player1Points;
+            }
+            foreach (Coordinate c in moves)
+            {
+                Gameboard newConfig = node.CurrentBoardConfig.Clone();
+                string move;
+                if (currentLevel % 2 == 0)
+                {
+                    move = "R" + c.Row + c.Col;
+                }
+                else
+                {
+                    move = "B" + c.Row + c.Col;
+                }
+                newConfig.MakeMoveOnBoard(move);
+                GameTreeNode child = new GameTreeNode(node, newConfig);
+                child.Parent = node;
+                child.Move = move;
+                child.HeuristicValue = -100000;
+                node.Children.Add(child);
+                if (currentLevel != level)
+                {
+                    if ((current - start).TotalSeconds < 5.5)
+                    {
+                        await expandTree(child, level, currentLevel + 1, start, DateTime.Now);
+                    }
+                    else
+                    {
+                        finishedTree = false;
+                        break;
+                    }
+                }
+                else
+                {
+                    game.Board = newConfig;
+
+                    game.getPlayer1Points();
+                    game.getPlayer2Points();
+                    child.HeuristicValue = game.Player2Points - game.Player1Points;
+                    bottomNodes++;
+                }
+            }
+        } 
 
         private async Task pruneTree(GameTreeNode node, int level)
         {
