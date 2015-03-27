@@ -29,7 +29,9 @@ namespace Kulami
             ImageBrush backgrnd = new ImageBrush();
             ImageBrush localBtnBackgrnd = new ImageBrush();
             ImageBrush onlineBtnBackgrnd = new ImageBrush();
+            ImageBrush backButtonib = new ImageBrush();
 
+            backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
             localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButton.png", UriKind.Absolute));
             onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
@@ -37,6 +39,8 @@ namespace Kulami
             SelectionBackground.Background = backgrnd;
             LocalModeButton.Background = localBtnBackgrnd;
             OnlineModeButton.Background = onlineBtnBackgrnd;
+            BackButton.Background = backButtonib;
+
         }
 
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
@@ -126,6 +130,25 @@ namespace Kulami
             onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
             OnlineModeButton.Background = onlineBtnBackgrnd;
 
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MainPage());
+        }
+
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButtonOn.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
         }
     }
 }

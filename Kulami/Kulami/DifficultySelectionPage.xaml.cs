@@ -29,7 +29,9 @@ namespace Kulami
             ImageBrush backgrnd = new ImageBrush();
             ImageBrush easyBtnBackgrnd = new ImageBrush();
             ImageBrush hardBtnBackgrnd = new ImageBrush();
+            ImageBrush backButtonib = new ImageBrush();
 
+            backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
             easyBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EasyButton.png", UriKind.Absolute));
             hardBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardButton.png", UriKind.Absolute));
@@ -37,6 +39,8 @@ namespace Kulami
             SelectionBackground.Background = backgrnd;
             EasyLevelButton.Background = easyBtnBackgrnd;
             HardLevelButton.Background = hardBtnBackgrnd;
+            BackButton.Background = backButtonib;
+
 
         }
 
@@ -84,6 +88,25 @@ namespace Kulami
             ImageBrush backgrnd = new ImageBrush();
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HardButton.png", UriKind.Absolute));
             HardLevelButton.Background = backgrnd;
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MainPage());
+        }
+
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButtonOn.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
         }
     }
 }

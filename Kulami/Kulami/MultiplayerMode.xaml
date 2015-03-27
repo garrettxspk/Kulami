@@ -9,7 +9,9 @@
         <Canvas Name="SelectionBackground" >
             <Button Name="LocalModeButton" Content="" Canvas.Left="253" Canvas.Top="336" Width="402" Height="357" Click="LocalModeButton_Click" BorderBrush="{x:Null}" MouseEnter="LocalModeButton_MouseEnter" MouseLeave="LocalModeButton_MouseLeave"/>
             <Button x:Name="OnlineModeButton" Content="" Canvas.Right="378" Canvas.Top="336" Width="401" Height="357" Click="OnlineModeButton_Click" BorderBrush="{x:Null}" Canvas.Left="790" MouseEnter="OnlineModeButton_MouseEnter" MouseLeave="OnlineModeButton_MouseLeave"/>
-            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Top="109" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440"/>
+            <Label Name="ModeLabel" Content="Select Game Mode" Canvas.Top="75" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440"/>
+            <Button Name="BackButton" Content="" Canvas.Left="56" Canvas.Top="101" Width="70" Height="70" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
+
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">
