@@ -113,8 +113,13 @@ namespace Kulami
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
-                        soundEffectPlayer.WinSound();
-                       
+                        if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+                            WinnerLabel.Content = "Red Player Wins!";
+                        else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
+                            WinnerLabel.Content = "Blue Player Wins!";
+                        else
+                            WinnerLabel.Content = "It's a tie!";
+
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();

@@ -122,18 +122,33 @@ namespace Kulami
                         {
                             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                             {
-                                WinnerLabel.Content = "You Win!";
-                                soundEffectPlayer.WinSound();
+                                if (myColor == "Red")
+                                {
+                                    WinnerLabel.Content = "You Win!";
+                                    soundEffectPlayer.WinSound();
+                                }
+                                else
+                                {
+                                    WinnerLabel.Content = "You Lose!";
+                                    soundEffectPlayer.LostSound();
+                                }
                             }
                             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
                             {
-                                WinnerLabel.Content = "You Lose";
-                                soundEffectPlayer.LostSound();
+                                if (myColor == "Blue")
+                                {
+                                    WinnerLabel.Content = "You Win!";
+                                    soundEffectPlayer.WinSound();
+                                }
+                                else
+                                {
+                                    WinnerLabel.Content = "You Lose!";
+                                    soundEffectPlayer.LostSound();
+                                }
                             }
                             else
                             {
                                 WinnerLabel.Content = "It's a tie!";
-                                soundEffectPlayer.LostSound();
                             }
 
                         }
