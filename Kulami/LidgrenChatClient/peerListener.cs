@@ -21,6 +21,8 @@ namespace LidgrenKulamiPeer
             private static long localId;
             private static long peerId;
             private string SIGNATURE = "team2";
+            private static int numberOfConnections;
+            public string errorMessage = "";
             //public static Form1 look = new Form1();
 
             public peerListener(NetPeer newPeer, long id)
@@ -35,6 +37,7 @@ namespace LidgrenKulamiPeer
                 KulamiPeer.peer.DiscoverLocalPeers(3070);
                 Thread.Sleep(1000);// Is this needed?
                 connection = null;
+                numberOfConnections = 0;
                 Console.WriteLine("About to read messages... ");
                 string signature;
                 while (!quit)
@@ -70,18 +73,42 @@ namespace LidgrenKulamiPeer
                                         peerId = Convert.ToInt64(peerIdAsString);
                                         if (peerId != localId)
                                         {
-                                            KulamiPeer.peer.Connect(msg.SenderEndPoint);
-                                            connection = msg.SenderConnection;
+                                            if (msg.SenderConnection == null)//don't connect to a peer already connected to someone else
+                                            {
+                                                Thread.BeginCriticalRegion();
+                                                numberOfConnections++;
+                                                NetOutgoingMessage hail = peer.CreateMessage();
+                                                hail.Write(SIGNATURE);
+                                                hail.Write(localId.ToString());
+                                                hail.Write(numberOfConnections);
+                                            
+                                                KulamiPeer.peer.Connect(msg.SenderEndPoint, hail);
+                                                connection = msg.SenderConnection;
+                                                Thread.EndCriticalRegion();
+                                            }
+                                            
                                         }
                                     }
-
                                 }
                                 break;
 
                             case NetIncomingMessageType.ConnectionApproval:
-                                if (msg != null && (msg.SenderEndPoint.ToString() != (GetLocalIP() + ":3070")))
+                                if (msg != null)
                                 {
-                                    msg.SenderConnection.Approve();
+                                    signature = msg.ReadString();
+                                    if (signature == SIGNATURE)
+                                    {
+                                        string peerIdAsString = msg.ReadString();
+                                        peerId = Convert.ToInt64(peerIdAsString);
+                                        if (peerId != localId)
+                                        {
+                                            numberOfConnections = msg.ReadInt32();
+                                            if (connection != null)
+                                            {
+                                                msg.SenderConnection.Approve();
+                                            }
+                                        }
+                                    }
                                 }
 
                                 else
@@ -100,6 +127,12 @@ namespace LidgrenKulamiPeer
                                 }
                                 break;
 
+                            case NetIncomingMessageType.StatusChanged:
+                                byte recievedByte = msg.ReadByte();
+                                Console.WriteLine((NetConnectionStatus)recievedByte);
+                                errorMessage = Convert.ToString((NetConnectionStatus)recievedByte);
+                                break;
+
                             case NetIncomingMessageType.UnconnectedData:
                                 string orphanData = msg.ReadString();
                                 Console.WriteLine("UnconnectedData: " + orphanData);
@@ -110,16 +143,6 @@ namespace LidgrenKulamiPeer
                         {
                             connection = msg.SenderConnection;
                         }
-                        //if (connection != null)
-                        //{
-                        //    Console.WriteLine("Enter the string you would like to send.\n");
-                        //    input = Console.ReadLine();
-                        //    myMessage.Write(input);
-                        //   
-                        //    chat = KulamiPeer.peer.ReadMessage();
-                        //    Console.WriteLine(chat.ToString());
-                        //}
-                        //KulamiPeer.peer.SendMessage(myMessage, )
                     }
                 }
             }

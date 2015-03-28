@@ -31,6 +31,8 @@ namespace LidgrenKulamiPeer
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             config.EnableMessageType(NetIncomingMessageType.UnconnectedData);
             config.EnableMessageType(NetIncomingMessageType.Data);
+            config.EnableMessageType(NetIncomingMessageType.StatusChanged);
+            config.MaximumConnections = 1;
             config.AutoFlushSendQueue = true;
             config.Port = 3070;
             config.AcceptIncomingConnections = true;
@@ -45,7 +47,7 @@ namespace LidgrenKulamiPeer
             NetThread.Start();
         }
 
-        public void killPeer() // Do deconstructors get implicitly called in C# or do they need to be called?
+        public void killPeer()
         {
             listener.shouldQuit();
             NetThread.Abort();
@@ -64,22 +66,21 @@ namespace LidgrenKulamiPeer
         public string getMove()
         {
             // Checks the queue five times, waits at most 25 seconds before returning an error.
-            string result = null;
-            //for (int i = 0; i < 5; i++)
-            //{
+            string result = "";
+            while (listener.errorMessage == "")
+            {
                 if (moveQueue.Count != 0)
                 {
                     result = moveQueue.Dequeue();
-                    //break;
+                    break;
                 }
-                //Thread.Sleep(5000); 
-            //}
+            }
 
-            //if (result == "")
-            //{
-            //    result = "Network error occured. Check hardware connection.";
-            //    Console.WriteLine(result);
-            //}
+            if (result == "")
+            {
+                result = listener.errorMessage;
+                Console.WriteLine(result);
+            }
 
             return result;
         }

@@ -10,7 +10,8 @@ namespace LidgrenKulamiPeer
         public enum messageType
         {
             move = 1,
-            chat = 2,
+            statusReport = 2,
+            chat = 3,
         }
     }
 }
