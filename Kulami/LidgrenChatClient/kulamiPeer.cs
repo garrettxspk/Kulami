@@ -79,6 +79,7 @@ namespace LidgrenKulamiPeer
             if (result == "")
             {
                 result = listener.errorMessage;
+                listener.errorMessage = "";
                 Console.WriteLine(result);
             }
 

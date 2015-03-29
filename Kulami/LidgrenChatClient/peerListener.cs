@@ -133,7 +133,8 @@ namespace LidgrenKulamiPeer
                             case NetIncomingMessageType.StatusChanged:
                                 byte recievedByte = msg.ReadByte();
                                 Console.WriteLine((NetConnectionStatus)recievedByte);
-                                errorMessage = Convert.ToString((NetConnectionStatus)recievedByte);
+                                if ((NetConnectionStatus)recievedByte != NetConnectionStatus.Connected)
+                                    errorMessage = Convert.ToString((NetConnectionStatus)recievedByte);
                                 break;
 
                             case NetIncomingMessageType.UnconnectedData:
