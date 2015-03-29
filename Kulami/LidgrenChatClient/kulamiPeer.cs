@@ -66,17 +66,13 @@ namespace LidgrenKulamiPeer
         public string getMove()
         {
             // Checks the queue five times, waits at most 25 seconds before returning an error.
-            string result = "";
-            while (listener.errorMessage == "")
+            string result = null;
+            if (moveQueue.Count != 0 && listener.errorMessage == "")
             {
-                if (moveQueue.Count != 0)
-                {
-                    result = moveQueue.Dequeue();
-                    break;
-                }
+                result = moveQueue.Dequeue();
             }
 
-            if (result == "")
+            if (listener.errorMessage != "")
             {
                 result = listener.errorMessage;
                 listener.errorMessage = "";
