@@ -58,6 +58,7 @@ namespace LidgrenKulamiPeer
                                 NetOutgoingMessage response = peer.CreateMessage();
                                 response.Write(SIGNATURE);
                                 response.Write(localId.ToString());
+                                response.Write(numberOfConnections);
                                 KulamiPeer.peer.SendDiscoveryResponse(response, msg.SenderEndPoint);
                                 KulamiPeer.connections.Add(msg);
                                 break;
@@ -73,7 +74,8 @@ namespace LidgrenKulamiPeer
                                         peerId = Convert.ToInt64(peerIdAsString);
                                         if (peerId != localId)
                                         {
-                                            if (msg.SenderConnection == null)//don't connect to a peer already connected to someone else
+                                            int numberOfPeerConnections = msg.ReadInt32();
+                                            if (msg.SenderConnection == null && numberOfPeerConnections == 0 && numberOfConnections == 0)//don't connect to a peer already connected to someone else
                                             {
                                                 Thread.BeginCriticalRegion();
                                                 numberOfConnections++;
@@ -106,6 +108,7 @@ namespace LidgrenKulamiPeer
                                             if (connection != null)
                                             {
                                                 msg.SenderConnection.Approve();
+                                                numberOfConnections++;
                                             }
                                         }
                                     }
