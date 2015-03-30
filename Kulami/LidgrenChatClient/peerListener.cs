@@ -106,7 +106,10 @@ namespace LidgrenKulamiPeer
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
                                             //don't connect to a peer already connected to someone else
-                                            if (msg.SenderConnection == null && numberOfPeerConnections == 1 && numberOfConnections == 0)
+                                            Console.WriteLine(connection.ToString());
+                                            Console.WriteLine(numberOfPeerConnections.ToString());
+                                            Console.WriteLine(numberOfConnections.ToString());
+                                            if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
                                                 msg.SenderConnection.Approve();
                                                 numberOfConnections++;
@@ -171,6 +174,11 @@ namespace LidgrenKulamiPeer
             public void shouldQuit()
             {
                 quit = true;
+            }
+
+            public long getLocalId()
+            {
+                return localId;
             }
         }
     }
