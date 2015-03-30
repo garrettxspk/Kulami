@@ -44,9 +44,11 @@ namespace LidgrenKulamiPeer
             connections = new List<NetIncomingMessage>();
             moveQueue = new Queue<string>();
             NetThread = new Thread(new ThreadStart(listener.processNetwork));
-            NetThread.Start();
         }
-
+        public void start()
+        { 
+            NetThread.Start();            
+        }
         public void killPeer()
         {
             listener.shouldQuit();
