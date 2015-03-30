@@ -108,7 +108,16 @@ namespace LidgrenKulamiPeer
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
                                             //don't connect to a peer already connected to someone else
+<<<<<<< HEAD
                                             Console.WriteLine(connection.ToString() + " " + numberOfPeerConnections + " " + numberOfConnections + "\n");
+=======
+<<<<<<< HEAD
+                                            Console.WriteLine(connection.ToString());
+                                            Console.WriteLine(numberOfPeerConnections.ToString());
+                                            Console.WriteLine(numberOfConnections.ToString());
+=======
+>>>>>>> origin/master
+>>>>>>> origin/master
                                             if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
                                                 msg.SenderConnection.Approve();
