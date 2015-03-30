@@ -23,7 +23,6 @@ namespace LidgrenKulamiPeer
             private string SIGNATURE = "team2";
             private static int numberOfConnections;
             public string errorMessage = "";
-            private bool isConnected = false;
             //public static Form1 look = new Form1();
 
             public peerListener(NetPeer newPeer, long id)
@@ -86,7 +85,6 @@ namespace LidgrenKulamiPeer
                                                 hail.Write(numberOfConnections);
                                             
                                                 KulamiPeer.peer.Connect(msg.SenderEndPoint, hail);
-                                                isConnected = true;
                                                 connection = msg.SenderConnection;
                                                 Thread.EndCriticalRegion();
                                             }
@@ -108,21 +106,14 @@ namespace LidgrenKulamiPeer
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
                                             //don't connect to a peer already connected to someone else
-<<<<<<< HEAD
                                             Console.WriteLine(connection.ToString() + " " + numberOfPeerConnections + " " + numberOfConnections + "\n");
-=======
-<<<<<<< HEAD
                                             Console.WriteLine(connection.ToString());
                                             Console.WriteLine(numberOfPeerConnections.ToString());
                                             Console.WriteLine(numberOfConnections.ToString());
-=======
->>>>>>> origin/master
->>>>>>> origin/master
                                             if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
                                                 msg.SenderConnection.Approve();
                                                 numberOfConnections++;
-                                                isConnected = true;
                                             }
                                         }
                                     }
@@ -147,11 +138,8 @@ namespace LidgrenKulamiPeer
                             case NetIncomingMessageType.StatusChanged:
                                 byte recievedByte = msg.ReadByte();
                                 Console.WriteLine((NetConnectionStatus)recievedByte);
-                                if ((NetConnectionStatus)recievedByte == NetConnectionStatus.Disconnected && isConnected)
-                                {
+                                if ((NetConnectionStatus)recievedByte == NetConnectionStatus.Disconnected)
                                     errorMessage = Convert.ToString((NetConnectionStatus)recievedByte);
-                                    isConnected = false;
-                                }
                                 break;
 
                             case NetIncomingMessageType.UnconnectedData:
@@ -187,11 +175,6 @@ namespace LidgrenKulamiPeer
             public void shouldQuit()
             {
                 quit = true;
-            }
-
-            public long getLocalId()
-            {
-                return localId;
             }
         }
     }
