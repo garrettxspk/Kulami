@@ -52,8 +52,11 @@ namespace Kulami
         private async void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+            Random rnd = new Random();
             Switcher.Switch(new WaitingForConnectionPage());
+            int waitTime = rnd.Next(5, 4001);
+            await Task.Delay(waitTime);
+            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer();
             networkPeer.Start();
             while (networkPeer.listener.connection == null)
             {
@@ -62,7 +65,7 @@ namespace Kulami
             }
 
             int networkingBoardNum = 0;
-            Random rnd = new Random();
+            
             int myRandomBoardNum = rnd.Next(1, 8);
 
             networkPeer.sendMove(myRandomBoardNum.ToString());
