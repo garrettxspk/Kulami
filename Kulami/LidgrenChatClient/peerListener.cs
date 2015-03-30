@@ -106,7 +106,7 @@ namespace LidgrenKulamiPeer
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
                                             //don't connect to a peer already connected to someone else
-                                            if (msg.SenderConnection == null && numberOfPeerConnections == 1 && numberOfConnections == 0)
+                                            if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
                                                 msg.SenderConnection.Approve();
                                                 numberOfConnections++;
