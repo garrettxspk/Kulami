@@ -109,6 +109,7 @@ namespace Kulami
             myStoryboard.Begin(NextButton);
        }
 
+
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
@@ -168,6 +169,7 @@ namespace Kulami
         {
             soundEffectPlayer.ButtonSound();
             string playerName = (string) NextButton.Content;
+            //Switcher.Switch(new ConnectionLostPage());
             Random rnd = new Random();
             Switcher.Switch(new WaitingForConnectionPage());
             int waitTime = rnd.Next(5, 4001);
