@@ -198,6 +198,7 @@ namespace Kulami
                 {
                     keepWaiting = true;
                     networkPeer.killPeer();
+                    networkPeer = null;
                     Console.WriteLine("reconnecting...");
                     networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
                     networkPeer.Start();

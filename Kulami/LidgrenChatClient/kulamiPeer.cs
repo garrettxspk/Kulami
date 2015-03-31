@@ -37,7 +37,7 @@ namespace LidgrenKulamiPeer
             config.Port = port;
             config.AcceptIncomingConnections = true;
 
-
+            
         }
 
         public void Start()
@@ -45,6 +45,7 @@ namespace LidgrenKulamiPeer
             peer = new NetPeer(config);
             peer.Start();
             localIdentifier = peer.UniqueIdentifier;
+
             listener = new peerListener(peer, localIdentifier);
             connections = new List<NetIncomingMessage>();
             moveQueue = new Queue<string>();
