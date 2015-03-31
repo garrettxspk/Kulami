@@ -199,7 +199,7 @@ namespace Kulami
                     keepWaiting = true;
                     networkPeer.killPeer();
                     Console.WriteLine("reconnecting...");
-                    networkPeer = new LidgrenKulamiPeer.KulamiPeer(3071);
+                    networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
                     networkPeer.Start();
                 }
                 else
@@ -233,12 +233,21 @@ namespace Kulami
                 opponentRandomBoardNum = Convert.ToInt32(move);
             }
 
+            //networkPeer.sendMove();
+            //string move = networkPeer.getMove();
+            //while (move == null)
+            //{
+            //    await Task.Delay(1000);
+            //    move = networkPeer.getMove();
+            //}
+            //int opponentRandomBoardNum = Convert.ToInt32(move);
+
             bool meFirst;
             if (myRandomBoardNum > opponentRandomBoardNum)
                 meFirst = true;
             else
                 meFirst = false;
-
+            //show page here that says "Starting game against (opponent's name)
             Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
 
         }
