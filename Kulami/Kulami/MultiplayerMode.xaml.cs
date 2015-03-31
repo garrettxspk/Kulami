@@ -52,6 +52,7 @@ namespace Kulami
         private async void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
+            //Switcher.Switch(new ConnectionLostPage());
             Random rnd = new Random();
             Switcher.Switch(new WaitingForConnectionPage());
             int waitTime = rnd.Next(5, 4001);
@@ -65,7 +66,7 @@ namespace Kulami
             }
 
             int networkingBoardNum = 0;
-            
+
             int myRandomBoardNum = rnd.Next(1, 8);
 
             networkPeer.sendMove(myRandomBoardNum.ToString());

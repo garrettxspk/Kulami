@@ -85,6 +85,7 @@ namespace LidgrenKulamiPeer
                                                 hail.Write(numberOfConnections);
                                             
                                                 KulamiPeer.peer.Connect(msg.SenderEndPoint, hail);
+                                                //move this to connection approval??
                                                 connection = msg.SenderConnection;
                                                 Thread.EndCriticalRegion();
                                             }

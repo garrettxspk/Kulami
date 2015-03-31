@@ -65,6 +65,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Color.cs" />
+    <Compile Include="ConnectionLostPage.xaml.cs">
+      <DependentUpon>ConnectionLostPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Coordinate.cs" />
     <Compile Include="DifficultySelectionPage.xaml.cs">
       <DependentUpon>DifficultySelectionPage.xaml</DependentUpon>
@@ -121,6 +124,10 @@
     <Compile Include="WaitingForConnectionPage.xaml.cs">
       <DependentUpon>WaitingForConnectionPage.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConnectionLostPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DifficultySelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
