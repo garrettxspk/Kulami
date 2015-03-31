@@ -22,7 +22,7 @@ namespace LidgrenKulamiPeer
         public static List<NetIncomingMessage> connections; //Figure out what they want to do with the connection list
         private static Queue<string> moveQueue;
 
-        public KulamiPeer()
+        public KulamiPeer(int port)
         {
 
             config = new NetPeerConfiguration(signature);
@@ -34,7 +34,7 @@ namespace LidgrenKulamiPeer
             config.EnableMessageType(NetIncomingMessageType.StatusChanged);
             config.MaximumConnections = 1;
             config.AutoFlushSendQueue = true;
-            config.Port = 3070;
+            config.Port = port;
             config.AcceptIncomingConnections = true;
 
             peer = new NetPeer(config);
@@ -43,11 +43,11 @@ namespace LidgrenKulamiPeer
             listener = new peerListener(peer, localIdentifier);
             connections = new List<NetIncomingMessage>();
             moveQueue = new Queue<string>();
-            NetThread = new Thread(new ThreadStart(listener.processNetwork));
         }
 
         public void Start()
         {
+            NetThread = new Thread(new ThreadStart(listener.processNetwork));
             NetThread.Start();
         }
 

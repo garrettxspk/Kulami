@@ -21,7 +21,7 @@ namespace LidgrenKulamiPeer
         {
             // This does nothing! just the way we like it!!!
             //check kulamiPeer.listener.connection
-            kulamiPeer = new KulamiPeer();
+            kulamiPeer = new KulamiPeer(3070);
             for (int i = 0; i < 3; i++)
             {
                 kulamiPeer.sendMove(Console.ReadLine());

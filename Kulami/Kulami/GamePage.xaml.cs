@@ -53,7 +53,7 @@ namespace Kulami
 
             if (gType == GameType.LANMultiplayer)
             {
-                networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+                networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
                 //wait until connection is established
             }
 

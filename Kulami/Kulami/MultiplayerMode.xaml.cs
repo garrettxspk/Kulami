@@ -172,14 +172,38 @@ namespace Kulami
             //Switcher.Switch(new ConnectionLostPage());
             Random rnd = new Random();
             Switcher.Switch(new WaitingForConnectionPage());
-            int waitTime = rnd.Next(5, 4001);
-            await Task.Delay(waitTime);
-            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer();
+            //int waitTime = rnd.Next(5, 4001);
+            //await Task.Delay(waitTime);
+            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
             networkPeer.Start();
-            while (networkPeer.listener.connection == null)
+
+            bool keepWaiting;
+            if (networkPeer.listener.connection == null)
+                keepWaiting = true;
+            else if (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.None)
+                keepWaiting = true;
+            else
+                keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
+            
+            //while (networkPeer.listener.connection == null)
+            while(keepWaiting)
             {
                 await Task.Delay(1000);
                 Console.WriteLine("Waiting for connection");
+                if (networkPeer.listener.connection == null)
+                    keepWaiting = true;
+                else if (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.None)
+                    keepWaiting = true;
+                else if (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Disconnected)
+                {
+                    keepWaiting = true;
+                    networkPeer.killPeer();
+                    Console.WriteLine("reconnecting...");
+                    networkPeer = new LidgrenKulamiPeer.KulamiPeer(3071);
+                    networkPeer.Start();
+                }
+                else
+                    keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
             }
 
             int networkingBoardNum = 0;

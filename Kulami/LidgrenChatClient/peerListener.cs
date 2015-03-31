@@ -34,7 +34,7 @@ namespace LidgrenKulamiPeer
 
             public void processNetwork()
             {
-                KulamiPeer.peer.DiscoverLocalPeers(3070);
+                KulamiPeer.peer.DiscoverLocalPeers(peer.Configuration.Port);
                 Thread.Sleep(1000);// Is this needed?
                 connection = null;
                 numberOfConnections = 0;
@@ -107,12 +107,14 @@ namespace LidgrenKulamiPeer
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
                                             //don't connect to a peer already connected to someone else
-                                            Console.WriteLine(connection.ToString() + " " + numberOfPeerConnections + " " + numberOfConnections + "\n");
-                                            Console.WriteLine(connection.ToString());
-                                            Console.WriteLine(numberOfPeerConnections.ToString());
-                                            Console.WriteLine(numberOfConnections.ToString());
-                                            if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
+                                            //Console.WriteLine(connection.ToString() + " " + numberOfPeerConnections + " " + numberOfConnections + "\n");
+                                            //Console.WriteLine(connection.ToString());
+                                            //Console.WriteLine(numberOfPeerConnections.ToString());
+                                            //Console.WriteLine(numberOfConnections.ToString());
+                                            //if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
+                                            if (numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
+                                                //connection = msg.SenderConnection;
                                                 msg.SenderConnection.Approve();
                                                 numberOfConnections++;
                                             }
