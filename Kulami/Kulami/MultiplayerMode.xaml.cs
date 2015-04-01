@@ -102,6 +102,7 @@ namespace Kulami
         {
             soundEffectPlayer.ButtonSound();
             PlayerNameTextBox.IsEnabled = true;
+            PlayerNameTextBox.Focus();
             NextButton.IsEnabled = true;
             LocalModeButton.IsEnabled = false;
             OnlineModeButton.IsEnabled = false;
@@ -168,12 +169,17 @@ namespace Kulami
         private async void NextButtonClick(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            string playerName = (string) NextButton.Content;
-            //Switcher.Switch(new ConnectionLostPage());
+            string playerName = (string) PlayerNameTextBox.Text;
+            if (playerName == null)
+                playerName = "Anonymous";
+            await StartNetworkGame(playerName);
+        }
+
+        private async Task StartNetworkGame(string playerName)
+        {
             Random rnd = new Random();
             Switcher.Switch(new WaitingForConnectionPage());
-            //int waitTime = rnd.Next(5, 4001);
-            //await Task.Delay(waitTime);
+
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
             networkPeer.Start();
 
@@ -184,9 +190,8 @@ namespace Kulami
                 keepWaiting = true;
             else
                 keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
-            
-            //while (networkPeer.listener.connection == null)
-            while(keepWaiting)
+
+            while (keepWaiting)
             {
                 await Task.Delay(1000);
                 Console.WriteLine("Waiting for connection");
@@ -234,23 +239,22 @@ namespace Kulami
                 opponentRandomBoardNum = Convert.ToInt32(move);
             }
 
-            //networkPeer.sendMove();
-            //string move = networkPeer.getMove();
-            //while (move == null)
-            //{
-            //    await Task.Delay(1000);
-            //    move = networkPeer.getMove();
-            //}
-            //int opponentRandomBoardNum = Convert.ToInt32(move);
+            networkPeer.sendMove(playerName);
+            string opponentName = networkPeer.getMove();
+            while (opponentName == null)
+            {
+                await Task.Delay(1000);
+                opponentName = networkPeer.getMove();
+            }
 
             bool meFirst;
             if (myRandomBoardNum > opponentRandomBoardNum)
                 meFirst = true;
             else
                 meFirst = false;
-            //show page here that says "Starting game against (opponent's name)
+            Switcher.Switch(new OpponentNamePage(opponentName));
+            await Task.Delay(3000);
             Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
-
         }
 
         private void NextButton_MouseEnter(object sender, MouseEventArgs e)
