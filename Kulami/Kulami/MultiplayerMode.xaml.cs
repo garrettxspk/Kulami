@@ -203,7 +203,7 @@ namespace Kulami
             if (playerName == null)
                 playerName = "Anonymous";
             Switcher.Switch(new WaitingForConnectionPage());
-            //await StartNetworkGame(playerName);
+            await StartNetworkGame(playerName);
         }
 
         private async Task StartNetworkGame(string playerName)
@@ -267,6 +267,7 @@ namespace Kulami
                 }
 
                 Switcher.Switch(new OpponentNamePage(opponentName));
+                await Task.Delay(3000);
 
                 int networkingBoardNum = 0;
 
