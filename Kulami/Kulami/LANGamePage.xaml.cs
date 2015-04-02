@@ -191,7 +191,8 @@ namespace Kulami
                             }
 
                         }
-
+                        networkPeer.killPeer();
+                        networkPeer = null;
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();

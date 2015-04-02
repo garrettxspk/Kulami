@@ -22,10 +22,11 @@ namespace Kulami
     public partial class WaitingForConnectionPage : UserControl, ISwitchable
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
-        public WaitingForConnectionPage()
+        LidgrenKulamiPeer.KulamiPeer networkPeer;
+        public WaitingForConnectionPage(LidgrenKulamiPeer.KulamiPeer peer)
         {
             InitializeComponent();
+            networkPeer = peer;
             ImageBrush backgrnd = new ImageBrush();
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
             ImageBrush backButtonib = new ImageBrush();
@@ -44,6 +45,8 @@ namespace Kulami
 
         private void BackButtonClick(object sender, RoutedEventArgs e)
         {
+            networkPeer.killPeer();
+            networkPeer = null;
             Switcher.Switch(new MainPage());
         }
 

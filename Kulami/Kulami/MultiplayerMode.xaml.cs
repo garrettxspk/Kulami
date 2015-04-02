@@ -202,16 +202,16 @@ namespace Kulami
             string playerName = (string) PlayerNameTextBox.Text;
             if (playerName == null)
                 playerName = "Anonymous";
+            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
+            networkPeer.Start();
             Switcher.Switch(new WaitingForConnectionPage());
-            await StartNetworkGame(playerName);
+            await StartNetworkGame(playerName, networkPeer);
         }
 
-        private async Task StartNetworkGame(string playerName)
+        private async Task StartNetworkGame(string playerName, LidgrenKulamiPeer.KulamiPeer networkPeer)
         {
             bool shouldContinue = true;
             Random rnd = new Random();
-            LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
-            networkPeer.Start();
             DateTime start = DateTime.Now;
             DateTime end;
             bool keepWaiting;
@@ -254,6 +254,8 @@ namespace Kulami
 
             if (!shouldContinue)
             {
+                networkPeer.killPeer();
+                networkPeer = null;
                 Switcher.Switch(new NoConnectionsFoundPage());
             }
             else
