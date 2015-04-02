@@ -25,6 +25,8 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         private Storyboard myStoryboard;
+        private Storyboard helpStoryboard;
+        private Storyboard helpStoryboard2;
         public MultiplayerMode()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace Kulami
             ImageBrush onlineBtnBackgrnd = new ImageBrush();
             ImageBrush backButtonib = new ImageBrush();
             ImageBrush nextButtonib = new ImageBrush();
+            ImageBrush sh = new ImageBrush();
+            ImageBrush msh = new ImageBrush();
 
 
             backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
@@ -40,12 +44,16 @@ namespace Kulami
             localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButton.png", UriKind.Absolute));
             onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
             nextButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            msh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/MultiplayerScreenHelp.png", UriKind.Absolute));
 
             SelectionBackground.Background = backgrnd;
             LocalModeButton.Background = localBtnBackgrnd;
             OnlineModeButton.Background = onlineBtnBackgrnd;
             BackButton.Background = backButtonib;
             NextButton.Background = nextButtonib;
+            screenHelpBtn.Background = sh;
+            MultiplayerScreenHelp.Background = msh;
 
             PlayerNameTextBox.IsEnabled = false;
             NextButton.IsEnabled = false;
@@ -74,11 +82,28 @@ namespace Kulami
             FadeOut2.Duration = new Duration(TimeSpan.FromSeconds(1));
             FadeOut2.AutoReverse = false;
 
+            DoubleAnimation helpScreenAnimation = new DoubleAnimation();
+            helpScreenAnimation.From = -1440;
+            helpScreenAnimation.To = 0;
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
+            helpScreenAnimation2.From = 0;
+            helpScreenAnimation2.To = -1440;
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            helpStoryboard = new Storyboard();
+            helpStoryboard2 = new Storyboard();
+
             myStoryboard = new Storyboard();
             myStoryboard.Children.Add(FadeIn);
             myStoryboard.Children.Add(FadeIn2);
             myStoryboard.Children.Add(FadeOut);
             myStoryboard.Children.Add(FadeOut2);
+
+            helpStoryboard.Children.Add(helpScreenAnimation);
+            helpStoryboard2.Children.Add(helpScreenAnimation2);
+
             Storyboard.SetTargetName(FadeIn, PlayerNameTextBox.Name);
             Storyboard.SetTargetProperty(FadeIn, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(FadeIn2, NextButton.Name);
@@ -88,6 +113,11 @@ namespace Kulami
             Storyboard.SetTargetProperty(FadeOut, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(FadeOut2, LocalModeButton.Name);
             Storyboard.SetTargetProperty(FadeOut2, new PropertyPath(Rectangle.OpacityProperty));
+
+            Storyboard.SetTargetName(helpScreenAnimation, MultiplayerScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(helpScreenAnimation2, MultiplayerScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
 
 
         }
@@ -269,6 +299,31 @@ namespace Kulami
             ImageBrush nb = new ImageBrush();
             nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
             NextButton.Background = nb;
+        }
+
+        private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard.Begin(MultiplayerScreenHelp);
+        }
+
+        private void screenHelpBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButtonHover.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void screenHelpBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void MultiplayerScreenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard2.Begin(MultiplayerScreenHelp);
+
         }
     }
 }
