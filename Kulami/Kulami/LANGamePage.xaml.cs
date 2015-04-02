@@ -98,7 +98,7 @@ namespace Kulami
             if (networkPeer == null)
                 result = false;
             else
-                result = (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Connected);
+                result = (!networkPeer.listener.IsDisconnected);
             return result;
         }
 
