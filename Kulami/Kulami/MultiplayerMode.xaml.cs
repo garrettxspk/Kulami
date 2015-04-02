@@ -242,6 +242,16 @@ namespace Kulami
                     keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
             }
 
+            networkPeer.sendMove(playerName);
+            string opponentName = networkPeer.getMove();
+            while (opponentName == null)
+            {
+                await Task.Delay(1000);
+                opponentName = networkPeer.getMove();
+            }
+
+            Switcher.Switch(new OpponentNamePage(opponentName));
+
             int networkingBoardNum = 0;
 
             int myRandomBoardNum = rnd.Next(1, 8);
@@ -269,21 +279,12 @@ namespace Kulami
                 opponentRandomBoardNum = Convert.ToInt32(move);
             }
 
-            networkPeer.sendMove(playerName);
-            string opponentName = networkPeer.getMove();
-            while (opponentName == null)
-            {
-                await Task.Delay(1000);
-                opponentName = networkPeer.getMove();
-            }
-
             bool meFirst;
             if (myRandomBoardNum > opponentRandomBoardNum)
                 meFirst = true;
             else
                 meFirst = false;
-            Switcher.Switch(new OpponentNamePage(opponentName));
-            await Task.Delay(3000);
+
             Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
         }
 

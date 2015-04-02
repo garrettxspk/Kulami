@@ -31,6 +31,7 @@ namespace Kulami
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
+        bool connected = true;
         private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
         bool musicOn = true;
@@ -40,11 +41,11 @@ namespace Kulami
         string opponentsColor;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
-        public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer, int boardNum, bool meFirst)
+        public LANGamePage(LidgrenKulamiPeer.KulamiPeer nPeer, int boardNum, bool meFirst)
         {
             InitializeComponent();
 
-            networkPeer = netPeer;
+            networkPeer = nPeer;
 
             if (meFirst)
             {
@@ -80,8 +81,28 @@ namespace Kulami
             soundEffectPlayer.PlayStartGameSound();
 
             InitializeImages(boardNum);
-            if(!meFirst)
-                MakeOpponentMove();
+            if (!meFirst)
+            {
+                if (IsConnected())
+                {
+                    Disconnect();
+                }
+                else
+                    MakeOpponentMove();
+            }
+        }
+
+        private bool IsConnected()
+        {
+            return (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Disconnected);
+        }
+
+        private void Disconnect()
+        {
+            networkPeer.killPeer();
+            networkPeer = null;
+            connected = false;
+            Switcher.Switch(new ConnectionLostPage());
         }
 
         private void Song_Ended(object sender, EventArgs e)
@@ -92,7 +113,7 @@ namespace Kulami
 
         private async void planetBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!engine.CurrentGame.IsGameOver())
+            if (!engine.CurrentGame.IsGameOver() && connected)
             {
                 Button btn = sender as Button;
                 string btnName = btn.Name.ToString();
@@ -106,14 +127,24 @@ namespace Kulami
                     if (player1turn)
                     {
                         MakeHumanMove(btn, row, col, myColor);
-                        networkPeer.sendMove("R" + row.ToString() + col.ToString());
+                        if (IsConnected())
+                            networkPeer.sendMove("R" + row.ToString() + col.ToString());
+                        else
+                            Disconnect();
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
-                        if(!engine.CurrentGame.IsGameOver())
-                            await MakeOpponentMove();
+                        if (!engine.CurrentGame.IsGameOver() && connected)
+                        {
+                            if (!IsConnected())
+                            {
+                                Disconnect();
+                            }
+                            else
+                                await MakeOpponentMove();
+                        }
                     }
 
-                    if (engine.CurrentGame.IsGameOver())
+                    if (engine.CurrentGame.IsGameOver() && connected)
                     {
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
@@ -166,55 +197,65 @@ namespace Kulami
 
         private async Task MakeOpponentMove()
         {
-            string opponentMove = networkPeer.getMove();
-            while (opponentMove == null)
+            if (IsConnected())
             {
-                await Task.Delay(1000);
-                opponentMove = networkPeer.getMove();
+                string opponentMove = networkPeer.getMove();
+                while (opponentMove == null)
+                {
+                    await Task.Delay(1000);
+                    opponentMove = networkPeer.getMove();
+                }
+                int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+                int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+                string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+                Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
+                MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
+                PlayerTurnLabel.Visibility = Visibility.Visible;
+                OpponentTurnLabel.Visibility = Visibility.Hidden;
             }
-            int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
-            int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
-            string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
-            Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
-            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
-            PlayerTurnLabel.Visibility = Visibility.Visible;
-            OpponentTurnLabel.Visibility = Visibility.Hidden;
+            else
+                Disconnect();
         }
 
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
         {
-            Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
-            ImageBrush ButtonImage = new ImageBrush();
-            ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
-
-            if (playerColor == "Red")
+            if (IsConnected())
             {
-                planetConquerOne.PointToScreen(point);
-                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
-                planetConquerOne.RenderTransform = transform;
-                HumanConquerStoryboard.Begin(planetConquerOne);
-            }
-            else if (playerColor == "Blue")
-            {
-                planetConquerTwo.PointToScreen(point);
-                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
-                planetConquerTwo.RenderTransform = transform;
-                AIConquerStoryboard.Begin(planetConquerTwo);
-            }
+                Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
+                ImageBrush ButtonImage = new ImageBrush();
+                ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
 
-            b.Background = ButtonImage;
+                if (playerColor == "Red")
+                {
+                    planetConquerOne.PointToScreen(point);
+                    TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                    planetConquerOne.RenderTransform = transform;
+                    HumanConquerStoryboard.Begin(planetConquerOne);
+                }
+                else if (playerColor == "Blue")
+                {
+                    planetConquerTwo.PointToScreen(point);
+                    TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                    planetConquerTwo.RenderTransform = transform;
+                    AIConquerStoryboard.Begin(planetConquerTwo);
+                }
 
-            engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
-            if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
-            {
+                b.Background = ButtonImage;
+
+                engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
                 if (soundOn)
-                    soundEffectPlayer.ControlSectorSound();
+                    soundEffectPlayer.MakeMoveSound();
+                if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
+                {
+                    if (soundOn)
+                        soundEffectPlayer.ControlSectorSound();
+                }
+                HighlightAvailableMovesOnBoard();
+                engine.CurrentGame.Board.PrintGameBoard();
+                player1turn = !player1turn;
             }
-            HighlightAvailableMovesOnBoard();
-            engine.CurrentGame.Board.PrintGameBoard();
-            player1turn = !player1turn;
+            else
+                Disconnect();
         }
 
         private void HighlightAvailableMovesOnBoard()
