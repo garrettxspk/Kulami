@@ -83,7 +83,7 @@ namespace Kulami
             InitializeImages(boardNum);
             if (!meFirst)
             {
-                if (IsConnected())
+                if (!IsConnected())
                 {
                     Disconnect();
                 }
@@ -94,13 +94,21 @@ namespace Kulami
 
         private bool IsConnected()
         {
-            return (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Disconnected);
+            bool result = true;
+            if (networkPeer == null)
+                result = false;
+            else
+                result = (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Connected);
+            return result;
         }
 
         private void Disconnect()
         {
-            networkPeer.killPeer();
-            networkPeer = null;
+            if (networkPeer != null)
+            {
+                networkPeer.killPeer();
+                networkPeer = null;
+            }
             connected = false;
             Switcher.Switch(new ConnectionLostPage());
         }
@@ -197,21 +205,33 @@ namespace Kulami
 
         private async Task MakeOpponentMove()
         {
+            bool skip = false;
             if (IsConnected())
             {
                 string opponentMove = networkPeer.getMove();
                 while (opponentMove == null)
                 {
                     await Task.Delay(1000);
-                    opponentMove = networkPeer.getMove();
+                    if (networkPeer != null)
+                    {
+                        opponentMove = networkPeer.getMove();
+                    }
+                    else
+                    {
+                        skip = true;
+                        break;
+                    }
                 }
-                int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
-                int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
-                string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
-                Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
-                MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
-                PlayerTurnLabel.Visibility = Visibility.Visible;
-                OpponentTurnLabel.Visibility = Visibility.Hidden;
+                if (!skip)
+                {
+                    int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+                    int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+                    string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+                    Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
+                    MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
+                    PlayerTurnLabel.Visibility = Visibility.Visible;
+                    OpponentTurnLabel.Visibility = Visibility.Hidden;
+                }
             }
             else
                 Disconnect();
@@ -460,6 +480,10 @@ namespace Kulami
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
+
+            networkPeer.killPeer();
+            networkPeer = null;
+            connected = false;
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
