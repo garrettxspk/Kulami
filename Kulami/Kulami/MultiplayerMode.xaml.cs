@@ -204,7 +204,7 @@ namespace Kulami
                 playerName = "Anonymous";
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
             networkPeer.Start();
-            Switcher.Switch(new WaitingForConnectionPage());
+            Switcher.Switch(new WaitingForConnectionPage(networkPeer));
             await StartNetworkGame(playerName, networkPeer);
         }
 
