@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Timers;
 
 namespace Kulami
 {
@@ -41,6 +42,8 @@ namespace Kulami
         string opponentsColor;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
+        public delegate void CheckDelegate();
+        Timer checkConnect = new Timer(1000);
         public LANGamePage(LidgrenKulamiPeer.KulamiPeer nPeer, int boardNum, bool meFirst)
         {
             InitializeComponent();
@@ -90,8 +93,20 @@ namespace Kulami
                 else
                     MakeOpponentMove();
             }
+            checkConnect.Elapsed += new ElapsedEventHandler(IfConnecting);
+            checkConnect.AutoReset = true;
+            checkConnect.Enabled = true;
         }
 
+        private void IfConnecting(object source, ElapsedEventArgs e)
+        {
+            if (!IsConnected())
+            {
+                // Disconnect();
+                this.Dispatcher.BeginInvoke(new CheckDelegate(Disconnect));
+                checkConnect.Stop();
+            }
+        }
         private bool IsConnected()
         {
             bool result = true;
