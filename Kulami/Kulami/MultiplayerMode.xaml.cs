@@ -243,7 +243,7 @@ namespace Kulami
                     keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
                 
                 end = DateTime.Now;
-                if ((end - start).TotalSeconds > 10)
+                if ((end - start).TotalSeconds > 20)
                 {
                     shouldContinue = false;
                     networkPeer.killPeer();
