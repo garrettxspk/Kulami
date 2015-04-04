@@ -40,15 +40,18 @@ namespace Kulami
         bool radarOn = true;
         string myColor;
         string opponentsColor;
+        string myName, opponentsName;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
         public delegate void CheckDelegate();
         Timer checkConnect = new Timer(1000);
-        public LANGamePage(LidgrenKulamiPeer.KulamiPeer nPeer, int boardNum, bool meFirst)
+        public LANGamePage(LidgrenKulamiPeer.KulamiPeer nPeer, int boardNum, bool meFirst, string mName, string oName)
         {
             InitializeComponent();
 
             networkPeer = nPeer;
+            myName = mName;
+            opponentsName = oName;
 
             if (meFirst)
             {
@@ -212,7 +215,10 @@ namespace Kulami
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        if(myColor == "Blue")
+                            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, myName, opponentsName));
+                        else
+                            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, opponentsName, myName));
 
                     }
                 }

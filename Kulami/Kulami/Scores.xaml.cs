@@ -23,7 +23,7 @@ namespace Kulami
     {
         private String gameResult;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        public Scores(GameStatistics stats)
+        public Scores(GameStatistics stats, string bluePlayer = "blue", string redPlayer = "red")
         {
             InitializeComponent();
             //gameTimeLabel.Content = stats.ElapsedTime;
@@ -36,6 +36,9 @@ namespace Kulami
             sectorsConqueredLabel2.Content = stats.BlueSectorsWon.ToString();
             sectorsLostLabel2.Content = stats.BlueSectorsLost.ToString();
             totalScoreLabel2.Content = stats.BluePoints.ToString();
+
+            player2Label.Content = bluePlayer;
+            player1Label.Content = redPlayer;
 
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));

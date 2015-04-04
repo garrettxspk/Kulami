@@ -302,7 +302,7 @@ namespace Kulami
                 else
                     meFirst = false;
 
-                Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
+                Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst, playerName, opponentName));
             }
         }
 
