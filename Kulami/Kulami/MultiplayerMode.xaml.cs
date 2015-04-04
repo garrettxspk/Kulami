@@ -61,7 +61,9 @@ namespace Kulami
             LocalPlayer1NameTextBox.IsEnabled = false;
             LocalPlayer2NameTextBox.IsEnabled = false;
             LocalNextButton.IsEnabled = false;
+            LocalNextButton.Visibility = System.Windows.Visibility.Collapsed;
             LANNextButton.IsEnabled = false;
+            LANNextButton.Visibility = System.Windows.Visibility.Collapsed;
 
             DoubleAnimation FadeIn = new DoubleAnimation();
             FadeIn.From = 0.0;
@@ -166,6 +168,9 @@ namespace Kulami
             LocalPlayer2NameTextBox.IsEnabled = true;
             LocalPlayer1NameTextBox.Focus();
             LocalNextButton.IsEnabled = true;
+            LocalNextButton.Visibility = System.Windows.Visibility.Visible;
+            LANNextButton.IsEnabled = false;
+            LANNextButton.Visibility = System.Windows.Visibility.Collapsed;
             LocalModeButton.IsEnabled = false;
             OnlineModeButton.IsEnabled = false;
             ModeLabel.Content = "Type in your names";
@@ -178,6 +183,9 @@ namespace Kulami
             LANPlayerNameTextBox.IsEnabled = true;
             LANPlayerNameTextBox.Focus();
             LANNextButton.IsEnabled = true;
+            LANNextButton.Visibility = System.Windows.Visibility.Visible;
+            LocalNextButton.IsEnabled = false;
+            LocalNextButton.Visibility = System.Windows.Visibility.Collapsed;
             LocalModeButton.IsEnabled = false;
             OnlineModeButton.IsEnabled = false;
             ModeLabel.Content = "Type in your name";
