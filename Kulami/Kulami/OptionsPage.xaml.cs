@@ -26,8 +26,12 @@ namespace Kulami
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OptionsScreen.png", UriKind.Absolute));
+            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
             OptionsBackground.Background = ib;
+
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
         }
         public void UtilizeState(object state)
         {

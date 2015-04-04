@@ -140,6 +140,10 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
+            <Rectangle Height="63" Canvas.Left="614" Stroke="#FF4DB8F9" Canvas.Top="817" Width="368" StrokeThickness="2"/>
+            <Label Name="FuelIndicatorLabel" Content="llllllllllllllllllllllllllll" Canvas.Left="600" Canvas.Top="814" Height="63" Width="368" Foreground="#FF4DB8F9" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" ToolTip="Fuel left"/>
+            <Label Name="FuelLeftLabel" Content="Fuel:" Canvas.Left="472" Canvas.Top="817" Height="60" Width="125" Foreground="#FF4DB8F9" FontSize="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Padding="0" ToolTip="Number of moves left" FontFamily="/Kulami;component/#SquareFont"/>
+
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">

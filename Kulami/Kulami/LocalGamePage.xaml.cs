@@ -31,6 +31,8 @@ namespace Kulami
         private Storyboard gameOverStoryboard;
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
+        private Storyboard helpStoryboard;
+        private Storyboard helpStoryboard2;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         bool soundOn = true;
         bool musicOn = true;
@@ -64,11 +66,13 @@ namespace Kulami
             if (playFirst == 1)
             {
                 PlayerOneTurnLabel.Visibility = Visibility.Visible;
+                fuelIndicator1.Visibility = Visibility.Visible;
                 player1turn = true;
             }
             else
             {
                 PlayerTwoTurnLabel.Visibility = Visibility.Visible;
+                fuelIndicator2.Visibility = Visibility.Visible;
                 player1turn = false;
             }
 
@@ -100,12 +104,16 @@ namespace Kulami
                         MakeHumanMove(btn, row, col, "Red");
                         PlayerOneTurnLabel.Visibility = Visibility.Hidden;
                         PlayerTwoTurnLabel.Visibility = Visibility.Visible;
+                        fuelIndicator1.Visibility = Visibility.Hidden;
+                        fuelIndicator2.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         MakeHumanMove(btn, row, col, "Blue");
                         PlayerOneTurnLabel.Visibility = Visibility.Visible;
                         PlayerTwoTurnLabel.Visibility = Visibility.Hidden;
+                        fuelIndicator1.Visibility = Visibility.Visible;
+                        fuelIndicator2.Visibility = Visibility.Hidden;
                     }
 
                     if (engine.CurrentGame.IsGameOver())
@@ -143,6 +151,16 @@ namespace Kulami
                 TranslateTransform transform = new TranslateTransform(point.X, point.Y);
                 planetConquerOne.RenderTransform = transform;
                 HumanConquerStoryboard.Begin(planetConquerOne);
+                string fuelLeft = FuelIndicatorLabel.Content.ToString();
+                try
+                {
+                    fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    fuelLeft = "";
+                }
+                FuelIndicatorLabel.Content = fuelLeft;
             }
             else if (playerColor == "Blue")
             {
@@ -150,6 +168,16 @@ namespace Kulami
                 TranslateTransform transform = new TranslateTransform(point.X, point.Y);
                 planetConquerTwo.RenderTransform = transform;
                 AIConquerStoryboard.Begin(planetConquerTwo);
+                string fuelLeft = FuelIndicatorLabel2.Content.ToString();
+                try
+                {
+                    fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    fuelLeft = "";
+                }
+                FuelIndicatorLabel2.Content = fuelLeft;
             }
 
             b.Background = ButtonImage;
@@ -390,6 +418,30 @@ namespace Kulami
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
+
+        private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard.Begin(GameScreenHelp);
+        }
+
+        private void screenHelpBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButtonHover.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void screenHelpBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+        private void GameScreenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard2.Begin(GameScreenHelp);
+        }
+
         #endregion Button Event Handlers
 
         #region Graphics Initialization
@@ -418,6 +470,13 @@ namespace Kulami
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
+
+            ImageBrush sh = new ImageBrush();
+            ImageBrush msh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            msh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameScreenHelp.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+            GameScreenHelp.Background = msh;
 
             ImageBrush RedConquer = new ImageBrush();
             RedConquer.ImageSource = new BitmapImage(new Uri(startupPath + "/images/PlanConquerRed.png", UriKind.Absolute));
@@ -449,10 +508,24 @@ namespace Kulami
             planetConquerTwoAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
             planetConquerTwoAnimation.AutoReverse = true;
 
+            DoubleAnimation helpScreenAnimation = new DoubleAnimation();
+            helpScreenAnimation.From = -1440;
+            helpScreenAnimation.To = 0;
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
+            helpScreenAnimation2.From = 0;
+            helpScreenAnimation2.To = -1440;
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            helpStoryboard = new Storyboard();
+            helpStoryboard2 = new Storyboard();
             gameOverStoryboard = new Storyboard();
             HumanConquerStoryboard = new Storyboard();
             AIConquerStoryboard = new Storyboard();
 
+            helpStoryboard.Children.Add(helpScreenAnimation);
+            helpStoryboard2.Children.Add(helpScreenAnimation2);
             gameOverStoryboard.Children.Add(fadeInAnimation);
             gameOverStoryboard.Children.Add(fadeOutAnimation);
             HumanConquerStoryboard.Children.Add(planetConquerOneAnimation);
@@ -468,6 +541,10 @@ namespace Kulami
 
             Storyboard.SetTargetName(planetConquerTwoAnimation, planetConquerTwo.Name);
             Storyboard.SetTargetProperty(planetConquerTwoAnimation, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(helpScreenAnimation, GameScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(helpScreenAnimation2, GameScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
 
         }
         private void ApplyBackgroundButtons(ImageBrush ib)

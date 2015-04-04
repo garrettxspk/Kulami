@@ -7,8 +7,8 @@
              d:DesignHeight="900" d:DesignWidth="1440">
     <Grid Background="Black">
         <Canvas Name="Background" Height="900" Width="1440">
-            <Button Name="BackButton" Content="" Canvas.Left="56" Canvas.Top="96" Width="85" Height="85" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
-            <Label Name="Title" Content="online multiplayer" Canvas.Top="119" Height="133" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Name="Title" Content="online multiplayer" Canvas.Top="75" Height="133" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Name="BackButton" Content="" Canvas.Left="56" Canvas.Top="92" Width="85" Height="85" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
             <Label Name="WaitingConnection" Content="waiting for connection" Canvas.Top="483" Height="133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="40" Foreground="#FF79CCFF" Width="912" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="494"/>
 
             <Canvas.Triggers>

@@ -219,6 +219,16 @@ namespace Kulami
                 if (soundOn)
                     soundEffectPlayer.ControlSectorSound();
             }
+            string fuelLeft = FuelIndicatorLabel.Content.ToString();
+            try
+            {
+                fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                fuelLeft = "";
+            }
+            FuelIndicatorLabel.Content = fuelLeft;
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;
