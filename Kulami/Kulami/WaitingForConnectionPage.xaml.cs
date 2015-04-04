@@ -47,6 +47,7 @@ namespace Kulami
         {
             networkPeer.killPeer();
             networkPeer = null;
+            MultiplayerMode.ShouldBreakOut = true;
             Switcher.Switch(new MainPage());
         }
 

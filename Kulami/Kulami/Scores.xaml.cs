@@ -36,7 +36,6 @@ namespace Kulami
             sectorsConqueredLabel2.Content = stats.BlueSectorsWon.ToString();
             sectorsLostLabel2.Content = stats.BlueSectorsLost.ToString();
             totalScoreLabel2.Content = stats.BluePoints.ToString();
-
             player2Label.Content = bluePlayer;
             player1Label.Content = redPlayer;
 
