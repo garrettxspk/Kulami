@@ -28,6 +28,14 @@ namespace Kulami
         private Storyboard myStoryboard2;
         private Storyboard helpStoryboard;
         private Storyboard helpStoryboard2;
+        private static bool shouldBreakOut;
+
+        public static bool ShouldBreakOut
+        {
+            get { return MultiplayerMode.shouldBreakOut; }
+            set { MultiplayerMode.shouldBreakOut = value; }
+        }
+
         public MultiplayerMode()
         {
             InitializeComponent();
@@ -262,7 +270,9 @@ namespace Kulami
 
         private async Task StartNetworkGame(string playerName, LidgrenKulamiPeer.KulamiPeer networkPeer)
         {
+            shouldBreakOut = false;
             bool shouldContinue = true;
+            bool terminate = false;
             Random rnd = new Random();
             DateTime start = DateTime.Now;
             DateTime end;
@@ -276,6 +286,11 @@ namespace Kulami
 
             while (keepWaiting)
             {
+                if(shouldBreakOut)
+                {
+                    terminate = true;
+                    break;
+                }
                 await Task.Delay(1000);
                 Console.WriteLine("Waiting for connection");
                 if (networkPeer.listener.connection == null)
@@ -303,8 +318,11 @@ namespace Kulami
                     break;
                 }
             }
-
-            if (!shouldContinue)
+            if (terminate)
+            {
+                Console.WriteLine("No Longer Looking For Connections. Exiting to Main Menu");
+            }
+            else if (!shouldContinue)
             {
                 Switcher.Switch(new NoConnectionsFoundPage());
             }
