@@ -36,11 +36,16 @@ namespace Kulami
         bool musicOn = true;
         bool player1turn = true;
         bool radarOn = true;
+        string player1Name;
+        string player2Name;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
-        public LocalGamePage()
+        public LocalGamePage(string p1Name, string p2Name)
         {
             InitializeComponent();
+
+            player1Name = p1Name;
+            player2Name = p2Name;
 
             string songPath = startupPath + "/sound/music/Soundtrack.mp3";
             soundTrackMediaPlayer.Open(new Uri(songPath));
@@ -64,11 +69,13 @@ namespace Kulami
             if (playFirst == 1)
             {
                 PlayerOneTurnLabel.Visibility = Visibility.Visible;
+                PlayerOneTurnLabel.Content = player1Name + "'s turn";
                 player1turn = true;
             }
             else
             {
                 PlayerTwoTurnLabel.Visibility = Visibility.Visible;
+                PlayerTwoTurnLabel.Content = player2Name + "'s turn";
                 player1turn = false;
             }
 
@@ -98,12 +105,14 @@ namespace Kulami
                     if (player1turn)
                     {
                         MakeHumanMove(btn, row, col, "Red");
+                        PlayerTwoTurnLabel.Content = player2Name + "'s turn";
                         PlayerOneTurnLabel.Visibility = Visibility.Hidden;
                         PlayerTwoTurnLabel.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         MakeHumanMove(btn, row, col, "Blue");
+                        PlayerOneTurnLabel.Content = player1Name + "'s turn";
                         PlayerOneTurnLabel.Visibility = Visibility.Visible;
                         PlayerTwoTurnLabel.Visibility = Visibility.Hidden;
                     }
@@ -114,9 +123,9 @@ namespace Kulami
                         gameOverStoryboard.Begin(GameBackground);
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
-                            WinnerLabel.Content = "Red Player Wins!";
+                            WinnerLabel.Content = player2Name + " Wins!";
                         else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
-                            WinnerLabel.Content = "Blue Player Wins!";
+                            WinnerLabel.Content = player1Name + " Wins!";
                         else
                             WinnerLabel.Content = "It's a tie!";
 
@@ -124,7 +133,7 @@ namespace Kulami
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats, player2Name, player1Name));
 
                     }
                 }
@@ -372,12 +381,12 @@ namespace Kulami
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Red Wins!";
+                WinnerLabel.Content = player1Name + " Wins!";
                 soundEffectPlayer.WinSound();
             }
             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Blue Wins!";
+                WinnerLabel.Content = player2Name + " Wins!";
                 soundEffectPlayer.LostSound();
             }
             else
@@ -387,7 +396,7 @@ namespace Kulami
             }
             await Task.Delay(4000);
 
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, player2Name, player1Name));
 
         }
         #endregion Button Event Handlers

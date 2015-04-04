@@ -25,6 +25,7 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         private Storyboard myStoryboard;
+        private Storyboard myStoryboard2;
         private Storyboard helpStoryboard;
         private Storyboard helpStoryboard2;
         public MultiplayerMode()
@@ -51,12 +52,16 @@ namespace Kulami
             LocalModeButton.Background = localBtnBackgrnd;
             OnlineModeButton.Background = onlineBtnBackgrnd;
             BackButton.Background = backButtonib;
-            NextButton.Background = nextButtonib;
+            LANNextButton.Background = nextButtonib;
+            LocalNextButton.Background = nextButtonib;
             screenHelpBtn.Background = sh;
             MultiplayerScreenHelp.Background = msh;
 
-            PlayerNameTextBox.IsEnabled = false;
-            NextButton.IsEnabled = false;
+            LANPlayerNameTextBox.IsEnabled = false;
+            LocalPlayer1NameTextBox.IsEnabled = false;
+            LocalPlayer2NameTextBox.IsEnabled = false;
+            LocalNextButton.IsEnabled = false;
+            LANNextButton.IsEnabled = false;
 
             DoubleAnimation FadeIn = new DoubleAnimation();
             FadeIn.From = 0.0;
@@ -69,6 +74,24 @@ namespace Kulami
             FadeIn2.To = 1.0;
             FadeIn2.Duration = new Duration(TimeSpan.FromSeconds(1));
             FadeIn2.AutoReverse = false;
+
+            DoubleAnimation FadeIn3 = new DoubleAnimation();
+            FadeIn3.From = 0.0;
+            FadeIn3.To = 1.0;
+            FadeIn3.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn3.AutoReverse = false;
+
+            DoubleAnimation FadeIn4 = new DoubleAnimation();
+            FadeIn4.From = 0.0;
+            FadeIn4.To = 1.0;
+            FadeIn4.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn4.AutoReverse = false;
+
+            DoubleAnimation FadeIn5 = new DoubleAnimation();
+            FadeIn5.From = 0.0;
+            FadeIn5.To = 1.0;
+            FadeIn5.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn5.AutoReverse = false;
 
             DoubleAnimation FadeOut = new DoubleAnimation();
             FadeOut.From = 1.0;
@@ -101,43 +124,64 @@ namespace Kulami
             myStoryboard.Children.Add(FadeOut);
             myStoryboard.Children.Add(FadeOut2);
 
+            myStoryboard2 = new Storyboard();
+            myStoryboard2.Children.Add(FadeIn3);
+            myStoryboard2.Children.Add(FadeIn4);
+            myStoryboard2.Children.Add(FadeIn5);
+            myStoryboard2.Children.Add(FadeOut);
+            myStoryboard2.Children.Add(FadeOut2);
+
             helpStoryboard.Children.Add(helpScreenAnimation);
             helpStoryboard2.Children.Add(helpScreenAnimation2);
 
-            Storyboard.SetTargetName(FadeIn, PlayerNameTextBox.Name);
+            Storyboard.SetTargetName(FadeIn, LANPlayerNameTextBox.Name);
             Storyboard.SetTargetProperty(FadeIn, new PropertyPath(Rectangle.OpacityProperty));
-            Storyboard.SetTargetName(FadeIn2, NextButton.Name);
+            Storyboard.SetTargetName(FadeIn2, LANNextButton.Name);
             Storyboard.SetTargetProperty(FadeIn2, new PropertyPath(Rectangle.OpacityProperty));
+            
+            Storyboard.SetTargetName(FadeIn3, LocalPlayer1NameTextBox.Name);
+            Storyboard.SetTargetProperty(FadeIn3, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(FadeIn4, LocalPlayer2NameTextBox.Name);
+            Storyboard.SetTargetProperty(FadeIn4, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(FadeIn5, LocalNextButton.Name);
+            Storyboard.SetTargetProperty(FadeIn5, new PropertyPath(Rectangle.OpacityProperty));
 
             Storyboard.SetTargetName(FadeOut, OnlineModeButton.Name);
             Storyboard.SetTargetProperty(FadeOut, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(FadeOut2, LocalModeButton.Name);
             Storyboard.SetTargetProperty(FadeOut2, new PropertyPath(Rectangle.OpacityProperty));
 
+
+
             Storyboard.SetTargetName(helpScreenAnimation, MultiplayerScreenHelp.Name);
             Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
             Storyboard.SetTargetName(helpScreenAnimation2, MultiplayerScreenHelp.Name);
             Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
-
-
         }
 
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new LocalGamePage());
+            LocalPlayer1NameTextBox.IsEnabled = true;
+            LocalPlayer2NameTextBox.IsEnabled = true;
+            LocalPlayer1NameTextBox.Focus();
+            LocalNextButton.IsEnabled = true;
+            LocalModeButton.IsEnabled = false;
+            OnlineModeButton.IsEnabled = false;
+            ModeLabel.Content = "Type in your names";
+            myStoryboard2.Begin(LocalNextButton);
         }
 
         private void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            PlayerNameTextBox.IsEnabled = true;
-            PlayerNameTextBox.Focus();
-            NextButton.IsEnabled = true;
+            LANPlayerNameTextBox.IsEnabled = true;
+            LANPlayerNameTextBox.Focus();
+            LANNextButton.IsEnabled = true;
             LocalModeButton.IsEnabled = false;
             OnlineModeButton.IsEnabled = false;
             ModeLabel.Content = "Type in your name";
-            myStoryboard.Begin(NextButton);
+            myStoryboard.Begin(LANNextButton);
        }
 
 
@@ -199,7 +243,7 @@ namespace Kulami
         private async void NextButtonClick(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            string playerName = (string) PlayerNameTextBox.Text;
+            string playerName = (string) LANPlayerNameTextBox.Text;
             if (playerName == null)
                 playerName = "Anonymous";
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
@@ -310,14 +354,16 @@ namespace Kulami
         {
             ImageBrush nb = new ImageBrush();
             nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButtonOn.png", UriKind.Absolute));
-            NextButton.Background = nb;
+            LANNextButton.Background = nb;
+            LocalNextButton.Background = nb;
         }
 
         private void NextButton_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush nb = new ImageBrush();
             nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
-            NextButton.Background = nb;
+            LANNextButton.Background = nb;
+            LocalNextButton.Background = nb;
         }
 
         private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
@@ -343,6 +389,17 @@ namespace Kulami
         {
             helpStoryboard2.Begin(MultiplayerScreenHelp);
 
+        }
+
+        private void LocalNextButtonClick(object sender, RoutedEventArgs e)
+        {
+            string player1Name = (string)LocalPlayer1NameTextBox.Text;
+            if (player1Name == null)
+                player1Name = "Player1";
+            string player2Name = (string)LocalPlayer2NameTextBox.Text;
+            if (player2Name == null)
+                player2Name = "Player1";
+            Switcher.Switch(new LocalGamePage(player1Name, player2Name));
         }
     }
 }
