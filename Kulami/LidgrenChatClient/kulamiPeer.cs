@@ -74,12 +74,12 @@ namespace LidgrenKulamiPeer
                 result = moveQueue.Dequeue();
             }
 
-            if (listener.errorMessage != "")
-            {
-                result = listener.errorMessage;
-                listener.errorMessage = "";
-                Console.WriteLine(result);
-            }
+            //if (listener.errorMessage != "")
+            //{
+            //    result = listener.errorMessage;
+            //    listener.errorMessage = "";
+            //    Console.WriteLine(result);
+            //}
 
             return result;
         }

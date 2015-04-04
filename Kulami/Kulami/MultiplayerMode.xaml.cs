@@ -25,6 +25,17 @@ namespace Kulami
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         private Storyboard myStoryboard;
+        private Storyboard myStoryboard2;
+        private Storyboard helpStoryboard;
+        private Storyboard helpStoryboard2;
+        private static bool shouldBreakOut;
+
+        public static bool ShouldBreakOut
+        {
+            get { return MultiplayerMode.shouldBreakOut; }
+            set { MultiplayerMode.shouldBreakOut = value; }
+        }
+
         public MultiplayerMode()
         {
             InitializeComponent();
@@ -33,6 +44,8 @@ namespace Kulami
             ImageBrush onlineBtnBackgrnd = new ImageBrush();
             ImageBrush backButtonib = new ImageBrush();
             ImageBrush nextButtonib = new ImageBrush();
+            ImageBrush sh = new ImageBrush();
+            ImageBrush msh = new ImageBrush();
 
 
             backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
@@ -40,15 +53,25 @@ namespace Kulami
             localBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/LocalButton.png", UriKind.Absolute));
             onlineBtnBackgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/OnlineButton.png", UriKind.Absolute));
             nextButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            msh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/MultiplayerScreenHelp.png", UriKind.Absolute));
 
             SelectionBackground.Background = backgrnd;
             LocalModeButton.Background = localBtnBackgrnd;
             OnlineModeButton.Background = onlineBtnBackgrnd;
             BackButton.Background = backButtonib;
-            NextButton.Background = nextButtonib;
+            LANNextButton.Background = nextButtonib;
+            LocalNextButton.Background = nextButtonib;
+            screenHelpBtn.Background = sh;
+            MultiplayerScreenHelp.Background = msh;
 
-            PlayerNameTextBox.IsEnabled = false;
-            NextButton.IsEnabled = false;
+            LANPlayerNameTextBox.IsEnabled = false;
+            LocalPlayer1NameTextBox.IsEnabled = false;
+            LocalPlayer2NameTextBox.IsEnabled = false;
+            LocalNextButton.IsEnabled = false;
+            LocalNextButton.Visibility = System.Windows.Visibility.Collapsed;
+            LANNextButton.IsEnabled = false;
+            LANNextButton.Visibility = System.Windows.Visibility.Collapsed;
 
             DoubleAnimation FadeIn = new DoubleAnimation();
             FadeIn.From = 0.0;
@@ -62,6 +85,24 @@ namespace Kulami
             FadeIn2.Duration = new Duration(TimeSpan.FromSeconds(1));
             FadeIn2.AutoReverse = false;
 
+            DoubleAnimation FadeIn3 = new DoubleAnimation();
+            FadeIn3.From = 0.0;
+            FadeIn3.To = 1.0;
+            FadeIn3.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn3.AutoReverse = false;
+
+            DoubleAnimation FadeIn4 = new DoubleAnimation();
+            FadeIn4.From = 0.0;
+            FadeIn4.To = 1.0;
+            FadeIn4.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn4.AutoReverse = false;
+
+            DoubleAnimation FadeIn5 = new DoubleAnimation();
+            FadeIn5.From = 0.0;
+            FadeIn5.To = 1.0;
+            FadeIn5.Duration = new Duration(TimeSpan.FromSeconds(1));
+            FadeIn5.AutoReverse = false;
+
             DoubleAnimation FadeOut = new DoubleAnimation();
             FadeOut.From = 1.0;
             FadeOut.To = 0.0;
@@ -74,15 +115,46 @@ namespace Kulami
             FadeOut2.Duration = new Duration(TimeSpan.FromSeconds(1));
             FadeOut2.AutoReverse = false;
 
+            DoubleAnimation helpScreenAnimation = new DoubleAnimation();
+            helpScreenAnimation.From = -1440;
+            helpScreenAnimation.To = 0;
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
+            helpScreenAnimation2.From = 0;
+            helpScreenAnimation2.To = -1440;
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            helpStoryboard = new Storyboard();
+            helpStoryboard2 = new Storyboard();
+
             myStoryboard = new Storyboard();
             myStoryboard.Children.Add(FadeIn);
             myStoryboard.Children.Add(FadeIn2);
             myStoryboard.Children.Add(FadeOut);
             myStoryboard.Children.Add(FadeOut2);
-            Storyboard.SetTargetName(FadeIn, PlayerNameTextBox.Name);
+
+            myStoryboard2 = new Storyboard();
+            myStoryboard2.Children.Add(FadeIn3);
+            myStoryboard2.Children.Add(FadeIn4);
+            myStoryboard2.Children.Add(FadeIn5);
+            myStoryboard2.Children.Add(FadeOut);
+            myStoryboard2.Children.Add(FadeOut2);
+
+            helpStoryboard.Children.Add(helpScreenAnimation);
+            helpStoryboard2.Children.Add(helpScreenAnimation2);
+
+            Storyboard.SetTargetName(FadeIn, LANPlayerNameTextBox.Name);
             Storyboard.SetTargetProperty(FadeIn, new PropertyPath(Rectangle.OpacityProperty));
-            Storyboard.SetTargetName(FadeIn2, NextButton.Name);
+            Storyboard.SetTargetName(FadeIn2, LANNextButton.Name);
             Storyboard.SetTargetProperty(FadeIn2, new PropertyPath(Rectangle.OpacityProperty));
+            
+            Storyboard.SetTargetName(FadeIn3, LocalPlayer1NameTextBox.Name);
+            Storyboard.SetTargetProperty(FadeIn3, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(FadeIn4, LocalPlayer2NameTextBox.Name);
+            Storyboard.SetTargetProperty(FadeIn4, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(FadeIn5, LocalNextButton.Name);
+            Storyboard.SetTargetProperty(FadeIn5, new PropertyPath(Rectangle.OpacityProperty));
 
             Storyboard.SetTargetName(FadeOut, OnlineModeButton.Name);
             Storyboard.SetTargetProperty(FadeOut, new PropertyPath(Rectangle.OpacityProperty));
@@ -90,23 +162,42 @@ namespace Kulami
             Storyboard.SetTargetProperty(FadeOut2, new PropertyPath(Rectangle.OpacityProperty));
 
 
+
+            Storyboard.SetTargetName(helpScreenAnimation, MultiplayerScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(helpScreenAnimation2, MultiplayerScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
         }
 
         private void LocalModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            Switcher.Switch(new LocalGamePage());
+            LocalPlayer1NameTextBox.IsEnabled = true;
+            LocalPlayer2NameTextBox.IsEnabled = true;
+            LocalPlayer1NameTextBox.Focus();
+            LocalNextButton.IsEnabled = true;
+            LocalNextButton.Visibility = System.Windows.Visibility.Visible;
+            LANNextButton.IsEnabled = false;
+            LANNextButton.Visibility = System.Windows.Visibility.Collapsed;
+            LocalModeButton.IsEnabled = false;
+            OnlineModeButton.IsEnabled = false;
+            ModeLabel.Content = "Type in your names";
+            myStoryboard2.Begin(LocalNextButton);
         }
 
         private void OnlineModeButton_Click(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            PlayerNameTextBox.IsEnabled = true;
-            NextButton.IsEnabled = true;
+            LANPlayerNameTextBox.IsEnabled = true;
+            LANPlayerNameTextBox.Focus();
+            LANNextButton.IsEnabled = true;
+            LANNextButton.Visibility = System.Windows.Visibility.Visible;
+            LocalNextButton.IsEnabled = false;
+            LocalNextButton.Visibility = System.Windows.Visibility.Collapsed;
             LocalModeButton.IsEnabled = false;
             OnlineModeButton.IsEnabled = false;
             ModeLabel.Content = "Type in your name";
-            myStoryboard.Begin(NextButton);
+            myStoryboard.Begin(LANNextButton);
        }
 
 
@@ -168,15 +259,23 @@ namespace Kulami
         private async void NextButtonClick(object sender, RoutedEventArgs e)
         {
             soundEffectPlayer.ButtonSound();
-            string playerName = (string) NextButton.Content;
-            //Switcher.Switch(new ConnectionLostPage());
-            Random rnd = new Random();
-            Switcher.Switch(new WaitingForConnectionPage());
-            //int waitTime = rnd.Next(5, 4001);
-            //await Task.Delay(waitTime);
+            string playerName = (string) LANPlayerNameTextBox.Text;
+            if (playerName == null)
+                playerName = "Anonymous";
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
             networkPeer.Start();
+            Switcher.Switch(new WaitingForConnectionPage(networkPeer));
+            await StartNetworkGame(playerName, networkPeer);
+        }
 
+        private async Task StartNetworkGame(string playerName, LidgrenKulamiPeer.KulamiPeer networkPeer)
+        {
+            shouldBreakOut = false;
+            bool shouldContinue = true;
+            bool terminate = false;
+            Random rnd = new Random();
+            DateTime start = DateTime.Now;
+            DateTime end;
             bool keepWaiting;
             if (networkPeer.listener.connection == null)
                 keepWaiting = true;
@@ -184,10 +283,14 @@ namespace Kulami
                 keepWaiting = true;
             else
                 keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
-            
-            //while (networkPeer.listener.connection == null)
-            while(keepWaiting)
+
+            while (keepWaiting)
             {
+                if(shouldBreakOut)
+                {
+                    terminate = true;
+                    break;
+                }
                 await Task.Delay(1000);
                 Console.WriteLine("Waiting for connection");
                 if (networkPeer.listener.connection == null)
@@ -205,66 +308,124 @@ namespace Kulami
                 }
                 else
                     keepWaiting = (networkPeer.listener.connection.Status != Lidgren.Network.NetConnectionStatus.Connected);
+                
+                end = DateTime.Now;
+                if ((end - start).TotalSeconds > 20)
+                {
+                    shouldContinue = false;
+                    networkPeer.killPeer();
+                    networkPeer = null;
+                    break;
+                }
             }
-
-            int networkingBoardNum = 0;
-
-            int myRandomBoardNum = rnd.Next(1, 8);
-
-            networkPeer.sendMove(myRandomBoardNum.ToString());
-            string move = networkPeer.getMove();
-            while (move == null)
+            if (terminate)
             {
-                await Task.Delay(1000);
-                move = networkPeer.getMove();
+                Console.WriteLine("No Longer Looking For Connections. Exiting to Main Menu");
             }
-            int opponentRandomBoardNum = Convert.ToInt32(move);
-
-            networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
-            while (myRandomBoardNum == opponentRandomBoardNum)
+            else if (!shouldContinue)
             {
-                myRandomBoardNum = rnd.Next(1, 8);
+                Switcher.Switch(new NoConnectionsFoundPage());
+            }
+            else
+            {
+                networkPeer.sendMove(playerName);
+                string opponentName = networkPeer.getMove();
+                while (opponentName == null)
+                {
+                    await Task.Delay(1000);
+                    opponentName = networkPeer.getMove();
+                }
+
+                Switcher.Switch(new OpponentNamePage(opponentName));
+                await Task.Delay(3000);
+
+                int networkingBoardNum = 0;
+
+                int myRandomBoardNum = rnd.Next(1, 8);
+
                 networkPeer.sendMove(myRandomBoardNum.ToString());
-                move = networkPeer.getMove();
+                string move = networkPeer.getMove();
                 while (move == null)
                 {
                     await Task.Delay(1000);
                     move = networkPeer.getMove();
                 }
-                opponentRandomBoardNum = Convert.ToInt32(move);
+                int opponentRandomBoardNum = Convert.ToInt32(move);
+
+                networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
+                while (myRandomBoardNum == opponentRandomBoardNum)
+                {
+                    myRandomBoardNum = rnd.Next(1, 8);
+                    networkPeer.sendMove(myRandomBoardNum.ToString());
+                    move = networkPeer.getMove();
+                    while (move == null)
+                    {
+                        await Task.Delay(1000);
+                        move = networkPeer.getMove();
+                    }
+                    opponentRandomBoardNum = Convert.ToInt32(move);
+                }
+
+                bool meFirst;
+                if (myRandomBoardNum > opponentRandomBoardNum)
+                    meFirst = true;
+                else
+                    meFirst = false;
+
+                Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst, playerName, opponentName));
             }
-
-            //networkPeer.sendMove();
-            //string move = networkPeer.getMove();
-            //while (move == null)
-            //{
-            //    await Task.Delay(1000);
-            //    move = networkPeer.getMove();
-            //}
-            //int opponentRandomBoardNum = Convert.ToInt32(move);
-
-            bool meFirst;
-            if (myRandomBoardNum > opponentRandomBoardNum)
-                meFirst = true;
-            else
-                meFirst = false;
-            //show page here that says "Starting game against (opponent's name)
-            Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst));
-
         }
 
         private void NextButton_MouseEnter(object sender, MouseEventArgs e)
         {
             ImageBrush nb = new ImageBrush();
             nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButtonOn.png", UriKind.Absolute));
-            NextButton.Background = nb;
+            LANNextButton.Background = nb;
+            LocalNextButton.Background = nb;
         }
 
         private void NextButton_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush nb = new ImageBrush();
             nb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/nextButton.png", UriKind.Absolute));
-            NextButton.Background = nb;
+            LANNextButton.Background = nb;
+            LocalNextButton.Background = nb;
+        }
+
+        private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard.Begin(MultiplayerScreenHelp);
+        }
+
+        private void screenHelpBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButtonHover.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void screenHelpBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void MultiplayerScreenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard2.Begin(MultiplayerScreenHelp);
+
+        }
+
+        private void LocalNextButtonClick(object sender, RoutedEventArgs e)
+        {
+            string player1Name = (string)LocalPlayer1NameTextBox.Text;
+            if (player1Name == null)
+                player1Name = "Player1";
+            string player2Name = (string)LocalPlayer2NameTextBox.Text;
+            if (player2Name == null)
+                player2Name = "Player1";
+            Switcher.Switch(new LocalGamePage(player1Name, player2Name));
         }
     }
 }

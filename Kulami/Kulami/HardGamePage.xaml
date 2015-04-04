@@ -120,6 +120,8 @@
             </Label>
             <Button x:Name="toggleSound_Btn" Content="" Canvas.Left="1270" Canvas.Top="673" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
             <Button x:Name="toggleMusicBtn" Content="" Canvas.Left="1270" Canvas.Top="571" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleMusicBtn_Click" MouseEnter="toggleMusicBtn_MouseEnter" MouseLeave="toggleMusicBtn_MouseLeave" />
+            <Button x:Name="screenHelpBtn" Content="" Canvas.Left="56" Canvas.Top="783" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="screenHelpBtn_Click" MouseEnter="screenHelpBtn_MouseEnter" MouseLeave="screenHelpBtn_MouseLeave"/>
+            <Button Name="GameScreenHelp" Height="900" Width="1440" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-1440" Panel.ZIndex="1" Click="GameScreenHelp_Click" Cursor="Hand"/>
 
             <Button x:Name="backgroundButton" Content="" Width="1473" Height="4797" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
                 <Button.Triggers>
@@ -132,6 +134,10 @@
                     </EventTrigger>
                 </Button.Triggers>
             </Button>
+            <Rectangle Height="63" Canvas.Left="614" Stroke="#FF4DB8F9" Canvas.Top="817" Width="368" StrokeThickness="2" Visibility="Hidden"/>
+            <Label Name="FuelIndicatorLabel" Content="llllllllllllllllllllllllllll" Canvas.Left="600" Canvas.Top="814" Height="63" Width="368" Foreground="#FF4DB8F9" FontSize="50" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0" ToolTip="Fuel left" Visibility="Hidden"/>
+            <Label Name="FuelLeftLabel" Content="Fuel:" Canvas.Left="472" Canvas.Top="817" Height="60" Width="125" Foreground="#FF4DB8F9" FontSize="45" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Padding="0" ToolTip="Number of moves left" FontFamily="/Kulami;component/#SquareFont" Visibility="Hidden"/>
+
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">

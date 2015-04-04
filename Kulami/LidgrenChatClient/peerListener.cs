@@ -23,6 +23,17 @@ namespace LidgrenKulamiPeer
             private string SIGNATURE = "team2";
             private static int numberOfConnections;
             public string errorMessage = "";
+<<<<<<< HEAD
+=======
+            private bool isDisconnected;
+
+            public bool IsDisconnected
+            {
+                get { return isDisconnected; }
+            }
+
+            //public static Form1 look = new Form1();
+>>>>>>> origin/master
 
             public peerListener(NetPeer newPeer, long id)
             {
@@ -103,6 +114,7 @@ namespace LidgrenKulamiPeer
                                                 //connection = msg.SenderConnection;
                                                 msg.SenderConnection.Approve();
                                                 numberOfConnections++;
+                                                isDisconnected = false;
                                             }
                                         }
                                     }
@@ -128,7 +140,10 @@ namespace LidgrenKulamiPeer
                                 byte recievedByte = msg.ReadByte();
                                 Console.WriteLine((NetConnectionStatus)recievedByte);
                                 if ((NetConnectionStatus)recievedByte == NetConnectionStatus.Disconnected)
+                                {
                                     errorMessage = Convert.ToString((NetConnectionStatus)recievedByte);
+                                    isDisconnected = true;
+                                }
                                 break;
 
                             case NetIncomingMessageType.UnconnectedData:
@@ -140,6 +155,7 @@ namespace LidgrenKulamiPeer
                         if (msg.SenderConnection != null && connection == null)
                         {
                             connection = msg.SenderConnection;
+                            isDisconnected = false;
                         }
                     }
                 }

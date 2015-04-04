@@ -22,21 +22,54 @@ namespace Kulami
     public partial class WaitingForConnectionPage : UserControl, ISwitchable
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-
-        public WaitingForConnectionPage()
+        LidgrenKulamiPeer.KulamiPeer networkPeer;
+        public WaitingForConnectionPage(LidgrenKulamiPeer.KulamiPeer peer)
         {
             InitializeComponent();
+            networkPeer = peer;
             ImageBrush backgrnd = new ImageBrush();
             backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
+            ImageBrush backButtonib = new ImageBrush();
+            backButtonib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             Background.Background = backgrnd;
+            BackButton.Background = backButtonib;
 
-            Task.Delay(6000);
+            //Task.Delay(6000);
             
         }
 
         public void UtilizeState(object state)
         {
             throw new NotImplementedException();
+        }
+
+        private void BackButtonClick(object sender, RoutedEventArgs e)
+        {
+            networkPeer.killPeer();
+            networkPeer = null;
+            MultiplayerMode.ShouldBreakOut = true;
+            Switcher.Switch(new MainPage());
+        }
+
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButtonOn.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("key down");
+            if (e.Key == Key.Escape)
+                Switcher.Switch(new MainPage());
         }
     }
 }

@@ -106,6 +106,12 @@
     <Compile Include="MultiplayerMode.xaml.cs">
       <DependentUpon>MultiplayerMode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="NoConnectionsFoundPage.xaml.cs">
+      <DependentUpon>NoConnectionsFoundPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OpponentNamePage.xaml.cs">
+      <DependentUpon>OpponentNamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OptionsPage.xaml.cs">
       <DependentUpon>OptionsPage.xaml</DependentUpon>
     </Compile>
@@ -174,6 +180,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MultiplayerMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NoConnectionsFoundPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OpponentNamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

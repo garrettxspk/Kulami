@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Kulami.NoConnectionsFoundPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1440">
+    <Grid Background="Black">
+        <Canvas Name="Background" Height="900" Width="1440">
+            <Label Name="Title" Content="No Games Available" Canvas.Top="119" Height="133" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Name="description" Content="No one is online to play right now" Canvas.Top="478" Height="133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="40" Foreground="#FF79CCFF" Width="912" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="394"/>
+            <Label Name="description2" Content="you can now return to the main menu and try again later" Canvas.Top="520" Height="133" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="40" Foreground="#FF79CCFF" Width="1128" HorizontalAlignment="Center" VerticalAlignment="Center" Canvas.Left="178"/>
+            <Button Name="homeButton" Content="" Canvas.Left="700" Canvas.Top="774" Width="70" Height="72" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0" FontFamily="SquareFont" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Button_Click" MouseEnter="homeButton_MouseEnter" MouseLeave="homeButton_MouseLeave"/>
+        </Canvas>
+    </Grid>
+</UserControl>

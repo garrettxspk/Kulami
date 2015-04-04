@@ -14,6 +14,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Timers;
 
 namespace Kulami
 {
@@ -30,7 +31,10 @@ namespace Kulami
         private Storyboard gameOverStoryboard;
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
+        private Storyboard helpStoryboard;
+        private Storyboard helpStoryboard2;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
+        bool connected = true;
         private LidgrenKulamiPeer.KulamiPeer networkPeer;
         bool soundOn = true;
         bool musicOn = true;
@@ -38,17 +42,23 @@ namespace Kulami
         bool radarOn = true;
         string myColor;
         string opponentsColor;
+        string myName, opponentsName;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public delegate void StartLANGame();
-        public LANGamePage(LidgrenKulamiPeer.KulamiPeer netPeer, int boardNum, bool meFirst)
+        public delegate void CheckDelegate();
+        Timer checkConnect = new Timer(1000);
+        public LANGamePage(LidgrenKulamiPeer.KulamiPeer nPeer, int boardNum, bool meFirst, string mName, string oName)
         {
             InitializeComponent();
 
-            networkPeer = netPeer;
+            networkPeer = nPeer;
+            myName = mName;
+            opponentsName = oName;
 
             if (meFirst)
             {
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Visible;
+                fuelIndicator1.Visibility = Visibility.Visible;
                 OpponentTurnLabel.Visibility = System.Windows.Visibility.Hidden;
                 player1turn = true;
                 myColor = "Red";
@@ -80,8 +90,48 @@ namespace Kulami
             soundEffectPlayer.PlayStartGameSound();
 
             InitializeImages(boardNum);
-            if(!meFirst)
-                MakeOpponentMove();
+            if (!meFirst)
+            {
+                if (!IsConnected())
+                {
+                    Disconnect();
+                }
+                else
+                    MakeOpponentMove();
+            }
+            checkConnect.Elapsed += new ElapsedEventHandler(IfConnecting);
+            checkConnect.AutoReset = true;
+            checkConnect.Enabled = true;
+        }
+
+        private void IfConnecting(object source, ElapsedEventArgs e)
+        {
+            if (!IsConnected())
+            {
+                // Disconnect();
+                this.Dispatcher.BeginInvoke(new CheckDelegate(Disconnect));
+                checkConnect.Stop();
+            }
+        }
+        private bool IsConnected()
+        {
+            bool result = true;
+            if (networkPeer == null)
+                result = false;
+            else
+                result = (!networkPeer.listener.IsDisconnected);
+            return result;
+        }
+
+        private void Disconnect()
+        {
+            if (networkPeer != null)
+            {
+                networkPeer.killPeer();
+                networkPeer = null;
+            }
+            connected = false;
+            Switcher.Switch(new ConnectionLostPage());
         }
 
         private void Song_Ended(object sender, EventArgs e)
@@ -92,7 +142,7 @@ namespace Kulami
 
         private async void planetBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!engine.CurrentGame.IsGameOver())
+            if (!engine.CurrentGame.IsGameOver() && connected)
             {
                 Button btn = sender as Button;
                 string btnName = btn.Name.ToString();
@@ -106,14 +156,24 @@ namespace Kulami
                     if (player1turn)
                     {
                         MakeHumanMove(btn, row, col, myColor);
-                        networkPeer.sendMove("R" + row.ToString() + col.ToString());
+                        if (IsConnected())
+                            networkPeer.sendMove("R" + row.ToString() + col.ToString());
+                        else
+                            Disconnect();
                         PlayerTurnLabel.Visibility = Visibility.Hidden;
                         OpponentTurnLabel.Visibility = Visibility.Visible;
-                        if(!engine.CurrentGame.IsGameOver())
-                            await MakeOpponentMove();
+                        if (!engine.CurrentGame.IsGameOver() && connected)
+                        {
+                            if (!IsConnected())
+                            {
+                                Disconnect();
+                            }
+                            else
+                                await MakeOpponentMove();
+                        }
                     }
 
-                    if (engine.CurrentGame.IsGameOver())
+                    if (engine.CurrentGame.IsGameOver() && connected)
                     {
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
@@ -152,12 +212,16 @@ namespace Kulami
                             }
 
                         }
-
+                        networkPeer.killPeer();
+                        networkPeer = null;
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        if(myColor == "Blue")
+                            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, myName, opponentsName));
+                        else
+                            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, opponentsName, myName));
 
                     }
                 }
@@ -166,55 +230,87 @@ namespace Kulami
 
         private async Task MakeOpponentMove()
         {
-            string opponentMove = networkPeer.getMove();
-            while (opponentMove == null)
+            bool skip = false;
+            if (IsConnected())
             {
-                await Task.Delay(1000);
-                opponentMove = networkPeer.getMove();
+                string opponentMove = networkPeer.getMove();
+                while (opponentMove == null)
+                {
+                    await Task.Delay(1000);
+                    if (networkPeer != null)
+                    {
+                        opponentMove = networkPeer.getMove();
+                    }
+                    else
+                    {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (!skip)
+                {
+                    int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+                    int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+                    string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+                    Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
+                    MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
+                    PlayerTurnLabel.Visibility = Visibility.Visible;
+                    OpponentTurnLabel.Visibility = Visibility.Hidden;
+                }
             }
-            int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
-            int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
-            string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
-            Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
-            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
-            PlayerTurnLabel.Visibility = Visibility.Visible;
-            OpponentTurnLabel.Visibility = Visibility.Hidden;
+            else
+                Disconnect();
         }
 
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
         {
-            Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
-            ImageBrush ButtonImage = new ImageBrush();
-            ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
-
-            if (playerColor == "Red")
+            if (IsConnected())
             {
-                planetConquerOne.PointToScreen(point);
-                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
-                planetConquerOne.RenderTransform = transform;
-                HumanConquerStoryboard.Begin(planetConquerOne);
-            }
-            else if (playerColor == "Blue")
-            {
-                planetConquerTwo.PointToScreen(point);
-                TranslateTransform transform = new TranslateTransform(point.X, point.Y);
-                planetConquerTwo.RenderTransform = transform;
-                AIConquerStoryboard.Begin(planetConquerTwo);
-            }
+                Point point = new Point(Canvas.GetLeft(b), Canvas.GetTop(b));
+                ImageBrush ButtonImage = new ImageBrush();
+                ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/" + playerColor + "Plan1.png", UriKind.Absolute));
 
-            b.Background = ButtonImage;
+                if (playerColor == "Red")
+                {
+                    planetConquerOne.PointToScreen(point);
+                    TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                    planetConquerOne.RenderTransform = transform;
+                    HumanConquerStoryboard.Begin(planetConquerOne);
+                }
+                else if (playerColor == "Blue")
+                {
+                    planetConquerTwo.PointToScreen(point);
+                    TranslateTransform transform = new TranslateTransform(point.X, point.Y);
+                    planetConquerTwo.RenderTransform = transform;
+                    AIConquerStoryboard.Begin(planetConquerTwo);
+                }
 
-            engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
-            if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
-            {
+                b.Background = ButtonImage;
+
+                engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
                 if (soundOn)
-                    soundEffectPlayer.ControlSectorSound();
+                    soundEffectPlayer.MakeMoveSound();
+                if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
+                {
+                    if (soundOn)
+                        soundEffectPlayer.ControlSectorSound();
+                }
+                string fuelLeft = FuelIndicatorLabel.Content.ToString();
+                try
+                {
+                    fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    fuelLeft = "";
+                }
+                FuelIndicatorLabel.Content = fuelLeft;
+                HighlightAvailableMovesOnBoard();
+                engine.CurrentGame.Board.PrintGameBoard();
+                player1turn = !player1turn;
             }
-            HighlightAvailableMovesOnBoard();
-            engine.CurrentGame.Board.PrintGameBoard();
-            player1turn = !player1turn;
+            else
+                Disconnect();
         }
 
         private void HighlightAvailableMovesOnBoard()
@@ -420,6 +516,10 @@ namespace Kulami
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
 
+            networkPeer.killPeer();
+            networkPeer = null;
+            connected = false;
+
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
                 WinnerLabel.Content = "Red Wins!";
@@ -440,6 +540,30 @@ namespace Kulami
             Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
         }
+
+        private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard.Begin(GameScreenHelp);
+        }
+
+        private void screenHelpBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButtonHover.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void screenHelpBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+        private void GameScreenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard2.Begin(GameScreenHelp);
+        }
+
         #endregion Button Event Handlers
 
         #region Graphics Initialization
@@ -468,6 +592,13 @@ namespace Kulami
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
             ApplyBackgroundButtons(ButtonImage);
+
+            ImageBrush sh = new ImageBrush();
+            ImageBrush msh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            msh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameScreenHelp.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+            GameScreenHelp.Background = msh;
 
             ImageBrush RedConquer = new ImageBrush();
             RedConquer.ImageSource = new BitmapImage(new Uri(startupPath + "/images/PlanConquerRed.png", UriKind.Absolute));
@@ -499,6 +630,22 @@ namespace Kulami
             planetConquerTwoAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
             planetConquerTwoAnimation.AutoReverse = true;
 
+            DoubleAnimation helpScreenAnimation = new DoubleAnimation();
+            helpScreenAnimation.From = -1440;
+            helpScreenAnimation.To = 0;
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
+            helpScreenAnimation2.From = 0;
+            helpScreenAnimation2.To = -1440;
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            helpStoryboard = new Storyboard();
+            helpStoryboard2 = new Storyboard();
+
+            helpStoryboard.Children.Add(helpScreenAnimation);
+            helpStoryboard2.Children.Add(helpScreenAnimation2);
+
             gameOverStoryboard = new Storyboard();
             HumanConquerStoryboard = new Storyboard();
             AIConquerStoryboard = new Storyboard();
@@ -518,6 +665,10 @@ namespace Kulami
 
             Storyboard.SetTargetName(planetConquerTwoAnimation, planetConquerTwo.Name);
             Storyboard.SetTargetProperty(planetConquerTwoAnimation, new PropertyPath(Rectangle.OpacityProperty));
+            Storyboard.SetTargetName(helpScreenAnimation, GameScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(helpScreenAnimation2, GameScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
 
         }
         private void ApplyBackgroundButtons(ImageBrush ib)

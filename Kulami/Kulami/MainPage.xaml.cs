@@ -23,6 +23,8 @@ namespace Kulami
     public partial class MainPage : UserControl, ISwitchable
     {
         private Storyboard myStoryboard;
+        private Storyboard helpStoryboard;
+        private Storyboard helpStoryboard2;
 
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
@@ -42,6 +44,9 @@ namespace Kulami
                 ImageBrush ss3 = new ImageBrush();
                 ImageBrush ss4 = new ImageBrush();
                 ImageBrush ss5 = new ImageBrush();
+                ImageBrush sh = new ImageBrush();
+                ImageBrush msh = new ImageBrush();
+
 
                 ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.png", UriKind.Absolute));
                 qg.ImageSource = new BitmapImage(new Uri(startupPath + "/images/QuickGameButton.png", UriKind.Absolute));
@@ -54,6 +59,9 @@ namespace Kulami
                 ss3.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet3.png", UriKind.Absolute));
                 ss4.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet4.png", UriKind.Absolute));
                 ss5.ImageSource = new BitmapImage(new Uri(startupPath + "/images/StarSet5.png", UriKind.Absolute));
+                sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+                msh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/MainScreenHelp.png", UriKind.Absolute));
+
 
                 MainBackground.Background = ib;
                 QuickGameButton.Background = qg;
@@ -66,6 +74,8 @@ namespace Kulami
                 StarSet3.Background = ss3;
                 StarSet4.Background = ss4;
                 StarSet5.Background = ss5;
+                screenHelpBtn.Background = sh;
+                MainScreenHelp.Background = msh;
 
             }
             catch (Exception e)
@@ -108,12 +118,30 @@ namespace Kulami
             fadeInAnimation5.AutoReverse = true;
             fadeInAnimation5.RepeatBehavior = RepeatBehavior.Forever;
 
+            DoubleAnimation helpScreenAnimation = new DoubleAnimation();
+            helpScreenAnimation.From = -1440;
+            helpScreenAnimation.To = 0;
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+
+            DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
+            helpScreenAnimation2.From = 0;
+            helpScreenAnimation2.To = -1440;
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            
+
             myStoryboard = new Storyboard();
+            helpStoryboard = new Storyboard();
+            helpStoryboard2 = new Storyboard();
+
             myStoryboard.Children.Add(fadeInAnimation);
             myStoryboard.Children.Add(fadeInAnimation2);
             myStoryboard.Children.Add(fadeInAnimation3);
             myStoryboard.Children.Add(fadeInAnimation4);
             myStoryboard.Children.Add(fadeInAnimation5);
+
+            helpStoryboard.Children.Add(helpScreenAnimation);
+            helpStoryboard2.Children.Add(helpScreenAnimation2);
+
 
             Storyboard.SetTargetName(fadeInAnimation, StarSet1.Name);
             Storyboard.SetTargetProperty(fadeInAnimation, new PropertyPath(Rectangle.OpacityProperty));
@@ -125,6 +153,11 @@ namespace Kulami
             Storyboard.SetTargetProperty(fadeInAnimation4, new PropertyPath(Rectangle.OpacityProperty));
             Storyboard.SetTargetName(fadeInAnimation5, StarSet5.Name);
             Storyboard.SetTargetProperty(fadeInAnimation5, new PropertyPath(Rectangle.OpacityProperty));
+
+            Storyboard.SetTargetName(helpScreenAnimation, MainScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(helpScreenAnimation2, MainScreenHelp.Name);
+            Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
             
 
         }
@@ -260,6 +293,30 @@ namespace Kulami
         {
            myStoryboard.Begin(this);
 
+        }
+
+        private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard.Begin(MainScreenHelp);
+        }
+
+        private void screenHelpBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButtonHover.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void screenHelpBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sh = new ImageBrush();
+            sh.ImageSource = new BitmapImage(new Uri(startupPath + "/images/screenHelpButton.png", UriKind.Absolute));
+            screenHelpBtn.Background = sh;
+        }
+
+        private void MainScreenHelp_Click(object sender, RoutedEventArgs e)
+        {
+            helpStoryboard2.Begin(MainScreenHelp);
         }
     }
 }

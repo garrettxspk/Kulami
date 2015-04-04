@@ -17,35 +17,26 @@ using System.Windows.Shapes;
 namespace Kulami
 {
     /// <summary>
-    /// Interaction logic for Scores.xaml
+    /// Interaction logic for NoConnectionsFoundPage.xaml
     /// </summary>
-    public partial class Scores : UserControl
+    public partial class NoConnectionsFoundPage : UserControl, ISwitchable
     {
-        private String gameResult;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        public Scores(GameStatistics stats, string bluePlayer = "blue", string redPlayer = "red")
+        public NoConnectionsFoundPage()
         {
             InitializeComponent();
-            //gameTimeLabel.Content = stats.ElapsedTime;
-            planetsConqueredLabel.Content = stats.RedPlanetsConquered.ToString();
-            sectorsConqueredLabel.Content = stats.RedSectorsWon.ToString();
-            sectorsLostLabel.Content = stats.RedSectorsLost.ToString();
-            totalScoreLabel.Content = stats.RedPoints.ToString();
-            //gameTimeLabel2.Content = stats.ElapsedTime;
-            planetsConqueredLabel2.Content = stats.BluePlanetsConquered.ToString();
-            sectorsConqueredLabel2.Content = stats.BlueSectorsWon.ToString();
-            sectorsLostLabel2.Content = stats.BlueSectorsLost.ToString();
-            totalScoreLabel2.Content = stats.BluePoints.ToString();
-            player2Label.Content = bluePlayer;
-            player1Label.Content = redPlayer;
-
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
-            ScoresBackground.Background = ib;
+            ImageBrush backgrnd = new ImageBrush();
+            backgrnd.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SelectionPage.png", UriKind.Absolute));
+            Background.Background = backgrnd;
 
             ImageBrush hb = new ImageBrush();
             hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
             homeButton.Background = hb;
+        }
+
+        public void UtilizeState(object state)
+        {
+            throw new NotImplementedException();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
