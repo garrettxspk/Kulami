@@ -23,11 +23,9 @@ namespace LidgrenKulamiPeer
             private string SIGNATURE = "team2";
             private static int numberOfConnections;
             public string errorMessage = "";
-            //public static Form1 look = new Form1();
 
             public peerListener(NetPeer newPeer, long id)
             {
-                //Copies of KulamiPeer's peer and machineIdentifier
                 peer = newPeer;
                 localId = id;
             }
@@ -35,22 +33,19 @@ namespace LidgrenKulamiPeer
             public void processNetwork()
             {
                 KulamiPeer.peer.DiscoverLocalPeers(peer.Configuration.Port);
-                Thread.Sleep(1000);// Is this needed?
+                Thread.Sleep(1000);
                 connection = null;
                 numberOfConnections = 0;
                 Console.WriteLine("About to read messages... ");
                 string signature;
                 while (!quit)
                 {
-
                     Thread.Sleep(1);
                     if (KulamiPeer.peer == null)
                         continue;
-                    //spin loop for the thread responsible for passing and recieving messages.
                     NetIncomingMessage msg;
                     while ((msg = KulamiPeer.peer.ReadMessage()) != null)
                     {
-                        //Console.WriteLine(msg.ReadString() + "\n");
                         switch (msg.MessageType)
                         {
                             case NetIncomingMessageType.DiscoveryRequest:
@@ -60,12 +55,11 @@ namespace LidgrenKulamiPeer
                                 response.Write(localId.ToString());
                                 response.Write(numberOfConnections);
                                 KulamiPeer.peer.SendDiscoveryResponse(response, msg.SenderEndPoint);
-                                KulamiPeer.connections.Add(msg);
                                 break;
 
                             case NetIncomingMessageType.DiscoveryResponse:
                                 Console.WriteLine("Found peer at " + msg.SenderEndPoint);
-                                if (msg != null) //Make sure we aren't connecting to ourself?
+                                if (msg != null)
                                 {
                                     signature = msg.ReadString();
                                     if (signature == SIGNATURE)
@@ -82,10 +76,8 @@ namespace LidgrenKulamiPeer
                                                 NetOutgoingMessage hail = peer.CreateMessage();
                                                 hail.Write(SIGNATURE);
                                                 hail.Write(localId.ToString());
-                                                hail.Write(numberOfConnections);
-                                            
+                                                hail.Write(numberOfConnections);                                       
                                                 KulamiPeer.peer.Connect(msg.SenderEndPoint, hail);
-                                                //move this to connection approval??
                                                 connection = msg.SenderConnection;
                                                 Thread.EndCriticalRegion();
                                             }
@@ -106,12 +98,6 @@ namespace LidgrenKulamiPeer
                                         if (peerId != localId)
                                         {
                                             int numberOfPeerConnections = msg.ReadInt32();
-                                            //don't connect to a peer already connected to someone else
-                                            //Console.WriteLine(connection.ToString() + " " + numberOfPeerConnections + " " + numberOfConnections + "\n");
-                                            //Console.WriteLine(connection.ToString());
-                                            //Console.WriteLine(numberOfPeerConnections.ToString());
-                                            //Console.WriteLine(numberOfConnections.ToString());
-                                            //if (connection != null && numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             if (numberOfPeerConnections == 1 && numberOfConnections == 0)
                                             {
                                                 //connection = msg.SenderConnection;
@@ -157,22 +143,6 @@ namespace LidgrenKulamiPeer
                         }
                     }
                 }
-            }
-
-
-            public string GetLocalIP()
-            {
-                IPHostEntry host;
-                host = Dns.GetHostEntry(Dns.GetHostName());
-
-                foreach (IPAddress ip in host.AddressList)
-                {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
-                    {
-                        return ip.ToString();
-                    }
-                }
-                return "127.0.0.1";
             }
 
             public void shouldQuit()

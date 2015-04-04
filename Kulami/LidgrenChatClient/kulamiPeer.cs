@@ -19,12 +19,10 @@ namespace LidgrenKulamiPeer
         public NetPeerConfiguration config;
         public peerListener listener; //Event Listener (GUI) implement later
         public Thread NetThread;
-        public static List<NetIncomingMessage> connections; //Figure out what they want to do with the connection list
         private static Queue<string> moveQueue;
 
         public KulamiPeer(int port)
         {
-
             config = new NetPeerConfiguration(signature);
             config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
             config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
@@ -35,9 +33,7 @@ namespace LidgrenKulamiPeer
             config.MaximumConnections = 1;
             config.AutoFlushSendQueue = true;
             config.Port = port;
-            config.AcceptIncomingConnections = true;
-
-            
+            config.AcceptIncomingConnections = true;          
         }
 
         public void Start()
@@ -47,7 +43,6 @@ namespace LidgrenKulamiPeer
             localIdentifier = peer.UniqueIdentifier;
 
             listener = new peerListener(peer, localIdentifier);
-            connections = new List<NetIncomingMessage>();
             moveQueue = new Queue<string>();
 
             NetThread = new Thread(new ThreadStart(listener.processNetwork));
@@ -59,7 +54,7 @@ namespace LidgrenKulamiPeer
             listener.shouldQuit();
             NetThread.Abort();
             peer.Shutdown("Thread and Peer Terminated. No longer doing Network games\n");
-            Console.WriteLine("Bye Bye!");
+            Console.WriteLine("Network thread terminated and peer destroyed/set to null");
         }
 
         public void sendMove(string move)
@@ -87,27 +82,6 @@ namespace LidgrenKulamiPeer
             }
 
             return result;
-        }
-
-        public void sendChatMessage(string text)
-        {
-            NetOutgoingMessage message = KulamiPeer.peer.CreateMessage();
-            message.Write(signature);
-            message.Write((int)Protocol.messageType.chat);
-            message.Write(text);
-            KulamiPeer.peer.SendMessage(message, listener.connection, NetDeliveryMethod.ReliableOrdered);
-        }
-
-        public void broadcastMessage(string text)
-        {
-            NetOutgoingMessage om = peer.CreateMessage(text);
-            IPEndPoint receiver = new IPEndPoint(NetUtility.Resolve("localhost"), peer.Port);
-            peer.SendUnconnectedMessage(om, receiver);
-        }
-
-        public void quit()
-        {
-            listener.shouldQuit();
         }
     }
 }
