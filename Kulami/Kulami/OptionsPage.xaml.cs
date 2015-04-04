@@ -34,9 +34,23 @@ namespace Kulami
             throw new NotImplementedException();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BackButtonClick(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(new MainPage());
+        }
+
+        private void BackButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButtonOn.png", UriKind.Absolute));
+            BackButton.Background = bb;
+        }
+
+        private void BackButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush bb = new ImageBrush();
+            bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
+            BackButton.Background = bb;
         }
     }
 }

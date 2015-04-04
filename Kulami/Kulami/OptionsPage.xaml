@@ -4,10 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1280">
-    <Grid>
-        <Canvas Name="OptionsBackground" Height="800" Width="1280">
-            <Button Content="back" Canvas.Left="25" Canvas.Top="102" Width="226" Height="62" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="7" FontFamily="SquareFont" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
+             d:DesignHeight="900" d:DesignWidth="1440">
+    <Grid Background="Black">
+        <Canvas Name="OptionsBackground" Height="900" Width="1440">
+            <Label Name="Title" Content="options" Canvas.Top="75" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440"/>
+            <Button Name="BackButton" Content="" Canvas.Left="56" Canvas.Top="92" Width="85" Height="85" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
+
+            <Canvas.Triggers>
+                <!-- Animates the rectangle's opacity. -->
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                    Storyboard.TargetName="OptionsBackground" 
+                                    Storyboard.TargetProperty="Opacity"
+                                    From="0.0" To="1.0" Duration="0:0:0.8" 
+                                    AutoReverse="False" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Canvas.Triggers>
         </Canvas>
     </Grid>
 </UserControl>
