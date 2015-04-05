@@ -23,8 +23,7 @@ namespace LidgrenKulamiPeer
             private string SIGNATURE = "team2";
             private static int numberOfConnections;
             public string errorMessage = "";
-<<<<<<< HEAD
-=======
+
             private bool isDisconnected;
 
             public bool IsDisconnected
@@ -33,7 +32,7 @@ namespace LidgrenKulamiPeer
             }
 
             //public static Form1 look = new Form1();
->>>>>>> origin/master
+
 
             public peerListener(NetPeer newPeer, long id)
             {

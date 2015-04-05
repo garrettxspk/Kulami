@@ -127,6 +127,9 @@
     <Compile Include="SoundEffectsPlayer.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="VideoIntroScreen.xaml.cs">
+      <DependentUpon>VideoIntroScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitingForConnectionPage.xaml.cs">
       <DependentUpon>WaitingForConnectionPage.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Scores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VideoIntroScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
