@@ -174,7 +174,7 @@ namespace Kulami
                         }
                     }
 
-                    if (engine.CurrentGame.IsGameOver() && connected)
+                    if (engine.CurrentGame.IsGameOver())
                     {
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
@@ -214,12 +214,12 @@ namespace Kulami
 
                         }
                         checkConnect.Stop();
-                        networkPeer.killPeer();
-                        networkPeer = null;
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
+                        networkPeer.killPeer();
+                        networkPeer = null;
                         if(myColor == "Blue")
                             Switcher.Switch(new Scores(engine.CurrentGame.GameStats, myName, opponentsName));
                         else
@@ -232,36 +232,19 @@ namespace Kulami
 
         private async Task MakeOpponentMove()
         {
-            bool skip = false;
-            if (IsConnected())
+            string opponentMove = networkPeer.getMove();
+            while (opponentMove == null)
             {
-                string opponentMove = networkPeer.getMove();
-                while (opponentMove == null)
-                {
-                    await Task.Delay(1000);
-                    if (networkPeer != null)
-                    {
-                        opponentMove = networkPeer.getMove();
-                    }
-                    else
-                    {
-                        skip = true;
-                        break;
-                    }
-                }
-                if (!skip)
-                {
-                    int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
-                    int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
-                    string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
-                    Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
-                    MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
-                    PlayerTurnLabel.Visibility = Visibility.Visible;
-                    OpponentTurnLabel.Visibility = Visibility.Hidden;
-                }
+                await Task.Delay(1000);
+                opponentMove = networkPeer.getMove();
             }
-            else
-                Disconnect();
+            int opponentRow = Convert.ToInt32(opponentMove.Substring(1, 1));
+            int opponentCol = Convert.ToInt32(opponentMove.Substring(2, 1));
+            string opponentMoveBtnName = "planet" + opponentRow.ToString() + opponentCol.ToString();
+            Button opponentMoveBtn = buttonNames[opponentMoveBtnName];
+            MakeHumanMove(opponentMoveBtn, opponentRow, opponentCol, opponentsColor);
+            PlayerTurnLabel.Visibility = Visibility.Visible;
+            OpponentTurnLabel.Visibility = Visibility.Hidden;
         }
 
         private void MakeHumanMove(Button b, int row, int col, string playerColor)
@@ -299,7 +282,7 @@ namespace Kulami
                 }
                 
                 string fuelLeft;
-                if(playerColor == "red")
+                if(playerColor == "Red")
                     fuelLeft = FuelIndicatorLabel.Content.ToString();
                 else 
                     fuelLeft = FuelIndicatorLabel2.Content.ToString();
@@ -311,7 +294,7 @@ namespace Kulami
                 {
                     fuelLeft = "";
                 }
-                if (playerColor == "red")
+                if (playerColor == "Red")
                     FuelIndicatorLabel.Content = fuelLeft;
                 else
                     FuelIndicatorLabel2.Content = fuelLeft;

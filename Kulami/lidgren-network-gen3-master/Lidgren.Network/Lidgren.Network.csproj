@@ -146,16 +146,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Kulami\Kulami.csproj">
-      <Project>{8a07677b-a104-42b7-9e64-0b614d9cff80}</Project>
-      <Name>Kulami</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\LidgrenChatClient\LidgrenChatClient.csproj">
-      <Project>{77a4d4ec-0dcd-43fa-b882-b2eb7d147c17}</Project>
-      <Name>LidgrenChatClient</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
