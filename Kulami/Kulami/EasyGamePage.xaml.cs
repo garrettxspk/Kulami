@@ -224,7 +224,7 @@ namespace Kulami
             {
                 fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
             }
-            catch (IndexOutOfRangeException)
+            catch (ArgumentOutOfRangeException)
             {
                 fuelLeft = "";
             }

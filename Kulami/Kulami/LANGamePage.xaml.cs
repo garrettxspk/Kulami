@@ -67,6 +67,7 @@ namespace Kulami
             else
             {
                 PlayerTurnLabel.Visibility = System.Windows.Visibility.Hidden;
+                fuelIndicator2.Visibility = System.Windows.Visibility.Visible;
                 OpponentTurnLabel.Visibility = System.Windows.Visibility.Visible;
                 player1turn = false;
                 myColor = "Blue";
@@ -212,6 +213,7 @@ namespace Kulami
                             }
 
                         }
+                        checkConnect.Stop();
                         networkPeer.killPeer();
                         networkPeer = null;
                         await Task.Delay(4000);
@@ -295,16 +297,25 @@ namespace Kulami
                     if (soundOn)
                         soundEffectPlayer.ControlSectorSound();
                 }
-                string fuelLeft = FuelIndicatorLabel.Content.ToString();
+                
+                string fuelLeft;
+                if(playerColor == "red")
+                    fuelLeft = FuelIndicatorLabel.Content.ToString();
+                else 
+                    fuelLeft = FuelIndicatorLabel2.Content.ToString();
                 try
                 {
                     fuelLeft = fuelLeft.Substring(0, fuelLeft.Length - 1);
                 }
-                catch (IndexOutOfRangeException)
+                catch (ArgumentOutOfRangeException)
                 {
                     fuelLeft = "";
                 }
-                FuelIndicatorLabel.Content = fuelLeft;
+                if (playerColor == "red")
+                    FuelIndicatorLabel.Content = fuelLeft;
+                else
+                    FuelIndicatorLabel2.Content = fuelLeft;
+
                 HighlightAvailableMovesOnBoard();
                 engine.CurrentGame.Board.PrintGameBoard();
                 player1turn = !player1turn;
