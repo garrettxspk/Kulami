@@ -170,7 +170,16 @@ namespace Kulami
                                 Disconnect();
                             }
                             else
-                                await MakeOpponentMove();
+                            {
+                                try
+                                {
+                                    await MakeOpponentMove();
+                                }
+                                catch (NullReferenceException)
+                                {
+
+                                }
+                            }
                         }
                     }
 
@@ -504,7 +513,7 @@ namespace Kulami
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
-
+            checkConnect.Stop();
             networkPeer.killPeer();
             networkPeer = null;
             connected = false;
