@@ -55,7 +55,7 @@ namespace Kulami
             soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string, Button>();
-            allButtons = GameBackground.Children.OfType<Button>();
+            allButtons = GameBoard.Children.OfType<Button>();
             foreach (Button b in allButtons)
             {
                 buttonNames.Add(b.Name.ToString(), b);
@@ -135,12 +135,16 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        DisableAllMovesOnBoard();
                         CaptureGameBoard();
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+                        {
+                            WinnerLabel.Foreground = Brushes.Red;
                             WinnerLabel.Content = player2Name + " Wins!";
+                        }
                         else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
                             WinnerLabel.Content = player1Name + " Wins!";
                         else
@@ -240,10 +244,28 @@ namespace Kulami
             }
         }
 
+        private void DisableAllMovesOnBoard()
+        {
+            ImageBrush InvalidHole = new ImageBrush();
+            InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
+
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                    {
+                        Button b = buttonNames["planet" + row.ToString() + col.ToString()];
+                        b.Background = InvalidHole;
+                    }
+                }
+            }
+        }
+
         private void CaptureGameBoard()
         {
             RenderTargetBitmap rtbmp = new RenderTargetBitmap(1440, 900, 96, 96, PixelFormats.Pbgra32);
-            rtbmp.Render(GameBackground);
+            rtbmp.Render(GameBoard);
 
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
@@ -422,12 +444,16 @@ namespace Kulami
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.CurrentGame.ForceEndGame();
+            DisableAllMovesOnBoard();
+            await Task.Delay(100);
             CaptureGameBoard();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
+
+                WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
                 WinnerLabel.Content = player1Name + " Wins!";
                 soundEffectPlayer.WinSound();
             }

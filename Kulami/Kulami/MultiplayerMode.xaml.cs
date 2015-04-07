@@ -262,7 +262,7 @@ namespace Kulami
         {
             soundEffectPlayer.ButtonSound();
             string playerName = (string) LANPlayerNameTextBox.Text;
-            if (playerName == null)
+            if (playerName == "")
                 playerName = "Anonymous";
             LidgrenKulamiPeer.KulamiPeer networkPeer = new LidgrenKulamiPeer.KulamiPeer(3070);
             networkPeer.Start();
@@ -422,11 +422,11 @@ namespace Kulami
         private void LocalNextButtonClick(object sender, RoutedEventArgs e)
         {
             string player1Name = (string)LocalPlayer1NameTextBox.Text;
-            if (player1Name == null)
-                player1Name = "Player1";
+            if (player1Name == "")
+                player1Name = "Player 1";
             string player2Name = (string)LocalPlayer2NameTextBox.Text;
-            if (player2Name == null)
-                player2Name = "Player1";
+            if (player2Name == "")
+                player2Name = "Player 2";
             Switcher.Switch(new LocalGamePage(player1Name, player2Name));
         }
     }
