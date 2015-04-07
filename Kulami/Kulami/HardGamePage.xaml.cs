@@ -165,7 +165,7 @@ namespace Kulami
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound("Blue");
             //HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;
@@ -197,7 +197,7 @@ namespace Kulami
 
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
             //HighlightAvailableMovesOnBoard();
             //string fuelLeft = FuelIndicatorLabel.Content.ToString();
             //try
