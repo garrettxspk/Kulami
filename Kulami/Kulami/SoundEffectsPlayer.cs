@@ -25,10 +25,15 @@ namespace Kulami
         {
             soundEffectsMediaPlayer.IsMuted = false;
         }
-        public void MakeMoveSound()
+        public void MakeMoveSound(string move)
         {
             soundEffectsMediaPlayer.Close();
-            string MovePath = startupPath + "/sound/soundEffects/move.wav";
+            string MovePath;
+            string color = move[0].ToString();
+            if (color == "R")
+                MovePath = startupPath + "/sound/soundEffects/move.wav";
+            else
+                MovePath = startupPath + "/sound/soundEffects/move3.wav";
             soundEffectsMediaPlayer.Open(new Uri(MovePath));
             soundEffectsMediaPlayer.Play();
         }
@@ -36,7 +41,7 @@ namespace Kulami
         public void PlayStartGameSound()
         {
             soundEffectsMediaPlayer.Close();
-            string MovePath = startupPath + "/sound/soundEffects/GameStart.wav";
+            string MovePath = startupPath + "/sound/soundEffects/GameStart new.wav";
             soundEffectsMediaPlayer.Open(new Uri(MovePath));
             soundEffectsMediaPlayer.Play();
         }

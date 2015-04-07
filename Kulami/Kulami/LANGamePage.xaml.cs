@@ -283,7 +283,7 @@ namespace Kulami
 
                 engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
                 if (soundOn)
-                    soundEffectPlayer.MakeMoveSound();
+                    soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
                 
                 string fuelLeft;
                 if(playerColor == "Red")
