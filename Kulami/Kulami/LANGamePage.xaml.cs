@@ -275,11 +275,6 @@ namespace Kulami
                 engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
                 if (soundOn)
                     soundEffectPlayer.MakeMoveSound();
-                if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
-                {
-                    if (soundOn)
-                        soundEffectPlayer.ControlSectorSound();
-                }
                 
                 string fuelLeft;
                 if(playerColor == "Red")

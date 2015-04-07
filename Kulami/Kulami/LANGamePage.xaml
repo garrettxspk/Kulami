@@ -95,7 +95,7 @@
             <Button x:Name="planetConquerTwo" Content="" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
 
             <Label Name="PlayerTurnLabel" Content="Your Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont"/>
-            <Label Name="OpponentTurnLabel" Content="Waiting For Opponents's Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Panel.ZIndex="1">
+            <Label Name="OpponentTurnLabel" Content="Waiting For Opponent's Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Panel.ZIndex="1">
                 <Label.Style>
                     <Style TargetType="{x:Type Label}">
                         <Style.Resources>

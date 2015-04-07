@@ -68,6 +68,8 @@ namespace Kulami
             Random rndMoveFirst = new Random();
             int playFirst = rndMoveFirst.Next(0, 2);
 
+            FuelLeftLabel.Content = player1Name + "'s fuel:";
+            FuelLeftLabel2.Content = player2Name + "'s fuel:";
             if (playFirst == 1)
             {
                 PlayerOneTurnLabel.Visibility = Visibility.Visible;
@@ -133,6 +135,7 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        CaptureGameBoard();
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
@@ -200,11 +203,6 @@ namespace Kulami
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
             if (soundOn)
                 soundEffectPlayer.MakeMoveSound();
-            if (engine.CurrentGame.Board.WasSectorConquered(playerColor[0] + row.ToString() + col.ToString()))
-            {
-                if (soundOn)
-                    soundEffectPlayer.ControlSectorSound();
-            }
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;
@@ -239,6 +237,20 @@ namespace Kulami
                     b.Background = ValidHole;
                 }
 
+            }
+        }
+
+        private void CaptureGameBoard()
+        {
+            RenderTargetBitmap rtbmp = new RenderTargetBitmap(500, 500, 96, 96, PixelFormats.Pbgra32);
+            rtbmp.Render(BoardBackground);
+
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
+            string filePath = startupPath + "/images/EndGameBoard.png";
+            using (Stream fileStream = File.Create(filePath))
+            {
+                pngImage.Save(fileStream);
             }
         }
 
@@ -410,6 +422,7 @@ namespace Kulami
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             engine.CurrentGame.ForceEndGame();
+            CaptureGameBoard();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
 

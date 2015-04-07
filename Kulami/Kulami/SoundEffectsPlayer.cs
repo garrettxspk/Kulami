@@ -41,15 +41,6 @@ namespace Kulami
             soundEffectsMediaPlayer.Play();
         }
 
-
-        public void ControlSectorSound()
-        {
-            soundEffectsMediaPlayer.Close();
-            string GetPointPath = startupPath + "/sound/soundEffects/GetPoint.wav";
-            soundEffectsMediaPlayer.Open(new Uri(GetPointPath));
-            soundEffectsMediaPlayer.Play();
-        }
-
         public void ButtonSound()
         {
             soundEffectsMediaPlayer.Close();

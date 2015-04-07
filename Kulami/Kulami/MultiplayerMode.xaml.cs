@@ -174,6 +174,8 @@ namespace Kulami
             soundEffectPlayer.ButtonSound();
             LocalPlayer1NameTextBox.IsEnabled = true;
             LocalPlayer2NameTextBox.IsEnabled = true;
+            LocalPlayer1NameLabel.Visibility = System.Windows.Visibility.Visible;
+            LocalPlayer2NameLabel.Visibility = System.Windows.Visibility.Visible;
             LocalPlayer1NameTextBox.Focus();
             LocalNextButton.IsEnabled = true;
             LocalNextButton.Visibility = System.Windows.Visibility.Visible;
