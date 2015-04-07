@@ -96,7 +96,7 @@ namespace Kulami
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/HelpScreen" + currentScreen + ".png", UriKind.Absolute));
             HelpBackground.Background = ib;
-            if (currentScreen >= 5)
+            if (currentScreen >= 7)
                 NextButton.Visibility = Visibility.Hidden;
         }
 
