@@ -242,8 +242,8 @@ namespace Kulami
 
         private void CaptureGameBoard()
         {
-            RenderTargetBitmap rtbmp = new RenderTargetBitmap(500, 500, 96, 96, PixelFormats.Pbgra32);
-            rtbmp.Render(BoardBackground);
+            RenderTargetBitmap rtbmp = new RenderTargetBitmap(1440, 900, 96, 96, PixelFormats.Pbgra32);
+            rtbmp.Render(GameBackground);
 
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
