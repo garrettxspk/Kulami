@@ -19,9 +19,10 @@
             <Canvas.Background>
                 <ImageBrush Stretch="None"/>
             </Canvas.Background>
-            <Button Name="BoardBackground" IsEnabled="False" Height="810" Width="1530" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-57" Canvas.Top="10"/>
+            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1270" Canvas.Top="788" Width="144" Height="53" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="3" FontFamily="SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Panel.ZIndex="2" Click="Button_Click"/>
+            <Canvas Name="GameBoard" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="900" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1209" Panel.ZIndex="1">
 
-            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1270" Canvas.Top="788" Width="144" Height="53" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="3" FontFamily="SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click"/>
+                <Button Name="BoardBackground" IsEnabled="False" Height="810" Width="1530" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-57" Canvas.Top="10"/>
             <Button x:Name="planet00" Content="" Canvas.Left="380" Canvas.Top="127" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1" Foreground="{x:Null}" BorderBrush="{x:Null}" MaxWidth="86" MaxHeight="86" Click="planetBtn_Click">
                 <Button.Background>
                     <ImageBrush Stretch="Uniform"/>
@@ -93,7 +94,7 @@
             <Button x:Name="planet71" Content="" Canvas.Left="465" Canvas.Top="707" Width="74" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="planetBtn_Click"/>
             <Button x:Name="planetConquerOne" Content="" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
             <Button x:Name="planetConquerTwo" Content="" Width="73" Height="73" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" />
-
+            </Canvas>
             <Label Name="PlayerTurnLabel" Content="Your Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont"/>
             <Label Name="ComputerTurnLabel" Content="Computer's Turn" Canvas.Top="21" Height="90" Width="1440" Foreground="#FF79CCFF" FontSize="52" FontWeight="Light" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" Panel.ZIndex="1">
                 <Label.Style>
@@ -118,9 +119,9 @@
                     </Style>
                 </Label.Style>
             </Label>
-            <Button x:Name="toggleSound_Btn" ToolTip="Toggle Sound Effects On/Off" Content="" Canvas.Left="1270" Canvas.Top="673" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
-            <Button x:Name="toggleMusicBtn" ToolTip="Toggle Music On/Off" Content="" Canvas.Left="1270" Canvas.Top="571" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleMusicBtn_Click" MouseEnter="toggleMusicBtn_MouseEnter" MouseLeave="toggleMusicBtn_MouseLeave" />
-            <Button x:Name="screenHelpBtn" ToolTip="Help" Content="" Canvas.Left="56" Canvas.Top="783" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="screenHelpBtn_Click" MouseEnter="screenHelpBtn_MouseEnter" MouseLeave="screenHelpBtn_MouseLeave"/>
+            <Button x:Name="toggleSound_Btn" Panel.ZIndex="1" ToolTip="Toggle Sound Effects On/Off" Content="" Canvas.Left="1270" Canvas.Top="673" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="Toggle_Sound" MouseEnter="toggleSound_Btn_MouseEnter" MouseLeave="toggleSound_Btn_MouseLeave"/>
+            <Button x:Name="toggleMusicBtn" Panel.ZIndex="1" ToolTip="Toggle Music On/Off" Content="" Canvas.Left="1270" Canvas.Top="571" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleMusicBtn_Click" MouseEnter="toggleMusicBtn_MouseEnter" MouseLeave="toggleMusicBtn_MouseLeave" />
+            <Button x:Name="screenHelpBtn" Panel.ZIndex="1" ToolTip="Help" Content="" Canvas.Left="56" Canvas.Top="783" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="screenHelpBtn_Click" MouseEnter="screenHelpBtn_MouseEnter" MouseLeave="screenHelpBtn_MouseLeave"/>
             <Button Name="GameScreenHelp" Height="900" Width="1440" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-1440" Panel.ZIndex="1" Click="GameScreenHelp_Click" Cursor="Hand"/>
 
             <Button x:Name="backgroundButton" Content="" Width="1473" Height="4797" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
