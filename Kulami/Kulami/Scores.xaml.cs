@@ -26,6 +26,8 @@ namespace Kulami
         private Storyboard boardCaptureStoryboard;
         private Storyboard boardCaptureStoryboard2;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        ImageBrush cb;
+
         public Scores(GameStatistics stats, string bluePlayer = "blue", string redPlayer = "red")
         {
             InitializeComponent();
@@ -58,8 +60,9 @@ namespace Kulami
             gbb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/gameBoardButton.png", UriKind.Absolute));
             gameBoardButton.Background = gbb;
 
-            ImageBrush cb = new ImageBrush();
-            cb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EndGameBoard.png", UriKind.Absolute));
+            cb = new ImageBrush();
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            cb.ImageSource = new BitmapImage(new Uri(filePath + "/SpaceBallsEndGameBoard.png", UriKind.Absolute));
             CaptureBackground.Background = cb;
 
             DoubleAnimation captureScreenAnimation = new DoubleAnimation();

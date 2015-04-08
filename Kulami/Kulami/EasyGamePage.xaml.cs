@@ -274,7 +274,8 @@ namespace Kulami
 
             PngBitmapEncoder pngImage = new PngBitmapEncoder();
             pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
-            string filePath = startupPath + "/images/EndGameBoard.png";
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            filePath += "/SpaceBallsEndGameBoard.png";
             using (Stream fileStream = File.Create(filePath))
             {
                 pngImage.Save(fileStream);
