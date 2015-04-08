@@ -330,6 +330,7 @@ namespace Kulami
             }
             else
             {
+                bool connectionLost = false;
                 networkPeer.sendMove(playerName);
                 string opponentName = networkPeer.getMove();
                 while (opponentName == null)
@@ -349,32 +350,61 @@ namespace Kulami
                 string move = networkPeer.getMove();
                 while (move == null)
                 {
-                    await Task.Delay(1000);
-                    move = networkPeer.getMove();
-                }
-                int opponentRandomBoardNum = Convert.ToInt32(move);
-
-                networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
-                while (myRandomBoardNum == opponentRandomBoardNum)
-                {
-                    myRandomBoardNum = rnd.Next(1, 8);
-                    networkPeer.sendMove(myRandomBoardNum.ToString());
-                    move = networkPeer.getMove();
-                    while (move == null)
+                    if (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Connected)
                     {
                         await Task.Delay(1000);
                         move = networkPeer.getMove();
                     }
-                    opponentRandomBoardNum = Convert.ToInt32(move);
+                    else
+                    {
+                        connectionLost = true;
+                        break;
+                    }
                 }
+                if (!connectionLost)
+                {
+                    int opponentRandomBoardNum = Convert.ToInt32(move);
 
-                bool meFirst;
-                if (myRandomBoardNum > opponentRandomBoardNum)
-                    meFirst = true;
+                    networkingBoardNum = (myRandomBoardNum + opponentRandomBoardNum) / 2;
+                    while (myRandomBoardNum == opponentRandomBoardNum)
+                    {
+                        myRandomBoardNum = rnd.Next(1, 8);
+                        networkPeer.sendMove(myRandomBoardNum.ToString());
+                        move = networkPeer.getMove();
+                        while (move == null)
+                        {
+                            if (networkPeer.listener.connection.Status == Lidgren.Network.NetConnectionStatus.Connected)
+                            {
+                                await Task.Delay(1000);
+                                move = networkPeer.getMove();
+                            }
+                            else
+                            {
+                                connectionLost = true;
+                                break;
+                            }
+                        }
+                        opponentRandomBoardNum = Convert.ToInt32(move);
+                    }
+                    if (!connectionLost)
+                    {
+                        bool meFirst;
+                        if (myRandomBoardNum > opponentRandomBoardNum)
+                            meFirst = true;
+                        else
+                            meFirst = false;
+
+                        Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst, playerName, opponentName));
+                    }
+                    else
+                    {
+                        Switcher.Switch(new ConnectionLostPage());
+                    }
+                }
                 else
-                    meFirst = false;
-
-                Switcher.Switch(new LANGamePage(networkPeer, networkingBoardNum, meFirst, playerName, opponentName));
+                {
+                    Switcher.Switch(new ConnectionLostPage());
+                }
             }
         }
 
