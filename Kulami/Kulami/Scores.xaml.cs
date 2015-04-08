@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,6 +23,8 @@ namespace Kulami
     public partial class Scores : UserControl
     {
         private String gameResult;
+        private Storyboard boardCaptureStoryboard;
+        private Storyboard boardCaptureStoryboard2;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         public Scores(GameStatistics stats, string bluePlayer = "blue", string redPlayer = "red")
         {
@@ -43,9 +46,42 @@ namespace Kulami
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
             ScoresBackground.Background = ib;
 
+            ImageBrush sb = new ImageBrush();
+            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericBackground.png", UriKind.Absolute));
+            GameBoardCapture.Background = sb;
+
             ImageBrush hb = new ImageBrush();
             hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
             homeButton.Background = hb;
+
+            ImageBrush gbb = new ImageBrush();
+            gbb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/gameBoardButton.png", UriKind.Absolute));
+            gameBoardButton.Background = gbb;
+
+            ImageBrush cb = new ImageBrush();
+            cb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/EndGameBoard.png", UriKind.Absolute));
+            CaptureBackground.Background = cb;
+
+            DoubleAnimation captureScreenAnimation = new DoubleAnimation();
+            captureScreenAnimation.From = -1440;
+            captureScreenAnimation.To = 0;
+            captureScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
+
+            DoubleAnimation captureScreenAnimation2 = new DoubleAnimation();
+            captureScreenAnimation2.From = 0;
+            captureScreenAnimation2.To = -1440;
+            captureScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.4));
+
+            boardCaptureStoryboard = new Storyboard();
+            boardCaptureStoryboard2 = new Storyboard();
+
+            boardCaptureStoryboard.Children.Add(captureScreenAnimation);
+            boardCaptureStoryboard2.Children.Add(captureScreenAnimation2);
+
+            Storyboard.SetTargetName(captureScreenAnimation, GameBoardCapture.Name);
+            Storyboard.SetTargetProperty(captureScreenAnimation, new PropertyPath(Canvas.LeftProperty));
+            Storyboard.SetTargetName(captureScreenAnimation2, GameBoardCapture.Name);
+            Storyboard.SetTargetProperty(captureScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,6 +101,30 @@ namespace Kulami
             ImageBrush hb = new ImageBrush();
             hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
             homeButton.Background = hb;
+        }
+
+        private void gameBoardButton_Click(object sender, RoutedEventArgs e)
+        {
+            boardCaptureStoryboard.Begin(GameBoardCapture);
+        }
+
+        private void gameBoardButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush gbb = new ImageBrush();
+            gbb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/gameBoardButtonOn.png", UriKind.Absolute));
+            gameBoardButton.Background = gbb;
+        }
+
+        private void gameBoardButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush gbb = new ImageBrush();
+            gbb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/gameBoardButton.png", UriKind.Absolute));
+            gameBoardButton.Background = gbb;
+        }
+
+        private void GameBoardCapture_Click(object sender, RoutedEventArgs e)
+        {
+            boardCaptureStoryboard2.Begin(GameBoardCapture);
         }
     }
 }
