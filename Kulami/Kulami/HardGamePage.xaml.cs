@@ -50,7 +50,7 @@ namespace Kulami
             soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string, Button>();
-            allButtons = GameBackground.Children.OfType<Button>();
+            allButtons = GameBoard.Children.OfType<Button>();
             foreach (Button b in allButtons)
             {
                 buttonNames.Add(b.Name.ToString(), b);
@@ -111,11 +111,13 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        CaptureGameBoard();
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                         {
+                            WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
                             WinnerLabel.Content = "You Win!";
                             soundEffectPlayer.WinSound();
                         }
@@ -134,7 +136,7 @@ namespace Kulami
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
 
                     }
                 }
@@ -163,7 +165,7 @@ namespace Kulami
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound("Blue");
             //HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;
@@ -195,7 +197,7 @@ namespace Kulami
 
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
             //HighlightAvailableMovesOnBoard();
             //string fuelLeft = FuelIndicatorLabel.Content.ToString();
             //try
@@ -209,6 +211,20 @@ namespace Kulami
             //FuelIndicatorLabel.Content = fuelLeft;
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;
+        }
+
+        private void CaptureGameBoard()
+        {
+            RenderTargetBitmap rtbmp = new RenderTargetBitmap(1440, 900, 96, 96, PixelFormats.Pbgra32);
+            rtbmp.Render(GameBoard);
+
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
+            string filePath = startupPath + "/images/EndGameBoard.png";
+            using (Stream fileStream = File.Create(filePath))
+            {
+                pngImage.Save(fileStream);
+            }
         }
 
         #region Button Event Handlers
@@ -311,18 +327,20 @@ namespace Kulami
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            CaptureGameBoard();
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Red Wins!";
+                WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
+                WinnerLabel.Content = "You Win!";
                 soundEffectPlayer.WinSound();
             }
             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Blue Wins!";
+                WinnerLabel.Content = "Computer Wins!";
                 soundEffectPlayer.LostSound();
             }
             else
@@ -332,7 +350,7 @@ namespace Kulami
             }
             await Task.Delay(4000);
 
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
 
         }
 

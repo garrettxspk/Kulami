@@ -51,7 +51,7 @@ namespace Kulami
             soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string, Button>();
-            allButtons = GameBackground.Children.OfType<Button>();
+            allButtons = GameBoard.Children.OfType<Button>();
             foreach (Button b in allButtons)
             {
                 buttonNames.Add(b.Name.ToString(), b);
@@ -112,17 +112,21 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        DisableAllMovesOnBoard();
+                        await Task.Delay(100);
+                        CaptureGameBoard();
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                         {
+                            WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
                             WinnerLabel.Content = "You Win!";
                             soundEffectPlayer.WinSound();
                         }
                         else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
                         {
-                            WinnerLabel.Content = "You Lose";
+                            WinnerLabel.Content = "Computer Wins";
                             soundEffectPlayer.LostSound();
                         }
                         else
@@ -135,7 +139,7 @@ namespace Kulami
                         gameOverStoryboard.Begin(GameBackground);
                         soundTrackMediaPlayer.Close();
                         soundEffectPlayer.Close();
-                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+                        Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
 
                     }
                 }
@@ -165,7 +169,7 @@ namespace Kulami
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound("Blue");
             HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;
@@ -197,7 +201,7 @@ namespace Kulami
 
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
             if (soundOn)
-                soundEffectPlayer.MakeMoveSound();
+                soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
             string fuelLeft = FuelIndicatorLabel.Content.ToString();
             try
             {
@@ -242,6 +246,38 @@ namespace Kulami
                     b.Background = ValidHole;
                 }
 
+            }
+        }
+
+        private void DisableAllMovesOnBoard()
+        {
+            ImageBrush InvalidHole = new ImageBrush();
+            InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
+
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if (!engine.CurrentGame.Board.IsHoleFilled(row, col))
+                    {
+                        Button b = buttonNames["planet" + row.ToString() + col.ToString()];
+                        b.Background = InvalidHole;
+                    }
+                }
+            }
+        }
+
+        private void CaptureGameBoard()
+        {
+            RenderTargetBitmap rtbmp = new RenderTargetBitmap(1440, 900, 96, 96, PixelFormats.Pbgra32);
+            rtbmp.Render(GameBoard);
+
+            PngBitmapEncoder pngImage = new PngBitmapEncoder();
+            pngImage.Frames.Add(BitmapFrame.Create(rtbmp));
+            string filePath = startupPath + "/images/EndGameBoard.png";
+            using (Stream fileStream = File.Create(filePath))
+            {
+                pngImage.Save(fileStream);
             }
         }
 
@@ -362,7 +398,7 @@ namespace Kulami
 
         private void advanceButton_Copy_Click(object sender, RoutedEventArgs e)
         {
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
         }
 
         private void toggleMusicBtn_Click(object sender, RoutedEventArgs e)
@@ -412,18 +448,22 @@ namespace Kulami
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            DisableAllMovesOnBoard();
+            await Task.Delay(100);
+            CaptureGameBoard();
             engine.CurrentGame.ForceEndGame();
             soundTrackMediaPlayer.Close();
             gameOverStoryboard.Begin(GameBackground);
 
             if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Red Wins!";
+                WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
+                WinnerLabel.Content = "You Win!";
                 soundEffectPlayer.WinSound();
             }
             else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
             {
-                WinnerLabel.Content = "Blue Wins!";
+                WinnerLabel.Content = "Computer Wins!";
                 soundEffectPlayer.LostSound();
             }
             else
@@ -433,7 +473,7 @@ namespace Kulami
             }
             await Task.Delay(4000);
 
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
 
         }
 
