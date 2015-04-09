@@ -541,6 +541,10 @@ namespace Kulami
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBoard" + engine.GameBoardNumber + ".png", UriKind.Absolute));
             BoardBackground.Background = ib;
 
+            ImageBrush gb = new ImageBrush();
+            gb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBackground.jpg", UriKind.Absolute));
+            backgroundButton.Background = gb;
+
             ImageBrush sb = new ImageBrush();
             if (SoundSetting.SoundOn)
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));

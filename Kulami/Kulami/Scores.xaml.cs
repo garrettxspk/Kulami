@@ -43,6 +43,10 @@ namespace Kulami
             totalScoreLabel2.Content = stats.BluePoints.ToString();
             player2Label.Content = bluePlayer;
             player1Label.Content = redPlayer;
+            if (stats.BluePoints > stats.RedPoints)
+                winnerBlueButton.Visibility = Visibility.Visible;
+            else if (stats.RedPoints > stats.BluePoints)
+                winnerRedButton.Visibility = Visibility.Visible;
 
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameStatsBackground.png", UriKind.Absolute));
@@ -51,6 +55,14 @@ namespace Kulami
             ImageBrush sb = new ImageBrush();
             sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericBackground.png", UriKind.Absolute));
             GameBoardCapture.Background = sb;
+
+            ImageBrush wbb = new ImageBrush();
+            wbb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/winnerStar.png", UriKind.Absolute));
+            winnerBlueButton.Background = wbb;
+
+            ImageBrush wrb = new ImageBrush();
+            wrb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/winnerStar.png", UriKind.Absolute));
+            winnerRedButton.Background = wrb;
 
             ImageBrush hb = new ImageBrush();
             hb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));

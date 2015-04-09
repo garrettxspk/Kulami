@@ -33,6 +33,10 @@ namespace Kulami
             bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             BackButton.Background = bb;
 
+            ImageBrush pb = new ImageBrush();
+            pb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/playButton.png", UriKind.Absolute));
+            PlayButton.Background = pb;
+
             ImageBrush sound = new ImageBrush();
             if (SoundSetting.SoundOn)
                 sound.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
@@ -156,6 +160,25 @@ namespace Kulami
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
 
             Music.Background = sb;
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new VideoIntroScreen());
+        }
+
+        private void PlayButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush pb = new ImageBrush();
+            pb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/playButtonHover.png", UriKind.Absolute));
+            PlayButton.Background = pb;
+        }
+
+        private void PlayButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush pb = new ImageBrush();
+            pb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/playButton.png", UriKind.Absolute));
+            PlayButton.Background = pb;
         }
     }
 }
