@@ -628,6 +628,7 @@ namespace Kulami
 
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
+            checkConnect.Stop();
             networkPeer.killPeer();
             networkPeer = null;
             soundEffectPlayer.Stop();
