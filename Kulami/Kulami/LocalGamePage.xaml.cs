@@ -52,6 +52,8 @@ namespace Kulami
             string songPath = startupPath + "/sound/music/Soundtrack.mp3";
             soundTrackMediaPlayer.Open(new Uri(songPath));
             soundTrackMediaPlayer.MediaEnded += new EventHandler(Song_Ended);
+            if (!SoundSetting.MusicOn)
+                soundTrackMediaPlayer.IsMuted = true;
             soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string, Button>();

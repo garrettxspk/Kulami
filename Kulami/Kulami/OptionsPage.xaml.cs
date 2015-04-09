@@ -148,7 +148,7 @@ namespace Kulami
         private void MusicOn_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush sb = new ImageBrush();
-            if (SoundSetting.SoundOn)
+            if (SoundSetting.MusicOn)
             {
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
             }

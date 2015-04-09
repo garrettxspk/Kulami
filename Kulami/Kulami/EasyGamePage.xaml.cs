@@ -49,6 +49,8 @@ namespace Kulami
             soundTrackMediaPlayer.Open(new Uri(songPath));
             soundTrackMediaPlayer.MediaEnded += new EventHandler(Song_Ended);
             soundTrackMediaPlayer.Play();
+            if (!SoundSetting.MusicOn)
+                soundTrackMediaPlayer.IsMuted = true;
 
             buttonNames = new Dictionary<string, Button>();
             allButtons = GameBoard.Children.OfType<Button>();

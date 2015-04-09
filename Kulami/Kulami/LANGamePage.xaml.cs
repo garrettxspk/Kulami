@@ -79,6 +79,8 @@ namespace Kulami
             string songPath = startupPath + "/sound/music/Soundtrack.mp3";
             soundTrackMediaPlayer.Open(new Uri(songPath));
             soundTrackMediaPlayer.MediaEnded += new EventHandler(Song_Ended);
+            if (!SoundSetting.MusicOn)
+                soundTrackMediaPlayer.IsMuted = true;
             soundTrackMediaPlayer.Play();
 
             buttonNames = new Dictionary<string, Button>();
@@ -616,6 +618,8 @@ namespace Kulami
 
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
+            networkPeer.killPeer();
+            networkPeer = null;
             Switcher.Switch(new MainPage());
         }
 
