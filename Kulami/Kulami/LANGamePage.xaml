@@ -19,7 +19,6 @@
             <Canvas.Background>
                 <ImageBrush Stretch="None"/>
             </Canvas.Background>
-            <Button x:Name="advanceButton" Content="advance" Canvas.Left="1270" Canvas.Top="788" Width="144" Height="53" Background="#822B2B2B" BorderBrush="#FF015E8B" BorderThickness="3" FontFamily="SquareFont" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FF4192B9" Click="Button_Click" Panel.ZIndex="2"/>
             <Canvas Name="GameBoard" OpacityMask="{x:Null}" Margin="0,0,0,0" Height="900" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1209" Panel.ZIndex="1">
                 <Button Name="BoardBackground" IsEnabled="False" Height="810" Width="1530" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-57" Canvas.Top="10"/>
 
@@ -123,6 +122,12 @@
             <Button x:Name="toggleRadar_Btn" Content="" Canvas.Left="1270" Canvas.Top="469" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleRadar_Btn_Click" IsMouseDirectlyOverChanged="toggleRadar_Btn_IsMouseDirectlyOverChanged" Panel.ZIndex="1" MouseEnter="toggleRadar_Btn_MouseEnter" MouseLeave="toggleRadar_Btn_MouseLeave" ToolTip="Toggle Radar (Move Help) On/Off"/>
             <Button x:Name="toggleMusicBtn" Content="" Canvas.Left="1270" Canvas.Top="571" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="toggleMusicBtn_Click" MouseEnter="toggleMusicBtn_MouseEnter" MouseLeave="toggleMusicBtn_MouseLeave" Panel.ZIndex="1" ToolTip="Toggle Music On/Off" />
             <Button x:Name="screenHelpBtn" Content="" Canvas.Left="56" Canvas.Top="783" Width="85" Height="85" Background="{x:Null}" BorderBrush="{x:Null}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="{x:Null}" Click="screenHelpBtn_Click" MouseEnter="screenHelpBtn_MouseEnter" MouseLeave="screenHelpBtn_MouseLeave" Panel.ZIndex="1" ToolTip="Help"/>
+            <Button x:Name="advanceButton" ToolTip="Home" Panel.ZIndex="1" Canvas.Left="1270" Canvas.Top="780" Width="85" Height="85" BorderBrush="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Button_Click" MouseEnter="advanceButton_MouseEnter" MouseLeave="advanceButton_MouseLeave"/>
+            <Canvas Name="ForfeitScreen" Height="250" Width="1440" Canvas.Bottom="-250" Panel.ZIndex="1" Background="Black">
+                <Label Content="Are you sure you want to forfeit this game?" Foreground="#FF79CCFF" FontFamily="/Kulami;component/#SquareFont" FontSize="48" Width="1440" HorizontalContentAlignment="Center" Height="127" VerticalContentAlignment="Center" />
+                <Button x:Name="yesButton" Cursor="Hand" Content="Yes" Width="200" Height="75" Background="#820A0A0A" BorderBrush="#FF79CCFF" BorderThickness="3" FontFamily="SquareFont" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF79CCFF" Canvas.Left="476" Canvas.Top="127" Click="yesButton_Click"/>
+                <Button x:Name="noButton" Cursor="Hand" Content="No" Width="200" Height="75" Background="#820A0A0A" BorderBrush="#FF79CCFF" BorderThickness="3" FontFamily="SquareFont" FontSize="38" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF79CCFF" Canvas.Left="768" Canvas.Top="127" Click="noButton_Click"/>
+            </Canvas>
             <Button Name="GameScreenHelp" Height="900" Width="1440" BorderBrush="{x:Null}" Foreground="{x:Null}" Canvas.Left="-1440" Panel.ZIndex="1" Click="GameScreenHelp_Click" Cursor="Hand"/>
 
             <Button x:Name="backgroundButton" Content="" Width="1473" Height="4797" BorderBrush="{x:Null}" Foreground="Black" Panel.ZIndex="-2" IsEnabled="False">
