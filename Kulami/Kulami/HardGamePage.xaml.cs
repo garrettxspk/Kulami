@@ -136,8 +136,10 @@ namespace Kulami
 
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
-                        soundTrackMediaPlayer.Close();
+                        soundEffectPlayer.Stop();
                         soundEffectPlayer.Close();
+                        soundTrackMediaPlayer.Stop();
+                        soundTrackMediaPlayer.Close();
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats, "Computer", "You"));
 
                     }
@@ -372,6 +374,10 @@ namespace Kulami
 
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.Stop();
+            soundEffectPlayer.Close();
+            soundTrackMediaPlayer.Stop();
+            soundTrackMediaPlayer.Close();
             Switcher.Switch(new MainPage());
         }
 

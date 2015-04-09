@@ -16,6 +16,10 @@ namespace Kulami
         {
             soundEffectsMediaPlayer.Close();
         }
+        public void Stop()
+        {
+            soundEffectsMediaPlayer.Stop();
+        }
         public void Mute()
         {
             soundEffectsMediaPlayer.IsMuted = true;

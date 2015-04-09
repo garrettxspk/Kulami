@@ -139,7 +139,6 @@ namespace Kulami
                     {
                         DisableAllMovesOnBoard();
                         CaptureGameBoard();
-                        soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
@@ -154,8 +153,10 @@ namespace Kulami
 
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
-                        soundTrackMediaPlayer.Close();
+                        soundEffectPlayer.Stop();
                         soundEffectPlayer.Close();
+                        soundTrackMediaPlayer.Stop();
+                        soundTrackMediaPlayer.Close();
                         Switcher.Switch(new Scores(engine.CurrentGame.GameStats, player2Name, player1Name));
 
                     }
@@ -492,6 +493,10 @@ namespace Kulami
 
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
+            soundEffectPlayer.Stop();
+            soundEffectPlayer.Close();
+            soundTrackMediaPlayer.Stop();
+            soundTrackMediaPlayer.Close();
             Switcher.Switch(new MainPage());
         }
 

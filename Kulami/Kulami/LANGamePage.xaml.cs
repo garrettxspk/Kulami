@@ -27,7 +27,6 @@ namespace Kulami
         private Dictionary<string, Button> buttonNames;
         private KulamiEngine engine;
         private MediaPlayer soundTrackMediaPlayer = new MediaPlayer();
-        private MediaPlayer soundEffectsMediaPlayer = new MediaPlayer();
         private Storyboard gameOverStoryboard;
         private Storyboard HumanConquerStoryboard;
         private Storyboard AIConquerStoryboard;
@@ -233,8 +232,10 @@ namespace Kulami
                         checkConnect.Stop();
                         await Task.Delay(4000);
                         gameOverStoryboard.Begin(GameBackground);
-                        soundTrackMediaPlayer.Close();
+                        soundEffectPlayer.Stop();
                         soundEffectPlayer.Close();
+                        soundTrackMediaPlayer.Stop();
+                        soundTrackMediaPlayer.Close();
                         networkPeer.killPeer();
                         networkPeer = null;
                         if(myColor == "Blue")
@@ -620,6 +621,10 @@ namespace Kulami
         {
             networkPeer.killPeer();
             networkPeer = null;
+            soundEffectPlayer.Stop();
+            soundEffectPlayer.Close();
+            soundTrackMediaPlayer.Stop();
+            soundTrackMediaPlayer.Close();
             Switcher.Switch(new MainPage());
         }
 
