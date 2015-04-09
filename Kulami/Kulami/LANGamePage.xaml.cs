@@ -101,7 +101,16 @@ namespace Kulami
                     Disconnect();
                 }
                 else
-                    MakeOpponentMove();
+                {
+                    try
+                    {
+                        MakeOpponentMove();
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
             checkConnect.Elapsed += new ElapsedEventHandler(IfConnecting);
             checkConnect.AutoReset = true;
@@ -178,7 +187,7 @@ namespace Kulami
                                 {
                                     await MakeOpponentMove();
                                 }
-                                catch (NullReferenceException)
+                                catch
                                 {
 
                                 }

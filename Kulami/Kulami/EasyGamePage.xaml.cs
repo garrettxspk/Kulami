@@ -74,7 +74,12 @@ namespace Kulami
                 player1turn = false;
                 PlayerTurnLabel.Visibility = Visibility.Hidden;
                 ComputerTurnLabel.Visibility = Visibility.Visible;
-                MakeAIMove();
+                try
+                {
+                    MakeAIMove();
+                }
+                catch
+                { }
             }
 
             InitializeImages();
@@ -108,7 +113,12 @@ namespace Kulami
                         //get move from AI
                         if (!engine.CurrentGame.IsGameOver())
                         {
-                            await MakeAIMove();
+                            try
+                            {
+                                await MakeAIMove();
+                            }
+                            catch
+                            { }
                         }
                     }
 
