@@ -143,11 +143,11 @@ namespace Kulami
 
                         if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
                         {
-                            WinnerLabel.Foreground = Brushes.Red;
-                            WinnerLabel.Content = player2Name + " Wins!";
+                            WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
+                            WinnerLabel.Content = player1Name + " Wins!";
                         }
                         else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
-                            WinnerLabel.Content = player1Name + " Wins!";
+                            WinnerLabel.Content = player2Name + " Wins!";
                         else
                             WinnerLabel.Content = "It's a tie!";
 
