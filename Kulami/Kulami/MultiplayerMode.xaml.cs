@@ -118,12 +118,12 @@ namespace Kulami
             DoubleAnimation helpScreenAnimation = new DoubleAnimation();
             helpScreenAnimation.From = -1440;
             helpScreenAnimation.To = 0;
-            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
 
             DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
             helpScreenAnimation2.From = 0;
             helpScreenAnimation2.To = -1440;
-            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.4));
 
             helpStoryboard = new Storyboard();
             helpStoryboard2 = new Storyboard();

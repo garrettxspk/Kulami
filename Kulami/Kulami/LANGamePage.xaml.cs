@@ -33,6 +33,8 @@ namespace Kulami
         private Storyboard AIConquerStoryboard;
         private Storyboard helpStoryboard;
         private Storyboard helpStoryboard2;
+        private Storyboard forfeitStoryboard;
+        private Storyboard forfeitStoryboard2;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         bool connected = true;
         private LidgrenKulamiPeer.KulamiPeer networkPeer;
@@ -548,56 +550,81 @@ namespace Kulami
             toggleMusicBtn.Background = mb;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DisableAllMovesOnBoard();
-            await Task.Delay(100);
-            CaptureGameBoard();
-            engine.CurrentGame.ForceEndGame();
-            soundTrackMediaPlayer.Close();
-            gameOverStoryboard.Begin(GameBackground);
-            checkConnect.Stop();
-            networkPeer.killPeer();
-            networkPeer = null;
-            connected = false;
+            forfeitStoryboard.Begin(ForfeitScreen);
+            //DisableAllMovesOnBoard();
+            //await Task.Delay(100);
+            //CaptureGameBoard();
+            //engine.CurrentGame.ForceEndGame();
+            //soundTrackMediaPlayer.Close();
+            //gameOverStoryboard.Begin(GameBackground);
+            //checkConnect.Stop();
+            //networkPeer.killPeer();
+            //networkPeer = null;
+            //connected = false;
 
-            if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
-            {
-                if (myColor == "Red")
-                {
-                    WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
-                    WinnerLabel.Content = "You Win!";
-                    soundEffectPlayer.WinSound();
-                }
-                else
-                {
-                    WinnerLabel.Content = "You Lose!";
-                    soundEffectPlayer.LostSound();
-                }
-            }
-            else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
-            {
-                if (myColor == "Blue")
-                {
-                    WinnerLabel.Content = "You Win!";
-                    soundEffectPlayer.WinSound();
-                }
-                else
-                {
-                    WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
-                    WinnerLabel.Content = "You Lose!";
-                    soundEffectPlayer.LostSound();
-                }
-            }
-            else
-            {
-                WinnerLabel.Content = "It's a tie!";
-            }
+            //if (engine.CurrentGame.GameStats.RedPoints > engine.CurrentGame.GameStats.BluePoints)
+            //{
+            //    if (myColor == "Red")
+            //    {
+            //        WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
+            //        WinnerLabel.Content = "You Win!";
+            //        soundEffectPlayer.WinSound();
+            //    }
+            //    else
+            //    {
+            //        WinnerLabel.Content = "You Lose!";
+            //        soundEffectPlayer.LostSound();
+            //    }
+            //}
+            //else if (engine.CurrentGame.GameStats.RedPoints < engine.CurrentGame.GameStats.BluePoints)
+            //{
+            //    if (myColor == "Blue")
+            //    {
+            //        WinnerLabel.Content = "You Win!";
+            //        soundEffectPlayer.WinSound();
+            //    }
+            //    else
+            //    {
+            //        WinnerLabel.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FFE85252"));
+            //        WinnerLabel.Content = "You Lose!";
+            //        soundEffectPlayer.LostSound();
+            //    }
+            //}
+            //else
+            //{
+            //    WinnerLabel.Content = "It's a tie!";
+            //}
 
-            await Task.Delay(4000);
+            //await Task.Delay(4000);
 
-            Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
+            //Switcher.Switch(new Scores(engine.CurrentGame.GameStats));
 
+        }
+
+        private void advanceButton_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush ab = new ImageBrush();
+            ab.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButtonHover.png", UriKind.Absolute));
+            advanceButton.Background = ab;
+        }
+
+        private void advanceButton_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush ab = new ImageBrush();
+            ab.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
+            advanceButton.Background = ab;
+        }
+
+        private void yesButton_Click(object sender, RoutedEventArgs e)
+        {
+            Switcher.Switch(new MainPage());
+        }
+
+        private void noButton_Click(object sender, RoutedEventArgs e)
+        {
+            forfeitStoryboard2.Begin(ForfeitScreen);
         }
 
         private void screenHelpBtn_Click(object sender, RoutedEventArgs e)
@@ -680,24 +707,49 @@ namespace Kulami
             DoubleAnimation planetConquerOneAnimation = new DoubleAnimation();
             planetConquerOneAnimation.From = 0.0;
             planetConquerOneAnimation.To = 1.0;
-            planetConquerOneAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            planetConquerOneAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.6));
             planetConquerOneAnimation.AutoReverse = true;
 
             DoubleAnimation planetConquerTwoAnimation = new DoubleAnimation();
             planetConquerTwoAnimation.From = 0.0;
             planetConquerTwoAnimation.To = 1.0;
-            planetConquerTwoAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            planetConquerTwoAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.6));
             planetConquerTwoAnimation.AutoReverse = true;
 
             DoubleAnimation helpScreenAnimation = new DoubleAnimation();
             helpScreenAnimation.From = -1440;
             helpScreenAnimation.To = 0;
-            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            helpScreenAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
 
             DoubleAnimation helpScreenAnimation2 = new DoubleAnimation();
             helpScreenAnimation2.From = 0;
             helpScreenAnimation2.To = -1440;
-            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            helpScreenAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.4));
+
+            ImageBrush ab = new ImageBrush();
+            ab.ImageSource = new BitmapImage(new Uri(startupPath + "/images/homeButton.png", UriKind.Absolute));
+            advanceButton.Background = ab;
+
+            DoubleAnimation forfeitAnimation = new DoubleAnimation();
+            forfeitAnimation.From = -250;
+            forfeitAnimation.To = 0;
+            forfeitAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
+
+            DoubleAnimation forfeitAnimation2 = new DoubleAnimation();
+            forfeitAnimation2.From = 0;
+            forfeitAnimation2.To = -250;
+            forfeitAnimation2.Duration = new Duration(TimeSpan.FromSeconds(0.4));
+
+            forfeitStoryboard = new Storyboard();
+            forfeitStoryboard2 = new Storyboard();
+
+            forfeitStoryboard.Children.Add(forfeitAnimation);
+            forfeitStoryboard2.Children.Add(forfeitAnimation2);
+
+            Storyboard.SetTargetName(forfeitAnimation, ForfeitScreen.Name);
+            Storyboard.SetTargetProperty(forfeitAnimation, new PropertyPath(Canvas.BottomProperty));
+            Storyboard.SetTargetName(forfeitAnimation2, ForfeitScreen.Name);
+            Storyboard.SetTargetProperty(forfeitAnimation2, new PropertyPath(Canvas.BottomProperty));
 
             helpStoryboard = new Storyboard();
             helpStoryboard2 = new Storyboard();
