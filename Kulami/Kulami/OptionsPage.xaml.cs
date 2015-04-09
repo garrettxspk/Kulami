@@ -32,6 +32,21 @@ namespace Kulami
             ImageBrush bb = new ImageBrush();
             bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             BackButton.Background = bb;
+
+            ImageBrush sound = new ImageBrush();
+            if (SoundSetting.SoundOn)
+                sound.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            else
+                sound.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+            SoundEffect.Background = sound;
+
+            ImageBrush music = new ImageBrush();
+            if(SoundSetting.MusicOn)
+                music.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
+            else
+                music.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
+            Music.Background = music;
+
         }
         public void UtilizeState(object state)
         {
@@ -55,6 +70,92 @@ namespace Kulami
             ImageBrush bb = new ImageBrush();
             bb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/backButton.png", UriKind.Absolute));
             BackButton.Background = bb;
+        }
+
+        private void SoundEffectsOn_Click(object sender, RoutedEventArgs e)
+        {
+            SoundSetting.SoundOn = !SoundSetting.SoundOn;
+            ImageBrush sb = new ImageBrush();
+            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
+            if (SoundSetting.SoundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
+            }
+            SoundEffect.Background = sb;
+        }
+
+        private void SoundEffectsOn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (SoundSetting.SoundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
+
+            SoundEffect.Background = sb;
+        }
+
+        private void SoundEffectsOn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (SoundSetting.SoundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
+
+            SoundEffect.Background = sb;
+        }
+
+        private void MusicOn_Click(object sender, RoutedEventArgs e)
+        {
+            SoundSetting.MusicOn = !SoundSetting.MusicOn;
+
+            ImageBrush mb = new ImageBrush();
+            mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+            if (SoundSetting.MusicOn)
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+            {
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+            }
+
+            Music.Background = mb;
+        }
+
+        private void MusicOn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (SoundSetting.MusicOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
+
+            Music.Background = sb;
+        }
+
+        private void MusicOn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ImageBrush sb = new ImageBrush();
+            if (SoundSetting.SoundOn)
+            {
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
+            }
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
+
+            Music.Background = sb;
         }
     }
 }

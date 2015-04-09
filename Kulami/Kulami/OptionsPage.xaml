@@ -10,6 +10,10 @@
             <Label Name="Title" Content="options" Canvas.Top="75" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="1440"/>
             <Button Name="BackButton" Content="" Canvas.Left="56" Canvas.Top="92" Width="85" Height="85" BorderBrush="{x:Null}" FontFamily="webdings" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextHintingMode="Animated" Foreground="#FFBEEAFF" Click="BackButtonClick" Style="{StaticResource MyButtonStyle}" Background="{x:Null}" MouseEnter="BackButton_MouseEnter" MouseLeave="BackButton_MouseLeave"/>
 
+            <Label Name="SoundEffectsOnOffLabel" Content="Sound Effects:" Canvas.Top="316" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="698" Canvas.Left="56"/>
+            <Label x:Name="MusicOnOffLabel" Content="Music:" Canvas.Top="585" Height="125" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="90" Foreground="#FF79CCFF" Width="428" Canvas.Left="160"/>
+            <Button x:Name="SoundEffect" Content="" Canvas.Right="378" Canvas.Top="288" Width="203" Height="172" Click="SoundEffectsOn_Click" BorderBrush="{x:Null}" Canvas.Left="987" MouseEnter="SoundEffectsOn_MouseEnter" MouseLeave="SoundEffectsOn_MouseLeave"/>
+            <Button x:Name="Music" Content="" Canvas.Right="378" Canvas.Top="538" Width="203" Height="172" Click="MusicOn_Click" BorderBrush="{x:Null}" Canvas.Left="987" MouseEnter="MusicOn_MouseEnter" MouseLeave="MusicOn_MouseLeave"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
                 <EventTrigger RoutedEvent="Rectangle.Loaded">

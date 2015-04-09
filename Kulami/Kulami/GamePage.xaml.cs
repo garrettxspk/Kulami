@@ -364,9 +364,8 @@ namespace Kulami
 
             b.Background = ButtonImage;
          
-            engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
+            engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());    
+            soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
             HighlightAvailableMovesOnBoard();
             engine.CurrentGame.Board.PrintGameBoard();
             player1turn = !player1turn;       
@@ -401,8 +400,7 @@ namespace Kulami
             AIConquerStoryboard.Begin(planetConquerTwo);
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound("Blue");
+            soundEffectPlayer.MakeMoveSound("Blue");
             HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;

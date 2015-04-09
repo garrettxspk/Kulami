@@ -25,7 +25,6 @@ namespace Kulami
         private Storyboard myStoryboard;
         private Storyboard helpStoryboard;
         private Storyboard helpStoryboard2;
-
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
         public MainPage()
@@ -46,7 +45,6 @@ namespace Kulami
                 ImageBrush ss5 = new ImageBrush();
                 ImageBrush sh = new ImageBrush();
                 ImageBrush msh = new ImageBrush();
-
 
                 ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/BackgroundMain.png", UriKind.Absolute));
                 qg.ImageSource = new BitmapImage(new Uri(startupPath + "/images/QuickGameButton.png", UriKind.Absolute));
@@ -158,8 +156,6 @@ namespace Kulami
             Storyboard.SetTargetProperty(helpScreenAnimation, new PropertyPath(Canvas.LeftProperty));
             Storyboard.SetTargetName(helpScreenAnimation2, MainScreenHelp.Name);
             Storyboard.SetTargetProperty(helpScreenAnimation2, new PropertyPath(Canvas.LeftProperty));
-            
-
         }
         public void UtilizeState(object state)
         {

@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="SoundEffectsPlayer.cs" />
+    <Compile Include="SoundSetting.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="VideoIntroScreen.xaml.cs">

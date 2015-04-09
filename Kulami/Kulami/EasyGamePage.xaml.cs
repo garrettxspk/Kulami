@@ -37,8 +37,6 @@ namespace Kulami
         private Storyboard forfeitStoryboard2;
 
         private SoundEffectsPlayer soundEffectPlayer = new SoundEffectsPlayer();
-        bool soundOn = true;
-        bool musicOn = true;
         bool player1turn = true;
         bool radarOn = true;
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
@@ -170,8 +168,7 @@ namespace Kulami
             AIConquerStoryboard.Begin(planetConquerTwo);
             aiMoveBtn.Background = AIButtonImage;
             engine.CurrentGame.Board.MakeMoveOnBoard(aiMove);
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound("Blue");
+            soundEffectPlayer.MakeMoveSound("Blue");
             HighlightAvailableMovesOnBoard();
             PlayerTurnLabel.Visibility = Visibility.Visible;
             ComputerTurnLabel.Visibility = Visibility.Hidden;
@@ -202,8 +199,7 @@ namespace Kulami
             b.Background = ButtonImage;
 
             engine.CurrentGame.Board.MakeMoveOnBoard(playerColor[0] + row.ToString() + col.ToString());
-            if (soundOn)
-                soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
+            soundEffectPlayer.MakeMoveSound(playerColor[0].ToString());
             string fuelLeft = FuelIndicatorLabel.Content.ToString();
             try
             {
@@ -310,8 +306,8 @@ namespace Kulami
         {
             ImageBrush sb = new ImageBrush();
             sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButtonHover.png", UriKind.Absolute));
-            soundOn = !soundOn;
-            if (soundOn)
+            SoundSetting.SoundOn = !SoundSetting.SoundOn;
+            if (SoundSetting.SoundOn)
             {
                 soundEffectPlayer.UnMute();
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
@@ -376,7 +372,7 @@ namespace Kulami
         private void toggleSound_Btn_MouseEnter(object sender, MouseEventArgs e)
         {
             ImageBrush sb = new ImageBrush();
-            if (soundOn)
+            if (SoundSetting.SoundOn)
             {
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButtonHover.png", UriKind.Absolute));
             }
@@ -389,7 +385,7 @@ namespace Kulami
         private void toggleSound_Btn_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush sb = new ImageBrush();
-            if (soundOn)
+            if (SoundSetting.SoundOn)
             {
                 sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
             }
@@ -406,10 +402,10 @@ namespace Kulami
 
         private void toggleMusicBtn_Click(object sender, RoutedEventArgs e)
         {
-            musicOn = !musicOn; // musicOn = !musicOn;
+            SoundSetting.MusicOn = !SoundSetting.MusicOn; // musicOn = !musicOn;
             ImageBrush mb = new ImageBrush();
             mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButtonHover.png", UriKind.Absolute));
-            if (musicOn) //music on
+            if (SoundSetting.MusicOn) //music on
             {
                 soundTrackMediaPlayer.IsMuted = false;
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
@@ -426,7 +422,7 @@ namespace Kulami
         private void toggleMusicBtn_MouseEnter(object sender, MouseEventArgs e)
         {
             ImageBrush mb = new ImageBrush();
-            if (musicOn) //musicOn
+            if (SoundSetting.MusicOn) //musicOn
             {
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButtonHover.png", UriKind.Absolute));
             }
@@ -439,7 +435,7 @@ namespace Kulami
         private void toggleMusicBtn_MouseLeave(object sender, MouseEventArgs e)
         {
             ImageBrush mb = new ImageBrush();
-            if (musicOn) //musicOn
+            if (SoundSetting.MusicOn) //musicOn
             {
                 mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
             }
@@ -537,21 +533,23 @@ namespace Kulami
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBoard" + engine.GameBoardNumber + ".png", UriKind.Absolute));
             BoardBackground.Background = ib;
 
-            ImageBrush gb = new ImageBrush();
-            gb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GameBackground.jpg", UriKind.Absolute));
-            backgroundButton.Background = gb;
-
             ImageBrush sb = new ImageBrush();
-            sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            if (SoundSetting.SoundOn)
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOnButton.png", UriKind.Absolute));
+            else
+                sb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/soundOffButton.png", UriKind.Absolute));
             toggleSound_Btn.Background = sb;
+
+            ImageBrush mb = new ImageBrush();
+            if (SoundSetting.MusicOn)
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
+            else
+                mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOffButton.png", UriKind.Absolute));
+            toggleMusicBtn.Background = mb;
 
             ImageBrush rb = new ImageBrush();
             rb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/radarOnButton.png", UriKind.Absolute));
             toggleRadar_Btn.Background = rb;
-
-            ImageBrush mb = new ImageBrush();
-            mb.ImageSource = new BitmapImage(new Uri(startupPath + "/images/musicOnButton.png", UriKind.Absolute));
-            toggleMusicBtn.Background = mb;
 
             ImageBrush ButtonImage = new ImageBrush();
             ButtonImage.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlan.png", UriKind.Absolute));
