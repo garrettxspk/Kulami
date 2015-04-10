@@ -123,6 +123,7 @@ namespace Kulami
 
                     if (engine.CurrentGame.IsGameOver())
                     {
+                        advanceButton.IsEnabled = false;
                         CaptureGameBoard();
                         soundTrackMediaPlayer.Close();
                         gameOverStoryboard.Begin(GameBackground);

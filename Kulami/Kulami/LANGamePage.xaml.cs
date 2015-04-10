@@ -362,6 +362,8 @@ namespace Kulami
 
         private void DisableAllMovesOnBoard()
         {
+            advanceButton.IsEnabled = false;
+            toggleRadar_Btn.IsEnabled = false;
             ImageBrush InvalidHole = new ImageBrush();
             InvalidHole.ImageSource = new BitmapImage(new Uri(startupPath + "/images/GenericPlanDisabled.png", UriKind.Absolute));
 

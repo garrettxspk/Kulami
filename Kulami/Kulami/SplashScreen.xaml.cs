@@ -13,24 +13,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
 
 namespace Kulami
 {
     /// <summary>
-    /// Interaction logic for VideoIntroScreen.xaml
+    /// Interaction logic for SplashScreen.xaml
     /// </summary>
-    public partial class VideoIntroScreen : UserControl, ISwitchable
+    public partial class SplashScreen : UserControl, ISwitchable
     {
         string startupPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-        public VideoIntroScreen()
+
+        public SplashScreen()
         {
             InitializeComponent();
             ImageBrush ib = new ImageBrush();
             ib.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SkipButton.png", UriKind.Absolute));
             skipBtn.Background = ib;
-            VideoControl.Source = new Uri(startupPath + "/images/SpaceBallsIntro.wmv", UriKind.Absolute);
-            VideoControl.Play();
-            
+
+            ImageBrush ss = new ImageBrush();
+            ss.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SpaceBallsHome.png", UriKind.Absolute));
+            SplashScreenCanvas.Background = ss;
+
+            NextScreen();
         }
 
         public void UtilizeState(object state)
@@ -38,10 +43,16 @@ namespace Kulami
             throw new NotImplementedException();
         }
 
+        private async void NextScreen()
+        {
+            await Task.Delay(2000);
+            skipBtn.IsEnabled = false;
+            Switcher.Switch(new VideoIntroScreen());
+        }
+
         private void skipBtn_Click(object sender, RoutedEventArgs e)
         {
-            VideoControl.Stop();
-            Switcher.Switch(new MainPage());
+            Switcher.Switch(new VideoIntroScreen());
         }
 
         private void skipBtn_MouseEnter(object sender, MouseEventArgs e)
@@ -57,12 +68,5 @@ namespace Kulami
             qg.ImageSource = new BitmapImage(new Uri(startupPath + "/images/SkipButton.png", UriKind.Absolute));
             skipBtn.Background = qg;
         }
-
-        private void VideoControl_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            skipBtn.IsEnabled = false;
-            Switcher.Switch(new MainPage());
-        }
-
     }
 }

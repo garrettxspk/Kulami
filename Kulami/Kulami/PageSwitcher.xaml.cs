@@ -25,7 +25,7 @@ namespace Kulami
             {
                 InitializeComponent();
                 Switcher.pageSwitcher = this;
-                Switcher.Switch(new VideoIntroScreen());
+                Switcher.Switch(new SplashScreen());
             }
             catch (Exception e)
             {

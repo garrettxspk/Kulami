@@ -129,6 +129,9 @@
     <Compile Include="Settings.cs" />
     <Compile Include="SoundEffectsPlayer.cs" />
     <Compile Include="SoundSetting.cs" />
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Switcher.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="VideoIntroScreen.xaml.cs">
@@ -214,6 +217,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VideoIntroScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -262,7 +269,7 @@
   <ItemGroup>
     <Resource Include="spaceBallsIcon.ico" />
     <Content Include="graphics\GenericPlan.png" />
-    <SplashScreen Include="SpaceBallsHome.png" />
+    <None Include="SpaceBallsHome.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lidgren-network-gen3-master\Lidgren.Network\Lidgren.Network.csproj">

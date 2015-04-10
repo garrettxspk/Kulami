@@ -14,7 +14,7 @@
             <Label x:Name="MusicOnOffLabel" Content="Music:" Canvas.Top="474" Height="104" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="50" Foreground="#FF79CCFF" Width="754" RenderTransformOrigin="0.505,0.404"/>
             <Label x:Name="RewatchIntroVideoLabel" Content="Rewatch Intro video:" Canvas.Top="621" Height="104" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="/Kulami;component/#SquareFont" FontSize="50" Foreground="#FF79CCFF" Width="754" RenderTransformOrigin="0.505,0.404"/>
             <Button x:Name="SoundEffect" Content="" Canvas.Right="378" Canvas.Top="329" Width="85" Height="85" Click="SoundEffectsOn_Click" BorderBrush="{x:Null}" Canvas.Left="1098" MouseEnter="SoundEffectsOn_MouseEnter" MouseLeave="SoundEffectsOn_MouseLeave"/>
-            <Button x:Name="Music" Content="" Canvas.Right="378" Canvas.Top="487" Width="85" Height="85" Click="MusicOn_Click" BorderBrush="{x:Null}" Canvas.Left="1098" MouseEnter="MusicOn_MouseEnter" MouseLeave="MusicOn_MouseLeave"/>
+            <Button x:Name="Music" Content="" Canvas.Right="378" Canvas.Top="483" Width="85" Height="85" Click="MusicOn_Click" BorderBrush="{x:Null}" Canvas.Left="1098" MouseEnter="MusicOn_MouseEnter" MouseLeave="MusicOn_MouseLeave"/>
             <Button Name="PlayButton" Content="" Canvas.Right="378" Canvas.Top="631" Width="85" Height="85" Canvas.Left="1098" Click="PlayButton_Click" MouseEnter="PlayButton_MouseEnter" MouseLeave="PlayButton_MouseLeave" BorderBrush="{x:Null}"/>
             <Canvas.Triggers>
                 <!-- Animates the rectangle's opacity. -->
