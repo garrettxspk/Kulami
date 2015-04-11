@@ -38,7 +38,7 @@
     </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>spaceBallsIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Spaceballsicon1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility" />
@@ -267,6 +267,7 @@
     <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Spaceballsicon1.ico" />
     <Resource Include="spaceBallsIcon.ico" />
     <Content Include="graphics\GenericPlan.png" />
     <None Include="SpaceBallsHome.png" />
