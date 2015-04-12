@@ -138,6 +138,7 @@ namespace Kulami
                     if (engine.CurrentGame.IsGameOver())
                     {
                         DisableAllMovesOnBoard();
+                        await Task.Delay(100);
                         CaptureGameBoard();
                         gameOverStoryboard.Begin(GameBackground);
 
